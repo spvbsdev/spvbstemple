@@ -1,8 +1,7 @@
 # SPVBS Temple
 
-A Next.js project for Sri Prasanna Venkateswara Balaji Swamy Temple website.
+Project for Sri Pothuluri Veera Brahmendra  Swami Temple website (spvbstemple.org).
 
-This project is bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) and uses [Sanity.io](https://www.sanity.io/) for content management.
 
 ## Getting Started
 
