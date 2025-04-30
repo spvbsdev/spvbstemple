@@ -2,6 +2,7 @@ import { groq } from 'next-sanity';
 import { client } from '@/lib/sanity.client';
 import { Project } from '@/types/project';
 import ProjectCard from '@/components/ProjectCard';
+import { Metadata } from 'next';
 
 const projectsQuery = groq`
   *[_type == "project" && isActive != false] {
@@ -20,6 +21,11 @@ const projectsQuery = groq`
     isHighPriority
   } | order(isHighPriority desc, _createdAt desc)
 `;
+
+export const metadata: Metadata = {
+  title: 'SPVBS Temple | Projects',
+  description: 'Discover our ongoing temple development projects and initiatives at SPVBS Temple',
+};
 
 export default async function ProjectsPage() {
   const projects = await client.fetch<Project[]>(projectsQuery);

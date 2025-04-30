@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { icons } from '@/lib/icons';
@@ -6,6 +7,11 @@ import { getClient } from '@/lib/sanity.client';
 import { heroCarouselQuery, type HeroCarousel as HeroCarouselType } from '@/lib/queries';
 import { PortableText } from '@portabletext/react';
 import ProjectHighlight from '@/components/ProjectHighlight';
+
+export const metadata: Metadata = {
+  title: 'SPVBS Temple | Home',
+  description: 'Welcome to Sri Pothuluri Veera Brahmendra Swami Temple - A spiritual sanctuary dedicated to peace and wisdom',
+};
 
 export default async function Home() {
   try {

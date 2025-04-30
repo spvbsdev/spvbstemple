@@ -135,7 +135,7 @@ export default function Header({ settings }: HeaderProps) {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 bg-white rounded-2xl p-6 shadow-decorative border border-temple-divider">
+          <div className="md:hidden mt-4 bg-white rounded-2xl p-6 shadow-decorative border border-temple-divider flex flex-col space-y-4">
             {navigation.map((item) => (
               <NavLink key={item.name} {...item} />
             ))}
