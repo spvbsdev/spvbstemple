@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faOm, faStar, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ProjectHighlight from '@/components/ProjectHighlight';
+import { Metadata } from 'next';
 
 const servicesQuery = groq`
   *[_type == "templeService" && isActive == true] | order(order asc) {
@@ -32,6 +33,11 @@ interface TempleService {
 }
 
 export const revalidate = 60; // Revalidate every minute
+
+export const metadata: Metadata = {
+  title: 'SPVBS Temple | Services',
+  description: 'Explore the various spiritual services, rituals, and ceremonies offered at SPVBS Temple',
+};
 
 function ServiceCard({ service }: { service: TempleService }) {
   return (

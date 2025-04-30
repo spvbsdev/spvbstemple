@@ -1,6 +1,7 @@
 import { groq } from 'next-sanity';
 import { client } from '@/lib/sanity.client';
 import DonorList from '@/components/DonorList';
+import { Metadata } from 'next';
 
 const donorsQuery = groq`
   *[_type == "donor" && displayOnWebsite == true] {
@@ -15,6 +16,11 @@ const donorsQuery = groq`
 `;
 
 export const revalidate = 60; // Revalidate every minute
+
+export const metadata: Metadata = {
+  title: 'SPVBS Temple | Donors',
+  description: 'Honoring our generous donors who contribute to the growth and maintenance of SPVBS Temple',
+};
 
 export default async function DonorsPage() {
   const donors = await client.fetch(donorsQuery);

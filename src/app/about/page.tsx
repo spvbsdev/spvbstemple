@@ -1,4 +1,10 @@
 import CoreTeachings from '@/components/CoreTeachings';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'SPVBS Temple | About',
+  description: 'Learn about Sri Pothuluri Veera Brahmendra Swami Temple, our history, mission, and spiritual journey',
+};
 
 export default function About() {
   return (
