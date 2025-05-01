@@ -46,7 +46,7 @@ export default function Footer({ settings }: FooterProps) {
             <h3 className="text-xl font-heading text-temple-gold mb-6">Location & Contact</h3>
             <div className="space-y-4 font-sanskrit text-lg">
               <div className="space-y-2">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center md:justify-start justify-center gap-2">
                   <h4 className="text-lg text-temple-gold/90">Address</h4>
                   <a
                     href={getGoogleMapsLink()}
@@ -80,16 +80,30 @@ export default function Footer({ settings }: FooterProps) {
                       <span>{settings?.contact?.whatsapp}</span>
                     </a>
                   </p>
-                  <p className="text-temple-light/90">
-                    <a 
-                      href={`tel:${settings?.contact?.phone}`}
-                      className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
-                      title="Call us"
-                    >
-                      <FontAwesomeIcon icon={faPhone as IconProp} className="text-temple-gold/90 text-lg w-5" />
-                      <span>{settings?.contact?.phone}</span>
-                    </a>
-                  </p>
+                  {settings?.contact?.primaryPhone && (
+                    <p className="text-temple-light/90">
+                      <a 
+                        href={`tel:${settings.contact.primaryPhone}`}
+                        className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
+                        title="Call our primary number"
+                      >
+                        <FontAwesomeIcon icon={faPhone as IconProp} className="text-temple-gold/90 text-lg w-5" />
+                        <span>{settings.contact.primaryPhone}</span>
+                      </a>
+                    </p>
+                  )}
+                  {settings?.contact?.secondaryPhone && (
+                    <p className="text-temple-light/90">
+                      <a 
+                        href={`tel:${settings.contact.secondaryPhone}`}
+                        className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
+                        title="Call our secondary number"
+                      >
+                        <FontAwesomeIcon icon={faPhone as IconProp} className="text-temple-gold/90 text-lg w-5" />
+                        <span>{settings.contact.secondaryPhone}</span>
+                      </a>
+                    </p>
+                  )}
                   <p className="text-temple-light/90">
                     <a 
                       href={`mailto:${settings?.contact?.email}`} 

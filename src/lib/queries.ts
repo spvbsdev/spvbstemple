@@ -9,7 +9,8 @@ export interface Location {
 }
 
 export interface Contact {
-  phone: string;
+  primaryPhone: string;
+  secondaryPhone: string;
   email: string;
   whatsapp: string;
 }
