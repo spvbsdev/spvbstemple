@@ -81,7 +81,8 @@ export default function Footer({ settings }: FooterProps) {
                     </a>
                   </p>
                   {settings?.contact?.primaryPhone && (
-                    <p className="text-temple-light/90">
+                    <div className="text-temple-light/90">
+                      <p className="mb-1 text-temple-gold/90 text-sm">Temple Priest - Sri Mayabrahma Chari</p>
                       <a 
                         href={`tel:${settings.contact.primaryPhone}`}
                         className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
@@ -90,7 +91,7 @@ export default function Footer({ settings }: FooterProps) {
                         <FontAwesomeIcon icon={faPhone as IconProp} className="text-temple-gold/90 text-lg w-5" />
                         <span>{settings.contact.primaryPhone}</span>
                       </a>
-                    </p>
+                    </div>
                   )}
                   {settings?.contact?.secondaryPhone && (
                     <p className="text-temple-light/90">

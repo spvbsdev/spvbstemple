@@ -127,8 +127,8 @@ export default async function Home() {
                 <div className="text-temple-gold text-4xl mb-4 flex justify-center">
                   <FontAwesomeIcon icon={icons.pray as IconProp} className="w-12 h-12" />
                 </div>
-                <h3 className="text-2xl font-heading mb-3 text-temple-gold">Monthly Abhishekam</h3>
-                <p className="font-sanskrit text-lg mb-2">First Sunday of every month</p>
+                <h3 className="text-2xl font-heading mb-3 text-temple-gold">Weekly Abhishekam</h3>
+                <p className="font-sanskrit text-lg mb-2">Every Monday</p>
                 <p className="text-white/80">Special prayers and offerings to Sri Veera Brahmendra Swami</p>
               </div>
 
@@ -147,9 +147,11 @@ export default async function Home() {
                 <div className="text-temple-gold text-4xl mb-4 flex justify-center">
                   <FontAwesomeIcon icon={icons.star as IconProp} className="w-12 h-12" />
                 </div>
-                <h3 className="text-2xl font-heading mb-3 text-temple-gold">Annual Festival</h3>
-                <p className="font-sanskrit text-lg mb-2">Coming Soon</p>
-                <p className="text-white/80">Grand celebration with special pujas and cultural programs</p>
+                <h3 className="text-2xl font-heading mb-3 text-temple-gold">Annual Events</h3>
+                <p className="font-sanskrit text-lg mb-2">View All Events</p>
+                <a href="/events" className="text-white/80 hover:text-temple-gold transition-colors duration-300">
+                  Grand celebration with special pujas and cultural programs
+                </a>
               </div>
             </div>
           </div>

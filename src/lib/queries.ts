@@ -85,4 +85,55 @@ export interface HeroImage {
 
 export interface HeroCarousel {
   images: HeroImage[];
+}
+
+export const eventsQuery = groq`
+  *[_type == "event" && isActive == true] | order(eventDate asc) {
+    _id,
+    title,
+    slug,
+    eventDate,
+    description,
+    detailedDescription,
+    flyer,
+    isAnnualEvent,
+    eventType,
+    schedule,
+    "imageUrl": flyer.asset->url
+  }
+`
+
+export interface Event {
+  _id: string
+  title: string
+  slug: { current: string }
+  eventDate: string
+  description: string
+  detailedDescription?: {
+    _type: string;
+    _key: string;
+    markDefs?: Array<{
+      _type: string;
+      _key: string;
+    }>;
+    children: Array<{
+      _type: string;
+      _key: string;
+      text: string;
+      marks?: string[];
+    }>;
+  }[]
+  flyer?: {
+    asset: {
+      _ref: string
+      _type: string
+    }
+  }
+  imageUrl?: string
+  isAnnualEvent: boolean
+  eventType: 'jayanthi' | 'aaradhana' | 'shivaratri' | 'navaratri' | 'other'
+  schedule?: Array<{
+    time: string
+    activity: string
+  }>
 } 
