@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import type { SiteSettings } from '@/lib/queries';
+import { trackDonateButtonClick, trackWhatsAppClick } from '@/lib/analytics';
 
 interface HeaderProps {
   settings: SiteSettings | null;
@@ -49,7 +50,10 @@ export default function Header({ settings }: HeaderProps) {
       className={`text-temple-text hover:text-temple-primary transition-colors duration-300 font-sanskrit text-lg flex items-center gap-2 ${
         isMobile ? 'block py-3' : 'relative group'
       }`}
-      onClick={() => setIsMenuOpen(false)}
+      onClick={() => {
+        setIsMenuOpen(false);
+        trackWhatsAppClick('general', isMobile ? 'mobile_header' : 'desktop_header');
+      }}
     >
       <FontAwesomeIcon 
         icon={faWhatsapp as IconProp} 
@@ -70,7 +74,10 @@ export default function Header({ settings }: HeaderProps) {
       className={`bg-temple-primary text-white font-sanskrit hover:bg-temple-secondary transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg ${
         isMobile ? 'block mt-4 px-6 py-3 rounded-full text-center' : 'px-6 py-2 rounded-full'
       }`}
-      onClick={() => setIsMenuOpen(false)}
+      onClick={() => {
+        setIsMenuOpen(false);
+        trackDonateButtonClick(isMobile ? 'mobile_header' : 'desktop_header');
+      }}
     >
       Donate Now
     </a>

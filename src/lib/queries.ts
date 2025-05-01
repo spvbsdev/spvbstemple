@@ -136,4 +136,16 @@ export interface Event {
     time: string
     activity: string
   }>
-} 
+}
+
+// Sitemap Queries
+export const sitemapQuery = `{
+  "events": *[_type == "event"] {
+    "slug": slug.current,
+    _updatedAt
+  },
+  "projects": *[_type == "project"] {
+    "slug": slug.current,
+    _updatedAt
+  }
+}`; 

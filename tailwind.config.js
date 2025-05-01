@@ -27,8 +27,8 @@ module.exports = {
       },
       backgroundImage: {
         'hero-pattern': "linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.7)), url('/images/temple-bg.jpg')",
-        'texture': "url('/images/texture.png')",
-        'pattern': "url('/images/pattern.png')",
+        'texture': "url('/images/texture.svg')",
+        'pattern': "url('/images/pattern.svg')",
       },
       boxShadow: {
         'decorative': '0 4px 20px rgba(0, 0, 0, 0.08)',

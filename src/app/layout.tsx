@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { Analytics } from '@vercel/analytics/react';
+import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from 'next/script';
 import { Inter } from "next/font/google";
 import { Cinzel_Decorative, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
@@ -40,12 +43,32 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics Debug Mode */}
+        <Script
+          id="ga-debug"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-3VG5RCYX1X', {
+                debug_mode: true,
+                send_page_view: true
+              });
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} ${cinzelDecorative.variable} ${notoSansDevanagari.variable} font-sans`}>
         <Header settings={settings} />
         <main className="min-h-screen">
           {children}
         </main>
         <Footer settings={settings} />
+        <Analytics />
+        <GoogleAnalytics gaId="G-3VG5RCYX1X" />
       </body>
     </html>
   );
