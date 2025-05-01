@@ -1,8 +1,17 @@
+'use client';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faCalendarDay, faPrayingHands, faInfinity, faStar, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faCalendarDay, 
+  faPrayingHands, 
+  faInfinity, 
+  faStar, 
+  faPhone
+} from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { SiteSettings } from '@/lib/queries';
+import { trackWhatsAppContact } from '@/lib/analytics';
 
 interface DonationCategoriesProps {
   settings: SiteSettings | null;
@@ -72,6 +81,7 @@ export default function DonationCategories({ settings }: DonationCategoriesProps
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 text-temple-primary hover:text-temple-secondary transition-colors duration-300"
+                onClick={() => trackWhatsAppContact('donation', `donation_category_${category.title.toLowerCase().replace(/\s+/g, '_')}`)}
               >
                 <FontAwesomeIcon icon={faWhatsapp as IconProp} className="text-[#25D366]" />
                 <span>Contact for Details</span>
@@ -129,6 +139,7 @@ export default function DonationCategories({ settings }: DonationCategoriesProps
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-temple-primary hover:text-temple-secondary transition-colors duration-300"
+              onClick={() => trackWhatsAppContact('donation', 'seva_booking_section')}
             >
               <FontAwesomeIcon icon={faWhatsapp as IconProp} className="text-[#25D366]" />
               <span>Contact on WhatsApp</span>

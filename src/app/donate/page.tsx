@@ -42,19 +42,11 @@ export default async function DonatePage({
           </p>
         </div>
 
-        {/* Donation Categories */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-heading text-temple-primary text-center mb-8">
-            Seva & Donation Categories
-          </h2>
-          <DonationCategories settings={settings} />
-        </div>
-
-        {/* General Donation Form */}
-        <div className="max-w-2xl mx-auto">
+        {/* Make a General Donation */}
+        <div className="max-w-2xl mx-auto mb-16">
           <div className="bg-white rounded-xl shadow-decorative p-8">
             <h2 className="text-2xl font-heading text-temple-primary text-center mb-6">
-              Make a General Donation
+              Make a Donation
             </h2>
 
             {project && (
@@ -72,26 +64,16 @@ export default async function DonatePage({
 
             <DonationForm
               projectId={project?._id}
-              defaultAmount={1100}
             />
-
-            <div className="mt-8 space-y-4">
-              <div className="bg-temple-light/50 rounded-lg p-4">
-                <h3 className="text-temple-primary font-medium text-center mb-2">Bank Account Details</h3>
-                <div className="text-sm text-temple-text grid grid-cols-1 gap-1">
-                  <p className="text-center">Bank: State Bank of India, Atmakur</p>
-                  <p className="text-center font-medium">A/c No: 3757020206123</p>
-                  <p className="text-center font-medium">IFSC Code: SBIN 0021921</p>
-                </div>
-              </div>
-
-              <div className="text-sm text-temple-text text-center">
-                <p>
-                  You will receive a donation receipt on your email after successful payment.
-                </p>
-              </div>
-            </div>
           </div>
+        </div>
+
+        {/* Donation Categories */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-heading text-temple-primary text-center mb-8">
+            Seva & Donation Categories
+          </h2>
+          <DonationCategories settings={settings} />
         </div>
       </div>
     </div>

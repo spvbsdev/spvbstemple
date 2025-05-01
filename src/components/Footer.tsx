@@ -8,6 +8,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import type { SiteSettings } from '@/lib/queries';
+import { trackWhatsAppClick } from '@/lib/analytics';
 
 // Prevent Font Awesome from adding its CSS since we did it manually above
 config.autoAddCss = false;
@@ -75,6 +76,7 @@ export default function Footer({ settings }: FooterProps) {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
                       title="Contact via WhatsApp"
+                      onClick={() => trackWhatsAppClick('general', 'footer')}
                     >
                       <FontAwesomeIcon icon={faWhatsapp as IconProp} className="text-[#25D366] text-lg w-5" />
                       <span>{settings?.contact?.whatsapp}</span>

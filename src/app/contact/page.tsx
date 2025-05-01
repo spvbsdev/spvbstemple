@@ -1,20 +1,35 @@
-import { Metadata } from 'next';
+'use client';
+
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapPin, faPhone, faEnvelope, faLocationDot, faHome, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { getSiteSettings } from '@/lib/queries';
+import { trackWhatsAppClick } from '@/lib/analytics';
 import Link from 'next/link';
+import type { SiteSettings } from '@/lib/queries';
 
-export const metadata: Metadata = {
-  title: 'SPVBS Temple | Contact',
-  description: 'Get in touch with Sri Pothuluri Veera Brahmendra Swami Temple. Find our location, contact numbers, and ways to connect.',
-};
+export default function ContactPage() {
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-export default async function ContactPage() {
-  const settings = await getSiteSettings();
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const data = await getSiteSettings();
+        setSettings(data);
+      } catch (error) {
+        console.error('Error fetching settings:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  if (!settings) {
+    fetchSettings();
+  }, []);
+
+  if (isLoading || !settings) {
     return <div>Loading...</div>;
   }
 
@@ -125,6 +140,7 @@ export default async function ContactPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-temple-text hover:text-[#25D366] transition-colors"
+                    onClick={() => trackWhatsAppClick('general', 'contact_page')}
                   >
                     Connect on WhatsApp
                   </a>
