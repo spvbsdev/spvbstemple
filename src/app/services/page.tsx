@@ -136,6 +136,15 @@ export default async function ServicesPage() {
               <ServiceCard key={service._id} service={service} />
             ))}
           </div>
+          <div className="mt-8 text-center">
+            <a 
+              href="/events" 
+              className="inline-flex items-center gap-2 text-temple-primary hover:text-temple-secondary transition-colors duration-300 font-sanskrit text-lg"
+            >
+              <FontAwesomeIcon icon={faCalendarDays as IconProp} className="w-5 h-5" />
+              View All Annual Events and Festival Details
+            </a>
+          </div>
         </section>
 
         {/* Special Services Section */}

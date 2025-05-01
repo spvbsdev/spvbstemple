@@ -35,9 +35,25 @@ export default defineType({
       title: 'Contact Information',
       type: 'object',
       fields: [
-        { name: 'phone', title: 'Phone Number', type: 'string' },
+        { 
+          name: 'primaryPhone', 
+          title: 'Primary Phone Number', 
+          type: 'string',
+          description: 'Main contact number for the temple'
+        },
+        { 
+          name: 'secondaryPhone', 
+          title: 'Secondary Phone Number', 
+          type: 'string',
+          description: 'Alternative contact number'
+        },
         { name: 'email', title: 'Email', type: 'string' },
-        { name: 'whatsapp', title: 'WhatsApp Number', type: 'string', description: 'Format: +1XXXXXXXXXX' }
+        { 
+          name: 'whatsapp', 
+          title: 'WhatsApp Number', 
+          type: 'string', 
+          description: 'Format: +1XXXXXXXXXX' 
+        }
       ]
     }),
     defineField({

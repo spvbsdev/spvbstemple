@@ -1,89 +1,133 @@
 import { defineField, defineType } from 'sanity'
-import type { StringRule, TextRule, DatetimeRule } from '@sanity/types'
-import { icons } from '../lib/icons'
 
 export default defineType({
   name: 'event',
-  title: 'Event',
+  title: 'Temple Events',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Event Title',
       type: 'string',
-      validation: (rule: StringRule) => rule.required(),
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'eventDate',
+      title: 'Event Date',
+      type: 'date',
+      description: 'Date of the event (can be updated later)'
     }),
     defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Event Description',
       type: 'text',
-      validation: (rule: TextRule) => rule.required(),
+      rows: 3
     }),
     defineField({
-      name: 'startDate',
-      title: 'Start Date',
-      type: 'datetime',
-      validation: (rule: DatetimeRule) => rule.required(),
+      name: 'detailedDescription',
+      title: 'Detailed Description',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Rich text content about the event, its significance, and schedule'
     }),
     defineField({
-      name: 'endDate',
-      title: 'End Date',
-      type: 'datetime',
+      name: 'flyer',
+      title: 'Event Flyer',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+      description: 'Upload event flyer or promotional image'
     }),
     defineField({
-      name: 'recurrence',
-      title: 'Recurrence',
+      name: 'isAnnualEvent',
+      title: 'Is Annual Event',
+      type: 'boolean',
+      description: 'Mark if this is an annual recurring event',
+      initialValue: true
+    }),
+    defineField({
+      name: 'eventType',
+      title: 'Event Type',
       type: 'string',
       options: {
         list: [
-          { title: 'One-time', value: 'one-time' },
-          { title: 'Daily', value: 'daily' },
-          { title: 'Weekly', value: 'weekly' },
-          { title: 'Monthly', value: 'monthly' },
-          { title: 'Yearly', value: 'yearly' },
-        ],
+          { title: 'Swami Vari Jayanthi', value: 'jayanthi' },
+          { title: 'Swami Vari Aaradhana', value: 'aaradhana' },
+          { title: 'Shiva Ratri', value: 'shivaratri' },
+          { title: 'Navaratri', value: 'navaratri' },
+          { title: 'Other', value: 'other' }
+        ]
       },
-      validation: (rule: StringRule) => rule.required(),
+      validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'icon',
-      title: 'Icon Name',
-      type: 'string',
-      options: {
-        list: Object.keys(icons).map(key => ({
-          title: key.charAt(0).toUpperCase() + key.slice(1),
-          value: key
-        }))
-      },
-      validation: (rule: StringRule) => rule.required(),
+      name: 'schedule',
+      title: 'Event Schedule',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'time',
+              title: 'Time',
+              type: 'string'
+            },
+            {
+              name: 'activity',
+              title: 'Activity',
+              type: 'string'
+            }
+          ]
+        }
+      ],
+      description: 'Add schedule items for the event'
     }),
     defineField({
       name: 'isActive',
       title: 'Active',
       type: 'boolean',
-      description: 'Whether this event should be displayed on the website',
-      initialValue: true,
-    }),
+      description: 'Set to false to hide this event',
+      initialValue: true
+    })
   ],
   orderings: [
     {
       title: 'Start Date',
       name: 'startDateDesc',
-      by: [{ field: 'startDate', direction: 'desc' }],
+      by: [{ field: 'eventDate', direction: 'desc' }],
     },
   ],
   preview: {
     select: {
       title: 'title',
-      subtitle: 'description',
-      date: 'startDate',
+      date: 'eventDate',
+      eventType: 'eventType'
     },
-    prepare(selection) {
-      const { title, date } = selection
-      return {
-        title: title,
-        subtitle: date ? new Date(date).toLocaleDateString() : 'No date set',
+    prepare({ title, date, eventType }) {
+      const eventTypeLabels = {
+        jayanthi: 'Swami Vari Jayanthi',
+        aaradhana: 'Swami Vari Aaradhana',
+        shivaratri: 'Shiva Ratri',
+        navaratri: 'Navaratri',
+        other: 'Other'
       }
-    },
-  },
+      return {
+        title,
+        subtitle: `${eventTypeLabels[eventType]} - ${date ? new Date(date).toLocaleDateString() : 'Date not set'}`,
+        media: null
+      }
+    }
+  }
 }) 

@@ -1,7 +1,20 @@
 export interface SiteSettings {
   _type: 'siteSettings';
   templeName: string;
-  templeInfo: any[];
+  templeInfo: {
+    _type: string;
+    _key: string;
+    markDefs?: Array<{
+      _type: string;
+      _key: string;
+    }>;
+    children: Array<{
+      _type: string;
+      _key: string;
+      text: string;
+      marks?: string[];
+    }>;
+  }[];
   location: {
     address: string;
     city: string;
