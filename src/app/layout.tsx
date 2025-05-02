@@ -62,9 +62,9 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${cinzelDecorative.variable} ${notoSansDevanagari.variable} font-sans`}>
+      <body className={`${inter.variable} ${cinzelDecorative.variable} ${notoSansDevanagari.variable} font-sans min-h-screen flex flex-col bg-temple-light`}>
         <Header settings={settings} />
-        <main className="min-h-screen pt-[72px]">
+        <main className="flex-grow pt-16 md:pt-20">
           {children}
         </main>
         <Footer settings={settings} />

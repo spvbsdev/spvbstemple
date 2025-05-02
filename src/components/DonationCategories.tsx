@@ -17,43 +17,46 @@ interface DonationCategoriesProps {
   settings: SiteSettings | null;
 }
 
+const categories = [
+  {
+    title: "Palliki Seva & Anna Prasadam",
+    amount: "₹10,800",
+    description: "Participate in Palliki Seva and offer Anna Prasadam for up to 300 devotees on any given Monday.",
+    note: "Contact us on WhatsApp to book your slot",
+    icon: faCalendarDay,
+    hasWhatsApp: true
+  },
+  {
+    title: "Lifetime Patron",
+    amount: "₹1,00,000+",
+    description: "Become a permanent patron. A Monday Palliki Seva and Anna Prasadam for up to 300 devotees will be performed in your name for lifetime.",
+    icon: faInfinity,
+    hasWhatsApp: true
+  },
+  {
+    title: "Nithya Pooja",
+    amount: "₹3,116",
+    description: "Lifetime Nithya Pooja will be performed on a day of your choice every year.",
+    icon: faPrayingHands,
+    hasWhatsApp: true
+  }
+];
+
+const annualEvents = [
+  "Swami Vari Jayanthi",
+  "Swami Vari Aaradhana",
+  "Shiva Ratri",
+  "Navaratri"
+];
+
 export default function DonationCategories({ settings }: DonationCategoriesProps) {
   const getWhatsAppLink = () => {
+    if (!settings?.contact?.whatsapp) return '#';
     const message = encodeURIComponent("Namaste! I would like to inquire about the Palliki Seva slot booking.");
-    return `https://wa.me/${settings?.contact?.whatsapp}?text=${message}`;
+    return `https://wa.me/${settings.contact.whatsapp}?text=${message}`;
   };
 
-  const categories = [
-    {
-      title: "Palliki Seva & Anna Prasadam",
-      amount: "₹10,800",
-      description: "Participate in Palliki Seva and offer Anna Prasadam for up to 300 devotees on any given Monday.",
-      note: "Contact us on WhatsApp to book your slot",
-      icon: faCalendarDay,
-      hasWhatsApp: true
-    },
-    {
-      title: "Lifetime Patron",
-      amount: "₹1,00,000+",
-      description: "Become a permanent patron. A Monday Palliki Seva and Anna Prasadam for up to 300 devotees will be performed in your name for lifetime.",
-      icon: faInfinity,
-      hasWhatsApp: true
-    },
-    {
-      title: "Nithya Pooja",
-      amount: "₹3,116",
-      description: "Lifetime Nithya Pooja will be performed on a day of your choice every year.",
-      icon: faPrayingHands,
-      hasWhatsApp: true
-    }
-  ];
-
-  const annualEvents = [
-    "Swami Vari Jayanthi",
-    "Swami Vari Aaradhana",
-    "Shiva Ratri",
-    "Navaratri"
-  ];
+  const whatsappLink = getWhatsAppLink();
 
   return (
     <div className="space-y-8">
@@ -77,7 +80,7 @@ export default function DonationCategories({ settings }: DonationCategoriesProps
             </p>
             {category.hasWhatsApp && (
               <a
-                href={getWhatsAppLink()}
+                href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 text-temple-primary hover:text-temple-secondary transition-colors duration-300"
@@ -135,7 +138,7 @@ export default function DonationCategories({ settings }: DonationCategoriesProps
           </div>
           <div className="text-center">
             <a
-              href={getWhatsAppLink()}
+              href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-temple-primary hover:text-temple-secondary transition-colors duration-300"

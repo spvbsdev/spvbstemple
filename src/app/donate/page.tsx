@@ -42,19 +42,21 @@ export default async function DonatePage(props: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-temple-light pb-16">
-      <div className="container mx-auto px-4 pt-24 md:pt-32">
-        <h1 className="text-4xl font-heading text-temple-primary text-center mb-8">
-          {project ? `Support ${project.title}` : 'Support Our Temple'}
-        </h1>
-        
-        <div className="text-center text-temple-text mb-12">
-          <p className="font-medium text-xl">
-            Sri Pothuluri Veerabrahmendra Swamivari Devasthanam Trust
-          </p>
-          <p className="text-sm">
-            (Registered Trust No. 4/2017)
-          </p>
+    <div className="bg-temple-light pb-16">
+      <div className="container mx-auto px-4">
+        <div className="text-center pt-8">
+          <h1 className="text-4xl font-heading text-temple-primary mb-4">
+            {project ? `Support ${project.title}` : 'Support Our Temple'}
+          </h1>
+          
+          <div className="text-temple-text mb-12">
+            <p className="font-medium text-xl mb-2">
+              Sri Pothuluri Veerabrahmendra Swamivari Devasthanam Trust
+            </p>
+            <p className="text-sm text-temple-text/80">
+              (Registered Trust No. 4/2017)
+            </p>
+          </div>
         </div>
 
         {/* Main Content Grid */}

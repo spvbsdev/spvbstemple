@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { format } from 'date-fns';
+import Image from 'next/image';
 
 interface Video {
   _id: string;
@@ -134,10 +135,12 @@ export default function VideoGallery({ videos }: VideoGalleryProps) {
                 onClick={() => handleVideoSelect(video)}
               >
                 <div className="aspect-video relative">
-                  <img
+                  <Image
                     src={thumbnailUrl}
                     alt={video.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                     <svg

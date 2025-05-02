@@ -3,10 +3,14 @@
 import VideoGallery from './VideoGallery';
 
 interface Video {
+  _id: string;
   title: string;
-  videoId: string;
-  featured?: boolean;
-  isInvalid?: boolean;
+  description?: string;
+  youtubeUrl: string;
+  publishedAt: string;
+  category?: string;
+  featured: boolean;
+  thumbnailUrl?: string;
 }
 
 export default function ClientGallery({ videos }: { videos: Video[] }) {

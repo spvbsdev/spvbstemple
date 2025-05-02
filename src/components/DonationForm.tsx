@@ -45,58 +45,58 @@ export default function DonationForm({ projectId }: DonationFormProps) {
 
   return (
     <div className="space-y-6">
-      <div className="bg-temple-light p-6 rounded-lg space-y-4">
-        <h3 className="text-lg font-medium text-temple-text">Bank Transfer Details</h3>
+      <div className="bg-temple-light p-6 rounded-lg">
+        <h3 className="text-xl font-medium text-temple-primary mb-6">Bank Transfer Details</h3>
         
-        <div className="space-y-3">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-temple-text">Account Number</p>
-              <p className="font-medium">{BANK_DETAILS.account_number}</p>
+        <div className="space-y-6">
+          <div className="flex justify-between items-start">
+            <div className="flex-grow">
+              <p className="text-sm font-medium text-temple-text mb-2">Account Number</p>
+              <p className="text-xl text-red-600 select-all">{BANK_DETAILS.account_number}</p>
             </div>
             <button
               onClick={() => copyToClipboard(BANK_DETAILS.account_number, 'account_number')}
               className="text-temple-primary hover:text-temple-secondary p-2"
               aria-label="Copy account number"
             >
-              <FontAwesomeIcon icon={faCopy} />
+              <FontAwesomeIcon icon={faCopy} className="w-5 h-5" />
               {copied === 'account_number' && <span className="ml-2 text-sm">Copied!</span>}
             </button>
           </div>
 
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-temple-text">IFSC Code</p>
-              <p className="font-medium">{BANK_DETAILS.ifsc}</p>
+          <div className="flex justify-between items-start">
+            <div className="flex-grow">
+              <p className="text-sm font-medium text-temple-text mb-2">IFSC Code</p>
+              <p className="text-xl text-red-600 select-all">{BANK_DETAILS.ifsc}</p>
             </div>
             <button
               onClick={() => copyToClipboard(BANK_DETAILS.ifsc, 'ifsc')}
               className="text-temple-primary hover:text-temple-secondary p-2"
               aria-label="Copy IFSC code"
             >
-              <FontAwesomeIcon icon={faCopy} />
+              <FontAwesomeIcon icon={faCopy} className="w-5 h-5" />
               {copied === 'ifsc' && <span className="ml-2 text-sm">Copied!</span>}
             </button>
           </div>
 
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-temple-text">Beneficiary Name</p>
-              <p className="font-medium">{BANK_DETAILS.beneficiary_name}</p>
+          <div className="flex justify-between items-start">
+            <div className="flex-grow">
+              <p className="text-sm font-medium text-temple-text mb-2">Beneficiary Name</p>
+              <p className="text-xl text-red-600 select-all">{BANK_DETAILS.beneficiary_name}</p>
             </div>
             <button
               onClick={() => copyToClipboard(BANK_DETAILS.beneficiary_name, 'beneficiary_name')}
               className="text-temple-primary hover:text-temple-secondary p-2"
               aria-label="Copy beneficiary name"
             >
-              <FontAwesomeIcon icon={faCopy} />
+              <FontAwesomeIcon icon={faCopy} className="w-5 h-5" />
               {copied === 'beneficiary_name' && <span className="ml-2 text-sm">Copied!</span>}
             </button>
           </div>
 
           <div>
-            <p className="text-sm text-temple-text">Bank & Branch</p>
-            <p className="font-medium">{BANK_DETAILS.bank_name}, {BANK_DETAILS.branch_name}</p>
+            <p className="text-sm font-medium text-temple-text mb-2">Bank & Branch</p>
+            <p className="text-xl text-red-600">{BANK_DETAILS.bank_name}, {BANK_DETAILS.branch_name}</p>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@ export default function DonationForm({ projectId }: DonationFormProps) {
           className="inline-flex items-center justify-center gap-2 w-full bg-[#25D366] text-white py-3 rounded-lg font-sanskrit hover:bg-[#128C7E] transition-colors duration-300"
           onClick={handleWhatsAppClick}
         >
-          <FontAwesomeIcon icon={faWhatsapp} />
+          <FontAwesomeIcon icon={faWhatsapp} className="w-5 h-5" />
           Contact via WhatsApp
         </a>
       </div>
