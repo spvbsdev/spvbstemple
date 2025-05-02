@@ -51,10 +51,20 @@ const config: Config = {
               textAlign: 'justify',
               hyphens: 'auto',
               marginBottom: '1.5rem',
+              lineHeight: '1.8',
+              fontSize: '1.125rem',
               '@screen md': {
                 marginBottom: '2rem',
-                lineHeight: '1.8',
+                lineHeight: '2',
                 fontSize: '1.25rem',
+              },
+              '@screen lg': {
+                fontSize: '1.375rem',
+                lineHeight: '2.1',
+              },
+              '@screen 2xl': {
+                fontSize: '1.5rem',
+                lineHeight: '2.2',
               },
             },
             strong: {
@@ -68,14 +78,85 @@ const config: Config = {
             h1: {
               color: '#8B4513',
               lineHeight: '1.3',
+              fontSize: '2.5rem',
+              fontFamily: 'var(--font-cinzel-decorative)',
+              '@screen lg': {
+                fontSize: '3rem',
+              },
+              '@screen 2xl': {
+                fontSize: '3.5rem',
+              },
             },
             h2: {
               color: '#8B4513',
               lineHeight: '1.3',
+              fontSize: '2rem',
+              fontFamily: 'var(--font-cinzel-decorative)',
+              '@screen lg': {
+                fontSize: '2.5rem',
+              },
+              '@screen 2xl': {
+                fontSize: '3rem',
+              },
             },
             h3: {
               color: '#8B4513',
               lineHeight: '1.3',
+              fontSize: '1.75rem',
+              fontFamily: 'var(--font-cinzel-decorative)',
+              '@screen lg': {
+                fontSize: '2rem',
+              },
+              '@screen 2xl': {
+                fontSize: '2.25rem',
+              },
+            },
+            ul: {
+              li: {
+                marginTop: '0.75rem',
+                marginBottom: '0.75rem',
+                paddingLeft: '1.5rem',
+                position: 'relative',
+                '@screen lg': {
+                  marginTop: '1rem',
+                  marginBottom: '1rem',
+                  paddingLeft: '2rem',
+                },
+                '&::before': {
+                  content: '""',
+                  width: '0.5rem',
+                  height: '0.5rem',
+                  borderRadius: '50%',
+                  backgroundColor: '#CD853F',
+                  position: 'absolute',
+                  left: 0,
+                  top: '0.6rem',
+                  '@screen lg': {
+                    width: '0.625rem',
+                    height: '0.625rem',
+                    top: '0.75rem',
+                  },
+                },
+              },
+            },
+            blockquote: {
+              fontStyle: 'italic',
+              color: '#6B4423',
+              borderLeftColor: '#CD853F',
+              backgroundColor: '#FFF5EB',
+              borderRadius: '0.5rem',
+              padding: '1.5rem',
+              margin: '2rem 0',
+              '@screen lg': {
+                padding: '2rem',
+                margin: '2.5rem 0',
+                fontSize: '1.25rem',
+              },
+              '@screen 2xl': {
+                padding: '2.5rem',
+                margin: '3rem 0',
+                fontSize: '1.375rem',
+              },
             },
           },
         },

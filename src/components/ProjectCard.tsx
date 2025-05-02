@@ -10,7 +10,9 @@ import { Project } from '@/types/project';
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [showDetails, setShowDetails] = useState(false);
-  const progress = (project.raisedAmount / project.targetAmount) * 100;
+  const progress = project.raisedAmount && project.targetAmount 
+    ? (project.raisedAmount / project.targetAmount) * 100
+    : 0;
   const isKalyanaMandapam = project.slug.current === 'kalyana-mandapam';
   
   return (
@@ -49,7 +51,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             />
           </div>
           <div className="flex justify-between mt-2 text-sm">
-            <span className="text-temple-text">Raised: ₹{project.raisedAmount.toLocaleString()}</span>
+            <span className="text-temple-text">Raised: ₹{project.raisedAmount?.toLocaleString() || '0'}</span>
             <span className="text-temple-text">Goal: ₹{project.targetAmount.toLocaleString()}</span>
           </div>
         </div>
@@ -73,7 +75,9 @@ export default function ProjectCard({ project }: { project: Project }) {
               <h4 className="font-heading text-temple-primary mb-2">Timeline</h4>
               <div className="text-temple-text">
                 <p>Start: {new Date(project.timeline.startDate).toLocaleDateString()}</p>
-                <p>Estimated Completion: {new Date(project.timeline.estimatedCompletion).toLocaleDateString()}</p>
+                {project.timeline.endDate && (
+                  <p>Estimated Completion: {new Date(project.timeline.endDate).toLocaleDateString()}</p>
+                )}
               </div>
             </div>
           )}
@@ -93,7 +97,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               onClick={() => setShowDetails(!showDetails)}
               className="w-full flex items-center justify-center gap-2 bg-temple-light text-temple-primary py-3 rounded-lg font-sanskrit hover:bg-temple-light/80 transition-colors duration-300"
             >
-              {showDetails ? 'Hide Details' : 'Learn More'}
+              {showDetails ? 'Hide Project Details' : 'View Detailed Project Information'}
               <FontAwesomeIcon 
                 icon={(showDetails ? faChevronUp : faChevronDown) as IconProp}
                 className="w-4 h-4"

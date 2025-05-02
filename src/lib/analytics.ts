@@ -1,5 +1,8 @@
 import { track } from '@vercel/analytics';
 
+// Define allowed property value types for analytics
+type AllowedPropertyValues = string | number | boolean | null;
+
 // Define all possible event names
 type EventNames = 
   | 'whatsapp_contact'
@@ -10,10 +13,19 @@ type EventNames =
   | 'bank_details_copy'
   | 'contact_form_submission'
   | 'event_registration'
-  | 'newsletter_signup';
+  | 'newsletter_signup'
+  | 'whatsapp_click';
+
+// Define base analytics properties
+interface BaseAnalyticsProperties {
+  event_category?: string;
+  event_label?: string;
+  value?: number;
+  [key: string]: AllowedPropertyValues | undefined;
+}
 
 // Define all possible event properties
-interface EventProperties {
+interface EventProperties extends BaseAnalyticsProperties {
   amount?: number;
   currency?: string;
   contactType?: string;
@@ -22,24 +34,55 @@ interface EventProperties {
   projectId?: string;
   detailType?: 'account_number' | 'ifsc' | 'beneficiary_name';
   category?: string;
+  label?: string;
   eventName?: string;
-  [key: string]: any;
+}
+
+// Type definitions for Google Analytics
+declare global {
+  interface Window {
+    gtag: (
+      command: 'event',
+      action: string,
+      params: BaseAnalyticsProperties
+    ) => void;
+  }
 }
 
 /**
  * Track a custom event with both Vercel Analytics and Google Analytics
  */
 export const trackEvent = (
-  eventName: EventNames,
-  properties?: EventProperties
-) => {
+  eventName: EventNames | string,
+  properties: EventProperties = {}
+): void => {
+  // Convert properties to analytics-compatible format
+  const analyticsProperties: Record<string, AllowedPropertyValues> = {};
+  
+  // Only include non-undefined values
+  Object.entries(properties).forEach(([key, value]) => {
+    if (value !== undefined) {
+      analyticsProperties[key] = value as AllowedPropertyValues;
+    }
+  });
+
+  // Add derived properties
+  const eventCategory = properties.category || properties.event_category;
+  if (eventCategory) {
+    analyticsProperties.event_category = eventCategory;
+  }
+  
+  const eventLabel = properties.label || properties.event_label;
+  if (eventLabel) {
+    analyticsProperties.event_label = eventLabel;
+  }
+
   // Track with Vercel Analytics
-  track(eventName, properties);
+  track(eventName, analyticsProperties);
 
   // Track with Google Analytics 4
   if (typeof window !== 'undefined' && 'gtag' in window) {
-    // @ts-expect-error - gtag is not typed
-    window.gtag('event', eventName, properties);
+    window.gtag('event', eventName, analyticsProperties);
   }
 };
 
@@ -83,4 +126,12 @@ export const trackNewsletterSignup = () => {
 
 export const trackDonateButtonClick = (location: string) => {
   trackEvent('donate_button_click', { location });
+};
+
+// WhatsApp click tracking
+export const trackWhatsAppClick = (contactType: string, location: string) => {
+  trackEvent('whatsapp_click', { 
+    contactType, // e.g., 'general', 'additional_contact'
+    location // e.g., 'header', 'footer', 'contact_page'
+  });
 }; 

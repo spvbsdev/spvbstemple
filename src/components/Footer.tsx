@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faLocationDot, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPhone, faEnvelope, faHeadset } from '@fortawesome/free-solid-svg-icons';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import type { SiteSettings } from '@/lib/queries';
+import type { SiteSettings } from '@/types/site';
 import { trackWhatsAppClick } from '@/lib/analytics';
 
 // Prevent Font Awesome from adding its CSS since we did it manually above
@@ -174,8 +174,19 @@ export default function Footer({ settings }: FooterProps) {
           </div>
         </div>
 
+        {/* Contact Us Button */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-6 py-3 bg-temple-gold text-temple-dark rounded-full font-sanskrit hover:bg-temple-gold/90 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+          >
+            <FontAwesomeIcon icon={faHeadset as IconProp} className="w-5 h-5 mr-2" />
+            Contact Us
+          </Link>
+        </div>
+
         {/* Copyright */}
-        <div className="mt-12 pt-8 border-t border-temple-light/20 text-center">
+        <div className="mt-8 pt-8 border-t border-temple-light/20 text-center">
           <p className="text-temple-light/70 font-sanskrit">
             © {new Date().getFullYear()} {settings?.templeName || "SPVBS Temple"}. All rights reserved.
           </p>

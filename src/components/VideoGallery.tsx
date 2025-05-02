@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { getYouTubeVideoId, getYouTubeEmbedUrl, getYouTubeThumbnail } from '@/lib/youtube';
 import { format } from 'date-fns';
 
 interface Video {
@@ -17,6 +16,38 @@ interface Video {
 
 interface VideoGalleryProps {
   videos: Video[];
+}
+
+// YouTube utility functions
+function getYouTubeVideoId(url: string): string | null {
+  try {
+    const urlObj = new URL(url);
+    
+    if (urlObj.hostname === 'youtu.be') {
+      return urlObj.pathname.slice(1);
+    }
+    
+    if (urlObj.hostname === 'youtube.com' || urlObj.hostname === 'www.youtube.com') {
+      const videoId = urlObj.searchParams.get('v');
+      if (videoId) return videoId;
+      
+      if (urlObj.pathname.startsWith('/embed/')) {
+        return urlObj.pathname.split('/')[2];
+      }
+    }
+    
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function getYouTubeThumbnail(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+}
+
+function getYouTubeEmbedUrl(videoId: string): string {
+  return `https://www.youtube.com/embed/${videoId}`;
 }
 
 export default function VideoGallery({ videos }: VideoGalleryProps) {

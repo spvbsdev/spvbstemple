@@ -8,6 +8,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getSiteSettings } from '@/lib/queries';
+import type { SiteSettings } from '@/types/site';
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -39,7 +40,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const settings = await getSiteSettings();
+  const settings: SiteSettings | null = await getSiteSettings();
 
   return (
     <html lang="en">
@@ -63,7 +64,7 @@ export default async function RootLayout({
       </head>
       <body className={`${inter.variable} ${cinzelDecorative.variable} ${notoSansDevanagari.variable} font-sans`}>
         <Header settings={settings} />
-        <main className="min-h-screen">
+        <main className="min-h-screen pt-[72px]">
           {children}
         </main>
         <Footer settings={settings} />

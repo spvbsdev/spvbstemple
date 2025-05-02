@@ -1,5 +1,15 @@
 import { defineField, defineType } from 'sanity'
 
+type EventType = 'jayanthi' | 'aaradhana' | 'shivaratri' | 'navaratri' | 'other';
+
+const eventTypeLabels: Record<EventType, string> = {
+  jayanthi: 'Jayanthi',
+  aaradhana: 'Aaradhana',
+  shivaratri: 'Shivaratri',
+  navaratri: 'Navaratri',
+  other: 'Other'
+};
+
 export default defineType({
   name: 'event',
   title: 'Temple Events',
@@ -62,9 +72,9 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Swami Vari Jayanthi', value: 'jayanthi' },
-          { title: 'Swami Vari Aaradhana', value: 'aaradhana' },
-          { title: 'Shiva Ratri', value: 'shivaratri' },
+          { title: 'Jayanthi', value: 'jayanthi' },
+          { title: 'Aaradhana', value: 'aaradhana' },
+          { title: 'Shivaratri', value: 'shivaratri' },
           { title: 'Navaratri', value: 'navaratri' },
           { title: 'Other', value: 'other' }
         ]
@@ -116,16 +126,9 @@ export default defineType({
       eventType: 'eventType'
     },
     prepare({ title, date, eventType }) {
-      const eventTypeLabels = {
-        jayanthi: 'Swami Vari Jayanthi',
-        aaradhana: 'Swami Vari Aaradhana',
-        shivaratri: 'Shiva Ratri',
-        navaratri: 'Navaratri',
-        other: 'Other'
-      }
       return {
         title,
-        subtitle: `${eventTypeLabels[eventType]} - ${date ? new Date(date).toLocaleDateString() : 'Date not set'}`,
+        subtitle: `${eventTypeLabels[eventType as EventType]} - ${date ? new Date(date).toLocaleDateString() : 'Date not set'}`,
         media: null
       }
     }

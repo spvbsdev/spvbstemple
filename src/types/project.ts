@@ -1,21 +1,23 @@
+import { TypedObject } from '@portabletext/types';
+
 export interface Project {
   _id: string;
   title: string;
   slug: { current: string };
-  status: 'planning' | 'in-progress' | 'completed';
+  status: 'completed' | 'ongoing' | 'upcoming';
   description: string;
-  detailedDescription: unknown;
+  detailedDescription?: TypedObject | TypedObject[];
   imageUrl?: string;
   targetAmount: number;
-  raisedAmount: number;
+  raisedAmount?: number;
   benefits: string[];
   timeline: {
     startDate: string;
-    estimatedCompletion: string;
+    endDate?: string;
     milestones: Array<{
       title: string;
       date: string;
-      completed: boolean;
+      description: string;
     }>;
   };
   donorRecognition: Array<{
@@ -24,4 +26,7 @@ export interface Project {
     benefits: string;
   }>;
   isHighPriority: boolean;
+  startDate?: string;
+  endDate?: string;
+  estimatedCost?: number;
 } 

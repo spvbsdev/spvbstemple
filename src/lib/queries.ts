@@ -1,5 +1,7 @@
 import { groq } from 'next-sanity';
 import { client } from './sanity.client';
+import type { Project } from '@/types/project';
+import type { SiteSettings } from '@/types/site';
 
 export interface Location {
   address: string;
@@ -13,6 +15,12 @@ export interface Contact {
   secondaryPhone: string;
   email: string;
   whatsapp: string;
+  additionalContacts?: Array<{
+    name: string;
+    role: string;
+    phone: string;
+    whatsapp: string;
+  }>;
 }
 
 export interface TempleHours {
@@ -21,16 +29,10 @@ export interface TempleHours {
   specialNote: string;
 }
 
-export interface SiteSettings {
-  templeName: string;
-  location: Location;
-  contact: Contact;
-  templeHours: TempleHours;
-}
-
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     templeName,
+    templeInfo,
     location,
     contact,
     templeHours
@@ -148,4 +150,35 @@ export const sitemapQuery = `{
     "slug": slug.current,
     _updatedAt
   }
-}`; 
+}`;
+
+export async function getProjects(): Promise<Project[]> {
+  const query = groq`
+    *[_type == "project"] {
+      _id,
+      title,
+      slug,
+      status,
+      description,
+      detailedDescription,
+      "imageUrl": images[0].asset->url,
+      targetAmount,
+      raisedAmount,
+      benefits,
+      timeline,
+      donorRecognition,
+      isHighPriority,
+      startDate,
+      endDate,
+      estimatedCost
+    } | order(isHighPriority desc, _createdAt desc)
+  `;
+
+  try {
+    const projects = await client.fetch<Project[]>(query);
+    return projects;
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    return [];
+  }
+} 
