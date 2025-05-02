@@ -41,6 +41,9 @@ export default function About() {
             </h2>
             <div className="prose prose-lg md:prose-xl mx-auto text-temple-text space-y-8">
               <p className="leading-relaxed">
+                <strong>Sri Pothuluri Veera Brahmendra Swami</strong> lived from <strong>1608 to 1693</strong>. He was born on <strong>Kaartheeka Suddha Dwadasi</strong> and entered <strong>Jeeva Samadhi</strong> on <strong>Visakha Suddha Dasami</strong>. These dates are considered highly auspicious and mark the extraordinary spiritual journey of the Swami.
+              </p>
+              <p className="leading-relaxed">
                 Sri Pothuluri Veera Brahmendra Swami was born near the river Saraswati in Brahmandapuram village 
                 to Sri Paripurnayacharya and Srimati Prakruthamba of a Vishwakarma family. His early life took a 
                 significant turn when his parents dedicated him to Atri Mahamuni Ashram near Kashi (present-day Varanasi).
