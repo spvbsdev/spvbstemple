@@ -8,6 +8,18 @@ import ProjectHighlight from '@/components/ProjectHighlight';
 import { useState } from 'react';
 import { Project } from '@/types/project';
 
+// Helper to format INR with Lakh/Crore labels
+function formatINRWithLabel(amount?: number): string {
+  if (amount == null) return 'Not specified';
+  if (amount >= 1_00_00_000) {
+    return `₹${(amount / 1_00_00_000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} Crore`;
+  } else if (amount >= 1_00_000) {
+    return `₹${(amount / 1_00_000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} Lakh`;
+  } else {
+    return `₹${amount.toLocaleString('en-IN')}`;
+  }
+}
+
 export default function ProjectCard({ project }: { project: Project }) {
   const [showDetails, setShowDetails] = useState(false);
   const progress = project.raisedAmount && project.targetAmount 
@@ -51,8 +63,8 @@ export default function ProjectCard({ project }: { project: Project }) {
             />
           </div>
           <div className="flex justify-between mt-2 text-sm">
-            <span className="text-temple-text">Raised: ₹{project.raisedAmount?.toLocaleString() || '0'}</span>
-            <span className="text-temple-text">Goal: ₹{project.targetAmount.toLocaleString()}</span>
+            <span className="text-temple-text">Raised: {formatINRWithLabel(project.raisedAmount)}</span>
+            <span className="text-temple-text">Goal: {formatINRWithLabel(project.targetAmount)}</span>
           </div>
         </div>
 

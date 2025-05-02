@@ -11,6 +11,18 @@ interface PriorityProjectCardProps {
   isWide?: boolean;
 }
 
+// Helper to format INR with Lakh/Crore labels
+function formatINRWithLabel(amount?: number): string {
+  if (amount == null) return 'Not specified';
+  if (amount >= 1_00_00_000) {
+    return `₹${(amount / 1_00_00_000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} Crore`;
+  } else if (amount >= 1_00_000) {
+    return `₹${(amount / 1_00_000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} Lakh`;
+  } else {
+    return `₹${amount.toLocaleString('en-IN')}`;
+  }
+}
+
 export default function PriorityProjectCard({ project, isWide = false }: PriorityProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   
@@ -40,8 +52,8 @@ export default function PriorityProjectCard({ project, isWide = false }: Priorit
           />
         </div>
         <div className="flex justify-between items-center mt-2 text-sm text-temple-text/80">
-          <span>Raised: ₹{(project.raisedAmount || 0).toLocaleString()}</span>
-          <span>Goal: ₹{project.targetAmount.toLocaleString()}</span>
+          <span>Raised: {formatINRWithLabel(project.raisedAmount)}</span>
+          <span>Goal: {formatINRWithLabel(project.targetAmount)}</span>
         </div>
       </div>
 
@@ -128,7 +140,7 @@ export default function PriorityProjectCard({ project, isWide = false }: Priorit
                   <div key={index} className="bg-temple-light/50 rounded-lg p-4">
                     <h5 className="font-medium text-temple-primary mb-1">{level.level}</h5>
                     <p className="text-sm text-temple-text/80 mb-2">
-                      Minimum Contribution: ₹{level.minAmount.toLocaleString()}
+                      Minimum Contribution: {formatINRWithLabel(level.minAmount)}
                     </p>
                     <p className="text-temple-text">{level.benefits}</p>
                   </div>
