@@ -3,32 +3,60 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { icons } from '@/lib/icons';
 import HeroCarouselComponent from '@/components/HeroCarousel';
-import { getClient } from '@/lib/sanity.client';
-import { heroCarouselQuery, type HeroCarousel as HeroCarouselType } from '@/lib/queries';
-import { PortableText } from '@portabletext/react';
 import ProjectHighlight from '@/components/ProjectHighlight';
+import Head from 'next/head';
+import FaqAccordionWrapper from '@/components/FaqAccordionWrapper';
+import { client } from '@/lib/sanity.client';
+import { heroCarouselQuery, faqQuery } from '@/lib/queries';
+import type { HeroCarousel } from '@/lib/queries';
+import { PortableText } from '@portabletext/react';
+import type { SiteSettings } from '@/types/site';
 
 export const metadata: Metadata = {
-  title: 'SPVBS Temple | Home',
-  description: 'Welcome to Sri Pothuluri Veera Brahmendra Swami Temple - A spiritual sanctuary dedicated to peace and wisdom',
+  title: 'Sri Veerabrahmendra Swami Temple, Atmakur | Annadanam | Places to Visit in Nellore | SPSR Nellore',
+  description: 'Visit Sri Veerabrahmendra Swami Temple in Atmakur, SPSR Nellore, Nellore district. Famous for Annadanam, spiritual events, and as a must-see place to visit in Nellore. Learn about Veerabrahmhendra Swami, temple timings, and more.',
 };
 
-export default async function Home() {
-  try {
-    const [heroData, siteSettings] = await Promise.all([
-      getClient().fetch<HeroCarouselType>(heroCarouselQuery),
-      getClient().fetch(`*[_type == "siteSettings"][0]{
-        templeName,
-        templeInfo
-      }`)
-    ]);
+async function fetchHomeData() {
+  const [heroData, siteSettings, faqs] = await Promise.all([
+    client.fetch(heroCarouselQuery),
+    client.fetch(`*[_type == "siteSettings"][0]`),
+    client.fetch(faqQuery)
+  ]);
+  return { heroData, siteSettings, faqs };
+}
 
-    if (!heroData?.images?.length) {
-      console.log('No hero images found');
-      return <div>Loading...</div>;
-    }
+function HomePageContent({
+  heroData,
+  faqs,
+  templeInfo,
+}: {
+  heroData: HeroCarousel;
+  faqs: { question: string; answer: string; _id?: string }[];
+  templeInfo?: SiteSettings['templeInfo'];
+}) {
+  // FAQ structured data for SEO
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
 
-    return (
+  return (
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      </Head>
       <div className="min-h-screen">
         {/* Hero Section */}
         <HeroCarouselComponent images={heroData.images} />
@@ -74,9 +102,7 @@ export default async function Home() {
                 <div className="relative z-10">
                   <div className="prose prose-lg lg:prose-xl 2xl:prose-2xl mx-auto text-temple-text">
                     <div className="space-y-8">
-                      <PortableText 
-                        value={siteSettings?.templeInfo || []}
-                      />
+                      {templeInfo && <PortableText value={templeInfo} />}
                     </div>
                   </div>
                 </div>
@@ -183,7 +209,7 @@ export default async function Home() {
           <div className="container mx-auto px-4 text-center relative z-10">
             <h2 className="text-4xl font-heading mb-6 text-temple-primary">Join Our Community</h2>
             <p className="text-xl text-temple-text mb-12 max-w-2xl mx-auto">
-              Be part of our spiritual family and contribute to spreading Sri Veera Brahmendra Swami&apos;s message of peace and wisdom
+              Be part of our spiritual family and contribute to spreading Sri Veerabrahmendra Swami&apos;s message of peace and wisdom
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <a
@@ -204,16 +230,42 @@ export default async function Home() {
             </div>
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <section className="faq-section py-12 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-heading text-temple-primary mb-8 text-center">Frequently Asked Questions</h2>
+            <FaqAccordionWrapper
+              faqs={
+                Array.isArray(faqs)
+                  ? faqs.map((faq, idx) => {
+                      const _id = typeof (faq as { _id?: string })._id === 'string' ? (faq as { _id: string })._id : `faq-${idx}`;
+                      return {
+                        _id,
+                        question: faq.question,
+                        answer: faq.answer,
+                      };
+                    })
+                  : []
+              }
+            />
+          </div>
+        </section>
       </div>
-    );
-  } catch (error: unknown) {
-    console.error('Error fetching hero data:', error);
+    </>
+  );
+}
+
+export default async function HomePage() {
+  const { heroData, siteSettings, faqs } = await fetchHomeData();
+  if (!heroData) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen flex items-center justify-center">
         <main>
           <div>Error loading data</div>
         </main>
       </div>
     );
   }
+  return <HomePageContent heroData={heroData} faqs={faqs} templeInfo={siteSettings?.templeInfo} />;
 }

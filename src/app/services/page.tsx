@@ -35,8 +35,8 @@ interface TempleService {
 export const revalidate = 60; // Revalidate every minute
 
 export const metadata: Metadata = {
-  title: 'SPVBS Temple | Services',
-  description: 'Explore the various spiritual services, rituals, and ceremonies offered at SPVBS Temple',
+  title: 'Temple Services & Annadanam | Veerabrahmendra Swami Temple Atmakur Nellore',
+  description: 'Explore Annadanam, daily rituals, and special temple services at Sri Veerabrahmendra Swami Temple, Atmakur, SPSR Nellore. Discover spiritual experiences and places to visit in Nellore district.',
 };
 
 function ServiceCard({ service }: { service: TempleService }) {

@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Sri Pothuluri Veerabramhendra Swami | About',
-  description: 'Learn about Sri Pothuluri Veerabramhendra Swami, the great saint, yogi, and prophet of Kaliyuga. Discover his life, teachings, prophecies, and enduring legacy.',
+  title: 'About Veerabrahmhendra Swami | Atmakur Nellore | SPSR Nellore Temple',
+  description: 'Learn about Sri Pothuluri Veerabrahmendra Swami, the great saint and spiritual leader of Atmakur, SPSR Nellore. Discover his life, prophecies, teachings, and why the temple is a top place to visit in Nellore district.',
 };
 
 export default function About() {
@@ -103,7 +103,7 @@ export default function About() {
                 </p>
                 <div className="pl-6 space-y-6 mt-6">
                   <div>
-                    <h4 className="text-xl font-heading text-temple-primary">Siddyya (Noorbasha)</h4>
+                    <h4 className="text-xl font-heading text-temple-primary">Siddayya (Noorbasha)</h4>
                     <p className="leading-relaxed">
                       A Muslim disciple who became one of his closest followers. Through Siddyya, the Swami 
                       demonstrated that spiritual wisdom transcends religious boundaries. This relationship 

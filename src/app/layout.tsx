@@ -61,6 +61,47 @@ export default async function RootLayout({
             `,
           }}
         />
+        {/* JSON-LD Structured Data for Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "HinduTemple",
+              "name": "Sri Veerabrahmendra Swami Temple",
+              "url": "https://www.spvbstemple.org",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Bypass Road",
+                "addressLocality": "Atmakur",
+                "addressRegion": "Andhra Pradesh",
+                "postalCode": "524322",
+                "addressCountry": "IN"
+              },
+              "telephone": "+9197036605778",
+              "email": "contact@spvbstemple.org",
+              "description": "Sri Veerabrahmendra Swami Temple in Atmakur, SPSR Nellore, Andhra Pradesh, is a renowned Hindu temple known for Annadanam, spiritual events, and as a top place to visit in Nellore district. The temple is dedicated to Veerabrahmhendra Swami and is a spiritual destination for devotees and tourists alike.",
+              "contactPoint": [
+                {
+                  "@type": "ContactPoint",
+                  "telephone": "+9197036605778",
+                  "contactType": "customer service"
+                },
+                {
+                  "@type": "ContactPoint",
+                  "telephone": "+919441875458",
+                  "contactType": "Temple Priest",
+                  "name": "Sri Mayabrahma Chari"
+                },
+                {
+                  "@type": "ContactPoint",
+                  "telephone": "+919492679770",
+                  "contactType": "customer service"
+                }
+              ]
+            })
+          }}
+        />
       </head>
       <body className={`${inter.variable} ${cinzelDecorative.variable} ${notoSansDevanagari.variable} font-sans min-h-screen flex flex-col bg-temple-light`}>
         <Header settings={settings} />
