@@ -1,4 +1,4 @@
-export default {
+const faq = {
   name: 'faq',
   title: 'FAQ',
   type: 'document',
@@ -18,4 +18,6 @@ export default {
       validation: (Rule: any) => Rule.required()
     }
   ]
-} 
+};
+
+export default faq; 

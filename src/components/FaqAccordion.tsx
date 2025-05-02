@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-interface FaqItem {
+export interface FaqItem {
   _id: string;
   question: string;
   answer: string;
