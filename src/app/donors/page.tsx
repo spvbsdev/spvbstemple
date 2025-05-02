@@ -27,7 +27,7 @@ export default async function DonorsPage() {
 
   return (
     <div className="min-h-screen bg-temple-bg">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 pb-12 pt-24 md:pt-32">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-heading text-temple-primary mb-6">
             Our Generous Donors

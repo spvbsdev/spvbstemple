@@ -10,7 +10,7 @@ import {
   faPhone
 } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { SiteSettings } from '@/lib/queries';
+import type { SiteSettings } from '@/types/site';
 import { trackWhatsAppContact } from '@/lib/analytics';
 
 interface DonationCategoriesProps {

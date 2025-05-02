@@ -43,21 +43,41 @@ export default async function Home() {
         </section>
 
         {/* Welcome Section with Temple Information */}
-        <div className="bg-temple-light py-16 md:py-20 relative overflow-hidden">
+        <div className="bg-temple-light py-16 md:py-24 relative overflow-hidden">
+          {/* Decorative Background Elements */}
+          <div className="absolute inset-0 bg-pattern opacity-5"></div>
+          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/30 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white/30 to-transparent"></div>
+          
           <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-heading mb-8 text-temple-primary text-center font-bold">
-                Welcome to Our Temple
-              </h2>
-              <div className="prose prose-lg max-w-none text-temple-text">
-                <div className="bg-white/50 backdrop-blur-sm rounded-xl p-6 md:p-8 shadow-soft">
-                  <div className="prose prose-lg md:prose-xl prose-headings:text-temple-primary prose-headings:font-heading 
-                                prose-p:text-temple-text prose-p:leading-relaxed md:prose-p:leading-loose
-                                prose-p:mb-6 md:prose-p:mb-8
-                                prose-strong:text-temple-primary prose-strong:font-medium
-                                prose-em:text-temple-accent prose-em:font-normal
-                                prose-li:text-temple-text prose-li:leading-relaxed">
-                    <PortableText value={siteSettings?.templeInfo || []} />
+            <div className="max-w-6xl mx-auto">
+              {/* Section Title with Decorative Elements */}
+              <div className="text-center mb-16">
+                <div className="inline-block">
+                  <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading text-temple-primary relative">
+                    <span className="absolute -top-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-temple-primary to-transparent"></span>
+                    Welcome to Our Temple
+                    <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-temple-primary to-transparent"></span>
+                  </h2>
+                </div>
+              </div>
+
+              {/* Content Container */}
+              <div className="bg-white/80 backdrop-blur-md rounded-2xl p-8 md:p-12 lg:p-16 shadow-xl relative overflow-hidden">
+                {/* Decorative Corner Elements */}
+                <div className="absolute top-0 left-0 w-24 h-24 border-l-4 border-t-4 border-temple-primary/30 rounded-tl-2xl"></div>
+                <div className="absolute top-0 right-0 w-24 h-24 border-r-4 border-t-4 border-temple-primary/30 rounded-tr-2xl"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 border-l-4 border-b-4 border-temple-primary/30 rounded-bl-2xl"></div>
+                <div className="absolute bottom-0 right-0 w-24 h-24 border-r-4 border-b-4 border-temple-primary/30 rounded-br-2xl"></div>
+
+                {/* Main Content */}
+                <div className="relative z-10">
+                  <div className="prose prose-lg lg:prose-xl 2xl:prose-2xl mx-auto text-temple-text">
+                    <div className="space-y-8">
+                      <PortableText 
+                        value={siteSettings?.templeInfo || []}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -186,8 +206,8 @@ export default async function Home() {
         </div>
       </div>
     );
-  } catch (error) {
-    console.error('Error fetching hero data:', error);
+  } catch (err: unknown) {
+    console.error('Error fetching hero data:', err);
     return <div>Error loading data</div>;
   }
 }

@@ -8,7 +8,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { getSiteSettings } from '@/lib/queries';
 import { trackWhatsAppClick } from '@/lib/analytics';
 import Link from 'next/link';
-import type { SiteSettings } from '@/lib/queries';
+import type { SiteSettings } from '@/types/site';
 
 export default function ContactPage() {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
@@ -40,21 +40,21 @@ export default function ContactPage() {
   const whatsappLink = `https://wa.me/${contact.whatsapp}`;
 
   return (
-    <div className="min-h-screen bg-temple-light py-8">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-temple-light pb-8">
+      <div className="container mx-auto px-4 pt-24 md:pt-32">
         {/* Breadcrumb Navigation */}
         <nav className="mb-8">
-          <ol className="flex items-center space-x-2 text-sm md:text-base">
+          <ol className="flex items-center text-sm md:text-base">
             <li>
               <Link 
                 href="/" 
                 className="flex items-center text-temple-primary hover:text-temple-secondary transition-colors"
               >
-                <FontAwesomeIcon icon={faHome as IconProp} className="w-4 h-4 mr-1" />
+                <FontAwesomeIcon icon={faHome as IconProp} className="w-4 h-4 mr-2" />
                 Home
               </Link>
             </li>
-            <li>
+            <li className="mx-3">
               <FontAwesomeIcon 
                 icon={faChevronRight as IconProp} 
                 className="w-3 h-3 text-temple-text"
@@ -95,14 +95,52 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h2 className="text-xl font-heading text-temple-primary mb-3">Phone Numbers</h2>
-                  <div className="space-y-2">
-                    <p className="text-temple-text">
-                      Primary: <a href={`tel:${contact.primaryPhone}`} className="hover:text-temple-primary transition-colors">{contact.primaryPhone}</a>
-                    </p>
-                    {contact.secondaryPhone && (
-                      <p className="text-temple-text">
-                        Secondary: <a href={`tel:${contact.secondaryPhone}`} className="hover:text-temple-primary transition-colors">{contact.secondaryPhone}</a>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-temple-text mb-2">
+                        Primary: <a href={`tel:${contact.primaryPhone}`} className="hover:text-temple-primary transition-colors">{contact.primaryPhone}</a>
                       </p>
+                      {contact.secondaryPhone && (
+                        <p className="text-temple-text">
+                          Secondary: <a href={`tel:${contact.secondaryPhone}`} className="hover:text-temple-primary transition-colors">{contact.secondaryPhone}</a>
+                        </p>
+                      )}
+                    </div>
+                    
+                    {/* Additional Contacts */}
+                    {contact.additionalContacts && contact.additionalContacts.length > 0 && (
+                      <div className="mt-6 pt-6 border-t border-temple-divider">
+                        <h3 className="text-lg font-heading text-temple-primary mb-4">Additional Contacts</h3>
+                        <div className="space-y-6">
+                          {contact.additionalContacts.map((person, index) => (
+                            <div key={index} className="space-y-2">
+                              <p className="font-medium text-temple-primary">{person.name}</p>
+                              <p className="text-sm text-temple-text/80">{person.role}</p>
+                              <div className="flex flex-col gap-2">
+                                <a 
+                                  href={`tel:${person.phone}`}
+                                  className="text-temple-text hover:text-temple-primary transition-colors inline-flex items-center gap-2"
+                                >
+                                  <FontAwesomeIcon icon={faPhone as IconProp} className="w-4 h-4" />
+                                  {person.phone}
+                                </a>
+                                {person.whatsapp && (
+                                  <a 
+                                    href={`https://wa.me/${person.whatsapp}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-temple-text hover:text-[#25D366] transition-colors inline-flex items-center gap-2"
+                                    onClick={() => trackWhatsAppClick('additional_contact', 'contact_page')}
+                                  >
+                                    <FontAwesomeIcon icon={faWhatsapp as IconProp} className="w-4 h-4 text-[#25D366]" />
+                                    WhatsApp
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -150,23 +188,39 @@ export default function ContactPage() {
           </div>
 
           {/* Location Link Section */}
-          <div className="bg-white rounded-xl p-6 shadow-decorative">
-            <h2 className="text-xl font-heading text-temple-primary mb-4">Location</h2>
-            <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
-              <div className="text-6xl text-temple-primary animate-bounce">
-                <FontAwesomeIcon icon={faLocationDot as IconProp} />
-              </div>
-              <div className="text-temple-text">
-                <p className="mb-4">Find us on Google Maps</p>
-                <a 
-                  href={googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-temple-primary text-white px-6 py-3 rounded-full hover:bg-temple-secondary transition-colors duration-300"
-                >
-                  <FontAwesomeIcon icon={faMapPin as IconProp} className="w-4 h-4" />
-                  Get Directions
-                </a>
+          <div className="bg-white rounded-xl p-6 shadow-decorative relative overflow-hidden group">
+            {/* Background Image */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-75 transition-all duration-300 group-hover:opacity-85"
+              style={{
+                backgroundImage: "url('/images/temple-location-bg.jpg')",
+                filter: "brightness(1.3) contrast(1.15) saturate(1.1)",
+                transform: "scale(1.02)"
+              }}
+            />
+            
+            {/* Overlay gradient for better text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-white/30 to-transparent z-[1]" />
+            
+            {/* Content */}
+            <div className="relative z-10">
+              <h2 className="text-xl font-heading text-temple-primary mb-4 drop-shadow-sm">Location</h2>
+              <div className="flex flex-col items-center justify-center text-center space-y-6 pt-4">
+                <div className="text-6xl text-temple-primary drop-shadow-sm">
+                  <FontAwesomeIcon icon={faLocationDot as IconProp} />
+                </div>
+                <div className="text-temple-text">
+                  <p className="mb-4 font-medium text-lg drop-shadow-sm text-temple-primary">Find us on Google Maps</p>
+                  <a 
+                    href={googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-temple-primary/95 backdrop-blur-sm text-white px-6 py-3 rounded-full hover:bg-temple-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  >
+                    <FontAwesomeIcon icon={faMapPin as IconProp} className="w-4 h-4" />
+                    Get Directions
+                  </a>
+                </div>
               </div>
             </div>
           </div>

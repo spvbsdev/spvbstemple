@@ -53,6 +53,40 @@ export default defineType({
           title: 'WhatsApp Number', 
           type: 'string', 
           description: 'Format: +1XXXXXXXXXX' 
+        },
+        {
+          name: 'additionalContacts',
+          title: 'Additional Contacts (Contact Page Only)',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              { 
+                name: 'name',
+                title: 'Contact Name',
+                type: 'string',
+                description: 'Name of the contact person'
+              },
+              {
+                name: 'role',
+                title: 'Role',
+                type: 'string',
+                description: 'Role or position of the contact person'
+              },
+              {
+                name: 'phone',
+                title: 'Phone Number',
+                type: 'string'
+              },
+              {
+                name: 'whatsapp',
+                title: 'WhatsApp Number',
+                type: 'string',
+                description: 'Format: +1XXXXXXXXXX'
+              }
+            ]
+          }],
+          description: 'Additional contacts that will only be shown on the Contact page'
         }
       ]
     }),

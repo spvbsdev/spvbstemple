@@ -1,81 +1,106 @@
-import { groq } from 'next-sanity';
-import { client } from '@/lib/sanity.client';
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Project } from '@/types/project';
-import ProjectCard from '@/components/ProjectCard';
-import { Metadata } from 'next';
+import { getProjects } from '@/lib/queries';
+import CompletedProjectGallery from '@/components/CompletedProjectGallery';
+import PriorityProjectCard from '@/components/PriorityProjectCard';
 
-const projectsQuery = groq`
-  *[_type == "project" && isActive != false] {
-    _id,
-    title,
-    slug,
-    status,
-    description,
-    detailedDescription,
-    "imageUrl": images[0].asset->url,
-    targetAmount,
-    raisedAmount,
-    benefits,
-    timeline,
-    donorRecognition,
-    isHighPriority
-  } | order(isHighPriority desc, _createdAt desc)
-`;
+export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-export const metadata: Metadata = {
-  title: 'SPVBS Temple | Projects',
-  description: 'Discover our ongoing temple development projects and initiatives at SPVBS Temple',
-};
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await getProjects();
+        setProjects(data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-export default async function ProjectsPage() {
-  const projects = await client.fetch<Project[]>(projectsQuery);
-  const highPriorityProjects = projects.filter(p => p.isHighPriority);
-  const otherProjects = projects.filter(p => !p.isHighPriority);
+    fetchProjects();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const priorityProjects = projects.filter(project => project.isHighPriority);
+  const completedProjects = projects.filter(project => project.status === 'completed');
+  const ongoingProjects = projects.filter(project => project.status === 'ongoing' && !project.isHighPriority);
+
+  // Determine if we should show priority projects in wide layout
+  const shouldShowWide = completedProjects.length === 0 && ongoingProjects.length === 0;
 
   return (
-    <div className="min-h-screen bg-temple-light py-16">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-heading text-temple-primary text-center mb-16">
-          Temple Development Projects
-        </h1>
-
-        {/* High Priority Projects */}
-        {highPriorityProjects.length > 0 && (
-          <section className="mb-20">
-            <h2 className="text-3xl font-heading text-temple-primary mb-8 text-center">
-              Priority Projects
-            </h2>
-            <div className={`grid md:grid-cols-2 gap-8 ${highPriorityProjects.length === 1 ? 'place-items-center md:grid-cols-1 max-w-2xl mx-auto' : ''}`}>
-              {highPriorityProjects.map(project => (
-                <ProjectCard key={project._id} project={project} />
+    <div className="min-h-screen bg-temple-light">
+      <div className="container mx-auto px-4 py-24 md:py-32">
+        {/* Priority Projects Section */}
+        {priorityProjects.length > 0 && (
+          <section className="mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-heading text-temple-primary">
+                Priority Projects
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 gap-8">
+              {priorityProjects.map(project => (
+                <PriorityProjectCard
+                  key={project.slug.current}
+                  project={project}
+                  isWide={shouldShowWide}
+                />
               ))}
             </div>
           </section>
         )}
 
-        {/* Other Projects */}
-        {otherProjects.length > 0 && (
+        {/* Ongoing Projects Section */}
+        {ongoingProjects.length > 0 && (
+          <section className="mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-heading text-temple-primary">
+                Ongoing Projects
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {ongoingProjects.map(project => (
+                <PriorityProjectCard
+                  key={project.slug.current}
+                  project={project}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Completed Projects Section */}
+        {completedProjects.length > 0 && (
           <section>
-            <h2 className="text-3xl font-heading text-temple-primary mb-8 text-center">
-              Other Development Projects
-            </h2>
-            <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 ${otherProjects.length === 1 ? 'place-items-center md:grid-cols-1 max-w-2xl mx-auto' : ''}`}>
-              {otherProjects.map(project => (
-                <ProjectCard key={project._id} project={project} />
-              ))}
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-heading text-temple-primary">
+                Completed Projects
+              </h2>
             </div>
+            <CompletedProjectGallery projects={completedProjects} />
           </section>
         )}
 
-        {/* Support Message */}
-        <section className="mt-20 text-center">
-          <h2 className="text-3xl font-heading text-temple-primary mb-8">
-            Support Our Temple
-          </h2>
-          <p className="text-temple-text max-w-2xl mx-auto mb-12">
-            Every contribution, regardless of size, is valuable and helps us preserve and enhance our sacred spaces for future generations. We are deeply grateful for your support in maintaining and developing our temple.
-          </p>
-        </section>
+        {/* No Projects Message */}
+        {projects.length === 0 && (
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-heading text-temple-primary mb-4">
+              No Projects Available
+            </h2>
+            <p className="text-temple-text">
+              Check back later for updates on our temple projects.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
