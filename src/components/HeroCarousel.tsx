@@ -50,16 +50,17 @@ export default function HeroCarousel({ images, captions }: HeroCarouselProps) {
         className="w-full"
       >
         {images.map((image, index) => {
+          const imageQuality = currentBreakpoint === 'mobile' ? 75 : (index === 0 ? 90 : 75);
           const imageUrl = urlForImage(image, {
             width: width * dpr,
             height: height * dpr,
-            quality: index === 0 ? 90 : 75,
+            quality: imageQuality,
             format: 'webp',
             fit: 'fillmax'
           }).url();
 
           return (
-            <div key={index} className="relative w-full" style={{ height: `${height}px` }}>
+            <div key={index} className="relative w-full aspect-[4/3] md:aspect-[16/9]">
               <Image
                 src={imageUrl}
                 alt={captions?.[index] || `Hero image ${index + 1}`}
@@ -67,7 +68,7 @@ export default function HeroCarousel({ images, captions }: HeroCarouselProps) {
                 priority={index === 0}
                 loading={index === 0 ? 'eager' : 'lazy'}
                 className="object-cover"
-                sizes={`(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px`}
+                sizes="100vw"
                 placeholder="blur"
                 blurDataURL={urlForImage(image, {
                   width: 50,
