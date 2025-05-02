@@ -206,8 +206,14 @@ export default async function Home() {
         </div>
       </div>
     );
-  } catch (err: unknown) {
-    console.error('Error fetching hero data:', err);
-    return <div>Error loading data</div>;
+  } catch (error: unknown) {
+    console.error('Error fetching hero data:', error);
+    return (
+      <div className="min-h-screen">
+        <main>
+          <div>Error loading data</div>
+        </main>
+      </div>
+    );
   }
 }

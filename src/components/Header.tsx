@@ -57,7 +57,7 @@ export default function Header({ settings }: HeaderProps) {
   const MobileNavLink = ({ name, href }: { name: string; href: string }) => (
     <Link
       href={href}
-      className="block w-full text-center py-4 text-xl font-sanskrit text-temple-text hover:text-temple-primary hover:bg-temple-light/50 transition-all duration-300 rounded-lg"
+      className="block w-full text-center py-2.5 text-lg font-sanskrit text-temple-text hover:text-temple-primary hover:bg-temple-light/50 transition-all duration-300 rounded-lg"
       onClick={() => setIsMenuOpen(false)}
     >
       {name}
@@ -70,7 +70,7 @@ export default function Header({ settings }: HeaderProps) {
       target="_blank"
       rel="noopener noreferrer"
       className={`text-temple-text hover:text-temple-primary transition-colors duration-300 font-sanskrit text-lg flex items-center gap-2 ${
-        isMobile ? 'justify-center py-4 text-xl hover:bg-temple-light/50 rounded-lg' : 'relative group'
+        isMobile ? 'justify-center py-2.5 text-lg hover:bg-temple-light/50 rounded-lg' : 'relative group'
       }`}
       onClick={() => {
         setIsMenuOpen(false);
@@ -94,7 +94,7 @@ export default function Header({ settings }: HeaderProps) {
     <a
       href="/donate"
       className={`bg-temple-primary text-white font-sanskrit hover:bg-temple-secondary transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg ${
-        isMobile ? 'block w-full text-center px-6 py-4 rounded-lg text-xl' : 'px-6 py-2 rounded-full'
+        isMobile ? 'block w-full text-center px-6 py-2.5 rounded-lg text-lg' : 'px-6 py-2 rounded-full'
       }`}
       onClick={() => {
         setIsMenuOpen(false);
@@ -107,22 +107,25 @@ export default function Header({ settings }: HeaderProps) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[9999] bg-white/95 backdrop-blur-sm border-b border-temple-divider">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 z-[9999] bg-white/95 backdrop-blur-sm border-b border-temple-divider h-20 md:h-24 w-full">
+        <div className="container mx-auto px-4 h-full flex items-center justify-between">
+          <div className="flex items-center justify-between w-full">
             <Link href="/" className="flex items-center space-x-3">
               <div className="flex items-center space-x-2">
                 <Image 
                   src="/images/swamigaru.jpg" 
                   alt={settings?.templeName || "Temple Logo"}
-                  width={40}
-                  height={40}
+                  width={48}
+                  height={48}
                   className="rounded-full object-cover border-2 border-temple-gold"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-heading text-temple-primary tracking-wider">
-                  {settings?.templeName || "SPVBS Temple"}
+                <span className="text-base md:text-lg font-heading text-temple-primary tracking-wider leading-tight">
+                  Sri Veerabrahmendra
+                </span>
+                <span className="text-base md:text-lg font-heading text-temple-primary tracking-wider leading-tight">
+                  Swami Temple
                 </span>
                 <span className="text-xs text-temple-text/80 font-sanskrit">
                   {settings?.location?.city || ""}
@@ -141,7 +144,7 @@ export default function Header({ settings }: HeaderProps) {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden text-temple-primary p-2 hover:bg-temple-light rounded-lg transition-colors duration-300 relative"
+              className="md:hidden text-temple-primary p-2 hover:bg-temple-light rounded-lg transition-colors duration-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -165,14 +168,16 @@ export default function Header({ settings }: HeaderProps) {
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998]">
           <div 
-            className="fixed inset-x-0 top-[72px] bottom-0 bg-white shadow-lg"
+            className="fixed inset-x-0 top-20 bottom-0 bg-white shadow-lg"
           >
-            <div className="h-full overflow-y-auto">
-              <div className="container mx-auto max-w-lg px-4 pt-8 pb-6 space-y-3">
-                {navigation.map((item) => (
-                  <MobileNavLink key={item.name} {...item} />
-                ))}
+            <div className="container mx-auto max-w-lg px-4 py-6 space-y-2">
+              {navigation.map((item) => (
+                <MobileNavLink key={item.name} {...item} />
+              ))}
+              <div className="pt-2">
                 <WhatsAppLink isMobile />
+              </div>
+              <div className="pt-2">
                 <DonateButton isMobile />
               </div>
             </div>
