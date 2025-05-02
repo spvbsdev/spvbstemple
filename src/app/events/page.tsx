@@ -5,8 +5,8 @@ import type { Event } from '@/types/event'
 import EventCard from '@/components/EventCard'
 
 export const metadata: Metadata = {
-  title: 'SPVBS Temple | Events',
-  description: 'Annual and special events at Sri Peddamma Venkateswara Bhakti Samajam Temple',
+  title: 'Temple Events & Festivals | Veerabrahmendra Swami Temple Atmakur Nellore',
+  description: 'Discover annual events, festivals, and Annadanam at Sri Veerabrahmendra Swami Temple, Atmakur, SPSR Nellore. Join us for spiritual celebrations and explore places to visit in Nellore district.',
 }
 
 async function getEvents(): Promise<Event[]> {

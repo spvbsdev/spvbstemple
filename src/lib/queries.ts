@@ -181,4 +181,10 @@ export async function getProjects(): Promise<Project[]> {
     console.error('Error fetching projects:', error);
     return [];
   }
-} 
+}
+
+export const faqQuery = `*[_type == "faq"] | order(_createdAt asc){
+  _id,
+  question,
+  answer
+}`; 
