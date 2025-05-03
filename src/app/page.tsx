@@ -109,7 +109,7 @@ function HomePageContent({
       </div>
 
       {/* See Our Temple in Action Section */}
-      <section className="my-12 bg-temple-dark text-white rounded-xl rounded-b-xl shadow-lg p-6 text-center">
+      <section className="bg-temple-dark text-white shadow-lg p-6 text-center w-full">
         <h2 className="text-3xl md:text-4xl font-heading text-temple-gold mb-8 tracking-wide">
           See Our Temple in Action
         </h2>
