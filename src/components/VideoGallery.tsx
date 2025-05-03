@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { format } from 'date-fns';
 import Image from 'next/image';
 
 interface Video {
@@ -17,6 +16,7 @@ interface Video {
 
 interface VideoGalleryProps {
   videos: Video[];
+  hideHeading?: boolean;
 }
 
 // YouTube utility functions
@@ -51,7 +51,7 @@ function getYouTubeEmbedUrl(videoId: string): string {
   return `https://www.youtube.com/embed/${videoId}`;
 }
 
-export default function VideoGallery({ videos }: VideoGalleryProps) {
+export default function VideoGallery({ videos, hideHeading = false }: VideoGalleryProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
@@ -65,10 +65,10 @@ export default function VideoGallery({ videos }: VideoGalleryProps) {
       return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
     });
 
-  // Get unique categories
-  const categories = ['all', ...new Set(videos
+  // Get unique categories (remove 'all')
+  const categories = Array.from(new Set(videos
     .map(video => video.category)
-    .filter((category): category is string => category !== undefined))];
+    .filter((category): category is string => category !== undefined)));
 
   // Handle video selection
   const handleVideoSelect = (video: Video) => {
@@ -78,26 +78,30 @@ export default function VideoGallery({ videos }: VideoGalleryProps) {
   return (
     <div className="py-12 bg-temple-light">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-heading text-temple-primary text-center mb-8">
-          Video Gallery
-        </h2>
+        {!hideHeading && (
+          <h2 className="text-3xl md:text-4xl font-heading text-temple-primary text-center mb-8">
+            Video Gallery
+          </h2>
+        )}
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {categories.map(category => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full transition-colors ${
-                selectedCategory === category
-                  ? 'bg-temple-primary text-white'
-                  : 'bg-white text-temple-primary hover:bg-temple-primary/10'
-              }`}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
-          ))}
-        </div>
+        {/* Category Filter - moved below heading, removed 'All' */}
+        {categories.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-full transition-colors ${
+                  selectedCategory === category
+                    ? 'bg-temple-primary text-white'
+                    : 'bg-white text-temple-primary hover:bg-temple-primary/10'
+                }`}
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Selected Video Player */}
         {selectedVideo && (
@@ -112,12 +116,6 @@ export default function VideoGallery({ videos }: VideoGalleryProps) {
             </div>
             <div className="max-w-4xl mx-auto">
               <h3 className="text-2xl font-heading text-temple-primary mb-2">{selectedVideo.title}</h3>
-              {selectedVideo.description && (
-                <p className="text-temple-text mb-4">{selectedVideo.description}</p>
-              )}
-              <p className="text-temple-muted">
-                {format(new Date(selectedVideo.publishedAt), 'MMMM d, yyyy')}
-              </p>
             </div>
           </div>
         )}
@@ -161,14 +159,6 @@ export default function VideoGallery({ videos }: VideoGalleryProps) {
                   <h3 className="font-heading text-temple-primary text-lg mb-2 line-clamp-2">
                     {video.title}
                   </h3>
-                  {video.description && (
-                    <p className="text-temple-text text-sm mb-2 line-clamp-2">
-                      {video.description}
-                    </p>
-                  )}
-                  <p className="text-temple-muted text-sm">
-                    {format(new Date(video.publishedAt), 'MMMM d, yyyy')}
-                  </p>
                 </div>
               </div>
             );
