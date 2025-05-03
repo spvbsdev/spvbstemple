@@ -3,6 +3,7 @@ import { YOUTUBE_PLAYLISTS } from '@/constants/youtubePlaylists'
 import GalleryTabs from '@/components/GalleryTabs'
 
 export const revalidate = 60 // Revalidate every minute
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: 'SPVBS Temple | Gallery',
@@ -41,8 +42,15 @@ async function fetchYouTubeVideos() {
   const res = await fetch(`${baseUrl}/api/youtube/latest`, {
     next: { revalidate: 60 },
   });
-  const data = await res.json();
-  // Filter out non-video items
+  if (!res.ok) {
+    return [];
+  }
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    return [];
+  }
   return (data.items as YouTubeApiItem[]).filter(item => item.id && item.id.videoId);
 }
 
@@ -53,7 +61,15 @@ async function fetchPlaylistVideos(playlistId: string) {
   const res = await fetch(`${baseUrl}/api/youtube/playlist?playlistId=${playlistId}`, {
     next: { revalidate: 60 },
   });
-  const data = await res.json();
+  if (!res.ok) {
+    return [];
+  }
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    return [];
+  }
   return (data.items as YouTubeApiItem[]).filter(item => item.snippet && item.snippet.title && item.id);
 }
 
