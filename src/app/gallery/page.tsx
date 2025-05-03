@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { YOUTUBE_PLAYLISTS } from '@/constants/youtubePlaylists'
 import GalleryTabs from '@/components/GalleryTabs'
+import { headers } from 'next/headers';
 
 export const revalidate = 60 // Revalidate every minute
 export const dynamic = "force-dynamic";
@@ -36,15 +37,18 @@ interface YouTubeApiItem {
 }
 
 async function fetchYouTubeVideos() {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/youtube/latest`, {
-    next: { revalidate: 60 },
-  });
-  if (!res.ok) {
-    return [];
+  let url = '';
+  if (typeof window === 'undefined') {
+    // Server-side: build absolute URL
+    const host = (await headers()).get('host');
+    const protocol = host?.startsWith('localhost') ? 'http' : 'https';
+    url = `${protocol}://${host}/api/youtube/latest`;
+  } else {
+    // Client-side: use relative URL
+    url = '/api/youtube/latest';
   }
+  const res = await fetch(url, { next: { revalidate: 60 } });
+  if (!res.ok) return [];
   let data;
   try {
     data = await res.json();
@@ -55,15 +59,18 @@ async function fetchYouTubeVideos() {
 }
 
 async function fetchPlaylistVideos(playlistId: string) {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/youtube/playlist?playlistId=${playlistId}`, {
-    next: { revalidate: 60 },
-  });
-  if (!res.ok) {
-    return [];
+  let url = '';
+  if (typeof window === 'undefined') {
+    // Server-side: build absolute URL
+    const host = (await headers()).get('host');
+    const protocol = host?.startsWith('localhost') ? 'http' : 'https';
+    url = `${protocol}://${host}/api/youtube/playlist?playlistId=${playlistId}`;
+  } else {
+    // Client-side: use relative URL
+    url = `/api/youtube/playlist?playlistId=${playlistId}`;
   }
+  const res = await fetch(url, { next: { revalidate: 60 } });
+  if (!res.ok) return [];
   let data;
   try {
     data = await res.json();
