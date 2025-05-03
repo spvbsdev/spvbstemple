@@ -48,6 +48,51 @@ export default function ProjectsPage() {
           </p>
         </div>
 
+        {/* See Our Temple in Action Section */}
+        <section className="my-12 bg-temple-light rounded-xl shadow-lg p-6 text-center">
+          <h2 className="text-2xl font-heading text-temple-primary mb-4">
+            See Our Temple in Action
+          </h2>
+          <p className="mb-6 text-temple-text">
+            Watch these short videos to get a real sense of our temple, our Anna Prasadam, and the Pallaki Seva. Your support makes all this possible!
+          </p>
+          <div className="flex flex-col md:flex-row gap-6 justify-center">
+            <a href="https://youtu.be/JiciDzAPU9M" target="_blank" rel="noopener noreferrer" className="flex-1">
+              <div className="aspect-video rounded-lg overflow-hidden shadow">
+                <iframe
+                  src="https://www.youtube.com/embed/JiciDzAPU9M"
+                  title="Temple Location, Exteriors and Interiors"
+                  className="w-full h-full"
+                  allowFullScreen
+                />
+              </div>
+              <div className="mt-2 font-semibold text-temple-primary">Temple Location, Exteriors and Interiors</div>
+            </a>
+            <a href="https://youtu.be/NcxhT_BedMM" target="_blank" rel="noopener noreferrer" className="flex-1">
+              <div className="aspect-video rounded-lg overflow-hidden shadow">
+                <iframe
+                  src="https://www.youtube.com/embed/NcxhT_BedMM"
+                  title="Anna Prasadam"
+                  className="w-full h-full"
+                  allowFullScreen
+                />
+              </div>
+              <div className="mt-2 font-semibold text-temple-primary">Anna Prasadam</div>
+            </a>
+            <a href="https://youtu.be/Teb2pELPQk0" target="_blank" rel="noopener noreferrer" className="flex-1">
+              <div className="aspect-video rounded-lg overflow-hidden shadow">
+                <iframe
+                  src="https://www.youtube.com/embed/Teb2pELPQk0"
+                  title="Pallaki Seva"
+                  className="w-full h-full"
+                  allowFullScreen
+                />
+              </div>
+              <div className="mt-2 font-semibold text-temple-primary">Pallaki Seva</div>
+            </a>
+          </div>
+        </section>
+
         {/* Priority Projects Section */}
         {priorityProjects.length > 0 && (
           <section className="mb-24 md:mb-32">
