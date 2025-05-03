@@ -108,6 +108,57 @@ function HomePageContent({
         </div>
       </div>
 
+      {/* See Our Temple in Action Section */}
+      <section className="my-12 bg-temple-dark text-white rounded-xl rounded-b-xl shadow-lg p-6 text-center">
+        <h2 className="text-3xl md:text-4xl font-heading text-temple-gold mb-8 tracking-wide">
+          See Our Temple in Action
+        </h2>
+        <p className="mb-8 text-lg text-temple-gold/80">
+          Watch these short videos to get a real sense of our temple, our Anna Prasadam, and the Pallaki Seva. Your support makes all this possible!
+        </p>
+        <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch">
+          <a href="https://youtu.be/JiciDzAPU9M" target="_blank" rel="noopener noreferrer" className="w-full md:max-w-md">
+            <div className="aspect-video rounded-lg overflow-hidden shadow border border-temple-gold/30 bg-temple-overlay">
+              <iframe
+                src="https://www.youtube.com/embed/JiciDzAPU9M"
+                title="Temple Location, Exteriors and Interiors"
+                className="w-full h-full"
+                allowFullScreen
+              />
+            </div>
+            <div className="mt-3 font-heading text-temple-gold text-lg md:text-xl text-center">
+              Temple Location, Exteriors and Interiors
+            </div>
+          </a>
+          <a href="https://youtu.be/NcxhT_BedMM" target="_blank" rel="noopener noreferrer" className="w-full md:max-w-md">
+            <div className="aspect-video rounded-lg overflow-hidden shadow border border-temple-gold/30 bg-temple-overlay">
+              <iframe
+                src="https://www.youtube.com/embed/NcxhT_BedMM"
+                title="Anna Prasadam"
+                className="w-full h-full"
+                allowFullScreen
+              />
+            </div>
+            <div className="mt-3 font-heading text-temple-gold text-lg md:text-xl text-center">
+              Anna Prasadam
+            </div>
+          </a>
+          <a href="https://youtu.be/Teb2pELPQk0" target="_blank" rel="noopener noreferrer" className="w-full md:max-w-md">
+            <div className="aspect-video rounded-lg overflow-hidden shadow border border-temple-gold/30 bg-temple-overlay">
+              <iframe
+                src="https://www.youtube.com/embed/Teb2pELPQk0"
+                title="Pallaki Seva"
+                className="w-full h-full"
+                allowFullScreen
+              />
+            </div>
+            <div className="mt-3 font-heading text-temple-gold text-lg md:text-xl text-center">
+              Pallaki Seva
+            </div>
+          </a>
+        </div>
+      </section>
+
       {/* Services Section */}
       <div className="py-20 bg-white relative">
         <div className="absolute inset-0 bg-texture opacity-5"></div>
