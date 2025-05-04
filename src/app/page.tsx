@@ -12,7 +12,7 @@ import type { SiteSettings } from '@/types/site';
 import LazyYouTube from '@/components/LazyYouTube';
 
 export const metadata = {
-  title: "Sri Veerabrahmendra Swami Temple, Atmakur | Annadanam & Events",
+  title: "Sri Veerabrahmendra Swami Temple, Atmakur, Nellore",
   description: "Discover Sri Veerabrahmendra Swami Temple in Atmakur, Nellore. Annadanam, events, timings, and visitor info.",
   keywords: "veerabrahmendra, temple, atmakur, annadanam, nellore, events, spiritual, bramhamgari temple"
 };
