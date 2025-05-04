@@ -14,6 +14,62 @@ export interface SiteSettings {
       marks?: string[];
     }>;
   }>;
+  annadanamInfo?: Array<{
+    _type: string;
+    _key: string;
+    markDefs?: Array<{
+      _type: string;
+      _key: string;
+    }>;
+    children: Array<{
+      _type: string;
+      _key: string;
+      text: string;
+      marks?: string[];
+    }>;
+  }>;
+  eventsInfo?: Array<{
+    _type: string;
+    _key: string;
+    markDefs?: Array<{
+      _type: string;
+      _key: string;
+    }>;
+    children: Array<{
+      _type: string;
+      _key: string;
+      text: string;
+      marks?: string[];
+    }>;
+  }>;
+  teachingsInfo?: Array<{
+    _type: string;
+    _key: string;
+    markDefs?: Array<{
+      _type: string;
+      _key: string;
+    }>;
+    children: Array<{
+      _type: string;
+      _key: string;
+      text: string;
+      marks?: string[];
+    }>;
+  }>;
+  getInvolvedInfo?: Array<{
+    _type: string;
+    _key: string;
+    markDefs?: Array<{
+      _type: string;
+      _key: string;
+    }>;
+    children: Array<{
+      _type: string;
+      _key: string;
+      text: string;
+      marks?: string[];
+    }>;
+  }>;
   location: {
     address: string;
     city: string;
