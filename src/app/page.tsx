@@ -11,6 +11,7 @@ import type { HeroCarousel } from '@/lib/queries';
 import { PortableText } from '@portabletext/react';
 import type { SiteSettings } from '@/types/site';
 import type { FaqItem } from '@/components/FaqAccordion';
+import LazyYouTube from '@/components/LazyYouTube';
 
 export async function generateMetadata(): Promise<Metadata> {
   const faqs: FaqItem[] = await client.fetch(faqQuery);
@@ -111,20 +112,15 @@ function HomePageContent({
       {/* See Our Temple in Action Section */}
       <section className="bg-temple-dark text-white shadow-lg p-6 text-center w-full">
         <h2 className="text-3xl md:text-4xl font-heading text-temple-gold mb-8 tracking-wide">
-          See Our Temple in Action
+          See How Your Punya (Merit) Enriches the Temple
         </h2>
         <p className="mb-8 text-lg text-temple-gold/80">
-          Watch these short videos to get a real sense of our temple, our Anna Prasadam, and the Pallaki Seva. Your support makes all this possible!
+          Your devotion and generosity help sustain our sacred traditions and bring blessings to countless devotees. Watch these moments to witness the divine impact of your support.
         </p>
         <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch">
           <a href="https://youtu.be/JiciDzAPU9M" target="_blank" rel="noopener noreferrer" className="w-full md:max-w-md">
             <div className="aspect-video rounded-lg overflow-hidden shadow border border-temple-gold/30 bg-temple-overlay">
-              <iframe
-                src="https://www.youtube.com/embed/JiciDzAPU9M"
-                title="Temple Location, Exteriors and Interiors"
-                className="w-full h-full"
-                allowFullScreen
-              />
+              <LazyYouTube videoId="JiciDzAPU9M" title="Temple Location, Exteriors and Interiors" className="w-full h-full" />
             </div>
             <div className="mt-3 font-heading text-temple-gold text-lg md:text-xl text-center">
               Temple Location, Exteriors and Interiors
@@ -132,12 +128,7 @@ function HomePageContent({
           </a>
           <a href="https://youtu.be/NcxhT_BedMM" target="_blank" rel="noopener noreferrer" className="w-full md:max-w-md">
             <div className="aspect-video rounded-lg overflow-hidden shadow border border-temple-gold/30 bg-temple-overlay">
-              <iframe
-                src="https://www.youtube.com/embed/NcxhT_BedMM"
-                title="Anna Prasadam"
-                className="w-full h-full"
-                allowFullScreen
-              />
+              <LazyYouTube videoId="NcxhT_BedMM" title="Anna Prasadam" className="w-full h-full" />
             </div>
             <div className="mt-3 font-heading text-temple-gold text-lg md:text-xl text-center">
               Anna Prasadam
@@ -145,12 +136,7 @@ function HomePageContent({
           </a>
           <a href="https://youtu.be/Teb2pELPQk0" target="_blank" rel="noopener noreferrer" className="w-full md:max-w-md">
             <div className="aspect-video rounded-lg overflow-hidden shadow border border-temple-gold/30 bg-temple-overlay">
-              <iframe
-                src="https://www.youtube.com/embed/Teb2pELPQk0"
-                title="Pallaki Seva"
-                className="w-full h-full"
-                allowFullScreen
-              />
+              <LazyYouTube videoId="Teb2pELPQk0" title="Pallaki Seva" className="w-full h-full" />
             </div>
             <div className="mt-3 font-heading text-temple-gold text-lg md:text-xl text-center">
               Pallaki Seva
