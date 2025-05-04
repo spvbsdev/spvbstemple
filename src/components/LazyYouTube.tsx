@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface LazyYouTubeProps {
   videoId: string;
@@ -70,11 +71,13 @@ const LazyYouTube: React.FC<LazyYouTubeProps> = ({ videoId, title = 'YouTube vid
             display: 'block',
           }}
         >
-          <img
+          <Image
             src={getThumbnailUrl(videoId)}
             alt={`Thumbnail for ${title}`}
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             loading="lazy"
+            width={480}
+            height={360}
           />
           <span
             style={{

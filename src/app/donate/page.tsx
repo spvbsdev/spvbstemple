@@ -4,7 +4,6 @@ import { client } from '@/lib/sanity.client';
 import { getSiteSettings } from '@/lib/queries';
 import type { SiteSettings } from '@/types/site';
 import LazyYouTube from '@/components/LazyYouTube';
-import Seo from '@/components/Seo';
 
 interface Project {
   _id: string;
@@ -45,10 +44,6 @@ export default async function DonatePage(props: PageProps) {
 
   return (
     <>
-      <Seo
-        keywords="donate, donation, annadanam, support, veerabrahmendra, temple, atmakur, nellore, bramhamgari temple"
-        canonicalUrl="https://www.spvbstemple.org/donate"
-      />
       <div className="bg-temple-light pb-16">
         <div className="container mx-auto px-4">
           <div className="text-center pt-8">

@@ -1,6 +1,5 @@
 import CoreTeachings from '@/components/CoreTeachings';
 import Image from 'next/image';
-import Seo from '@/components/Seo';
 
 export const metadata = {
   title: "About Veerabrahmendra Swami | Atmakur Temple, Nellore",
@@ -11,10 +10,6 @@ export const metadata = {
 export default function About() {
   return (
     <>
-      <Seo
-        keywords="veerabrahmendra, swami, about, biography, teachings, atmakur, nellore, bramhamgari temple"
-        canonicalUrl="https://www.spvbstemple.org/about"
-      />
       <div className="min-h-screen bg-temple-light">
         {/* Hero Section */}
         <div className="bg-temple-dark text-white py-24 relative overflow-hidden">

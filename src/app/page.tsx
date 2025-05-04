@@ -10,7 +10,6 @@ import type { HeroCarousel } from '@/lib/queries';
 import { PortableText } from '@portabletext/react';
 import type { SiteSettings } from '@/types/site';
 import LazyYouTube from '@/components/LazyYouTube';
-import Seo from '@/components/Seo';
 
 export const metadata = {
   title: "Sri Veerabrahmendra Swami Temple, Atmakur | Annadanam & Events",
@@ -300,10 +299,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <Seo
-        keywords="veerabrahmendra, temple, atmakur, annadanam, nellore, events, spiritual, bramhamgari temple"
-        canonicalUrl="https://www.spvbstemple.org/"
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
