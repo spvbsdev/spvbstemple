@@ -3,12 +3,13 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faLocationDot, faPhone, faEnvelope, faHeadset } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import type { SiteSettings } from '@/types/site';
 import { trackWhatsAppClick } from '@/lib/analytics';
+import { SocialShareButtons } from '@/components/ui/SocialShareButtons';
 
 // Prevent Font Awesome from adding its CSS since we did it manually above
 config.autoAddCss = false;
@@ -41,84 +42,36 @@ export default function Footer({ settings }: FooterProps) {
   return (
     <footer className="bg-temple-dark text-temple-light">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* Temple Information */}
-          <div className="text-center md:text-left">
-            <h3 className="text-xl font-heading text-temple-gold mb-6">Location & Contact</h3>
-            <div className="space-y-4 font-sanskrit text-lg">
-              <div className="space-y-2">
-                <div className="flex items-center md:justify-start justify-center gap-2">
-                  <h4 className="text-lg text-temple-gold/90">Address</h4>
-                  <a
-                    href={getGoogleMapsLink()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-temple-gold hover:text-temple-gold/80 transition-colors duration-300"
-                    title="Open in Google Maps"
-                  >
-                    <FontAwesomeIcon icon={faLocationDot as IconProp} className="text-xl" />
-                  </a>
-                </div>
-                <div>
-                  <p className="text-temple-light/90">{settings?.location?.address}</p>
-                  <p className="text-temple-light/90">{settings?.location?.city}</p>
-                  <p className="text-temple-light/90">{settings?.location?.state} - {settings?.location?.zipCode}</p>
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <h4 className="text-lg text-temple-gold/90">Contact Details</h4>
-                <div className="space-y-3">
-                  <p className="text-temple-light/90">
-                    <a 
-                      href={getWhatsAppLink()} 
-                      target="_blank" 
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Location & Share */}
+          <div className="text-center md:text-left flex flex-col items-center md:items-start gap-6">
+            <div className="w-full">
+              <h3 className="text-xl font-heading text-temple-gold mb-6">Location</h3>
+              <div className="space-y-4 font-sanskrit text-lg">
+                <div className="space-y-2">
+                  <div className="flex items-center md:justify-start justify-center gap-2">
+                    <h4 className="text-lg text-temple-gold/90">Address</h4>
+                    <a
+                      href={getGoogleMapsLink()}
+                      target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
-                      title="Contact via WhatsApp"
-                      onClick={() => trackWhatsAppClick('general', 'footer')}
+                      className="text-temple-gold hover:text-temple-gold/80 transition-colors duration-300"
+                      title="Open in Google Maps"
                     >
-                      <FontAwesomeIcon icon={faWhatsapp as IconProp} className="text-[#25D366] text-lg w-5" />
-                      <span>{settings?.contact?.whatsapp}</span>
+                      <FontAwesomeIcon icon={faLocationDot as IconProp} className="text-xl" />
                     </a>
-                  </p>
-                  {settings?.contact?.primaryPhone && (
-                    <div className="text-temple-light/90">
-                      <p className="mb-1 text-temple-gold/90 text-sm">Temple Priest - Sri Mayabrahma Chari</p>
-                      <a 
-                        href={`tel:${settings.contact.primaryPhone}`}
-                        className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
-                        title="Call our primary number"
-                      >
-                        <FontAwesomeIcon icon={faPhone as IconProp} className="text-temple-gold/90 text-lg w-5" />
-                        <span>{settings.contact.primaryPhone}</span>
-                      </a>
-                    </div>
-                  )}
-                  {settings?.contact?.secondaryPhone && (
-                    <p className="text-temple-light/90">
-                      <a 
-                        href={`tel:${settings.contact.secondaryPhone}`}
-                        className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
-                        title="Call our secondary number"
-                      >
-                        <FontAwesomeIcon icon={faPhone as IconProp} className="text-temple-gold/90 text-lg w-5" />
-                        <span>{settings.contact.secondaryPhone}</span>
-                      </a>
-                    </p>
-                  )}
-                  <p className="text-temple-light/90">
-                    <a 
-                      href={`mailto:${settings?.contact?.email}`} 
-                      className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
-                      title="Email us"
-                    >
-                      <FontAwesomeIcon icon={faEnvelope as IconProp} className="text-temple-gold/90 text-lg w-5" />
-                      <span>{settings?.contact?.email}</span>
-                    </a>
-                  </p>
+                  </div>
+                  <div>
+                    <p className="text-temple-light/90">{settings?.location?.address}</p>
+                    <p className="text-temple-light/90">{settings?.location?.city}</p>
+                    <p className="text-temple-light/90">{settings?.location?.state} - {settings?.location?.zipCode}</p>
+                  </div>
                 </div>
               </div>
+            </div>
+            <div className="w-full">
+              <h4 className="text-lg font-heading text-temple-gold mb-2 text-center md:text-left">Share this site</h4>
+              <SocialShareButtons />
             </div>
           </div>
 
@@ -139,7 +92,7 @@ export default function Footer({ settings }: FooterProps) {
             </ul>
           </div>
 
-          {/* Temple Hours */}
+          {/* Temple Schedule */}
           <div className="text-center md:text-left">
             <h3 className="text-xl font-heading text-temple-gold mb-6">Temple Schedule</h3>
             <div className="space-y-4 font-sanskrit">
@@ -153,7 +106,6 @@ export default function Footer({ settings }: FooterProps) {
                   ))}
                 </div>
               </div>
-              
               <div>
                 <h4 className="text-lg text-temple-gold/90 mb-2">Weekends</h4>
                 <div className="space-y-1">
@@ -164,7 +116,6 @@ export default function Footer({ settings }: FooterProps) {
                   ))}
                 </div>
               </div>
-
               {settings?.templeHours?.specialNote && (
                 <p className="text-temple-light/70 mt-4 text-sm">
                   * {settings.templeHours.specialNote}
@@ -172,17 +123,73 @@ export default function Footer({ settings }: FooterProps) {
               )}
             </div>
           </div>
-        </div>
 
-        {/* Contact Us Button */}
-        <div className="mt-12 text-center">
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center px-6 py-3 bg-temple-gold text-temple-dark rounded-full font-sanskrit hover:bg-temple-gold/90 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
-          >
-            <FontAwesomeIcon icon={faHeadset as IconProp} className="w-5 h-5 mr-2" />
-            Contact Us
-          </Link>
+          {/* Contact Details & Contact Us */}
+          <div className="text-center md:text-left flex flex-col items-center md:items-start gap-6">
+            <div className="w-full">
+              <h3 className="text-xl font-heading text-temple-gold mb-6">Contact Details</h3>
+              <div className="space-y-2 font-sanskrit text-lg">
+                <p className="text-temple-light/90">
+                  <a 
+                    href={getWhatsAppLink()} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
+                    title="Contact via WhatsApp"
+                    onClick={() => trackWhatsAppClick('general', 'footer')}
+                  >
+                    <FontAwesomeIcon icon={faWhatsapp as IconProp} className="text-[#25D366] text-lg w-5" />
+                    <span>{settings?.contact?.whatsapp}</span>
+                  </a>
+                </p>
+                {settings?.contact?.primaryPhone && (
+                  <div className="text-temple-light/90">
+                    <p className="mb-1 text-temple-gold/90 text-sm">Temple Priest - Sri Mayabrahma Chari</p>
+                    <a 
+                      href={`tel:${settings.contact.primaryPhone}`}
+                      className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
+                      title="Call our primary number"
+                    >
+                      <FontAwesomeIcon icon={faPhone as IconProp} className="text-temple-gold/90 text-lg w-5" />
+                      <span>{settings.contact.primaryPhone}</span>
+                    </a>
+                  </div>
+                )}
+                {settings?.contact?.secondaryPhone && (
+                  <p className="text-temple-light/90">
+                    <a 
+                      href={`tel:${settings.contact.secondaryPhone}`}
+                      className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
+                      title="Call our secondary number"
+                    >
+                      <FontAwesomeIcon icon={faPhone as IconProp} className="text-temple-gold/90 text-lg w-5" />
+                      <span>{settings.contact.secondaryPhone}</span>
+                    </a>
+                  </p>
+                )}
+                <p className="text-temple-light/90">
+                  <a 
+                    href={`mailto:${settings?.contact?.email}`} 
+                    className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"
+                    title="Email us"
+                  >
+                    <FontAwesomeIcon icon={faEnvelope as IconProp} className="text-temple-gold/90 text-lg w-5" />
+                    <span>{settings?.contact?.email}</span>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div className="w-full flex justify-center md:justify-start">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-6 py-3 bg-temple-gold text-temple-dark rounded-full font-sanskrit hover:bg-temple-gold/90 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg w-full md:w-auto"
+                title="Contactus Page"
+              >
+                <FontAwesomeIcon icon={faEnvelope as IconProp} className="w-5 h-5 mr-2" />
+                Contact Us
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Copyright */}

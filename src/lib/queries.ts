@@ -33,6 +33,10 @@ export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     templeName,
     templeInfo,
+    annadanamInfo,
+    eventsInfo,
+    teachingsInfo,
+    getInvolvedInfo,
     location,
     contact,
     templeHours

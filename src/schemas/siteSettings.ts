@@ -13,10 +13,42 @@ export default defineType({
     }),
     defineField({
       name: 'templeInfo',
-      title: 'Temple Information',
+      title: 'Temple Intro/Welcome',
       type: 'array',
       of: [{ type: 'block' }],
       description: 'Rich text content about the temple, its history, and significance',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'annadanamInfo',
+      title: 'Annadanam Info',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Rich text content about the Annadanam',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'eventsInfo',
+      title: 'Events & Festivals Info',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Rich text content about events and festivals',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'teachingsInfo',
+      title: 'Teachings & Community Info',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Rich text content about teachings and community',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'getInvolvedInfo',
+      title: 'Get Involved/Volunteer Info',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Rich text content about getting involved and volunteering',
       validation: Rule => Rule.required()
     }),
     defineField({

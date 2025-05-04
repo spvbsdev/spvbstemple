@@ -9,10 +9,9 @@ import { heroCarouselQuery, faqQuery } from '@/lib/queries';
 import type { HeroCarousel } from '@/lib/queries';
 import { PortableText } from '@portabletext/react';
 import type { SiteSettings } from '@/types/site';
-import LazyYouTube from '@/components/LazyYouTube';
 
 export const metadata = {
-  title: "Sri Veerabrahmendra Swami Temple, Atmakur, Nellore",
+  title: "Veerabrahmendra Swami Temple, Atmakur | Annadanam & Events",
   description: "Discover Sri Veerabrahmendra Swami Temple in Atmakur, Nellore. Annadanam, events, timings, and visitor info.",
   keywords: "veerabrahmendra, temple, atmakur, annadanam, nellore, events, spiritual, bramhamgari temple"
 };
@@ -30,10 +29,18 @@ function HomePageContent({
   heroData,
   faqs,
   templeInfo,
+  annadanamInfo,
+  eventsInfo,
+  teachingsInfo,
+  getInvolvedInfo,
 }: {
   heroData: HeroCarousel;
   faqs: { question: string; answer: string; _id?: string }[];
   templeInfo?: SiteSettings['templeInfo'];
+  annadanamInfo?: SiteSettings['annadanamInfo'];
+  eventsInfo?: SiteSettings['eventsInfo'];
+  teachingsInfo?: SiteSettings['teachingsInfo'];
+  getInvolvedInfo?: SiteSettings['getInvolvedInfo'];
 }) {
   return (
     <div className="min-h-screen">
@@ -62,16 +69,15 @@ function HomePageContent({
             {/* Section Title with Decorative Elements */}
             <div className="text-center mb-16">
               <div className="inline-block">
-                <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading text-temple-primary relative">
-                  <span className="absolute -top-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-temple-primary to-transparent"></span>
-                  Welcome to Our Temple
-                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-temple-primary to-transparent"></span>
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading text-temple-primary tracking-wider leading-tight relative">
+                  <span className="block">Welcome to</span>
+                  <span className="block">Sri Veerabrahmendra Swami Temple, Atmakur</span>
                 </h2>
               </div>
             </div>
 
             {/* Content Container */}
-            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-8 md:p-12 lg:p-16 shadow-xl relative overflow-hidden">
+            <div className="bg-white/90 backdrop-blur-md rounded-2xl p-10 md:p-14 shadow-xl relative overflow-hidden">
               {/* Decorative Corner Elements */}
               <div className="absolute top-0 left-0 w-24 h-24 border-l-4 border-t-4 border-temple-primary/30 rounded-tl-2xl"></div>
               <div className="absolute top-0 right-0 w-24 h-24 border-r-4 border-t-4 border-temple-primary/30 rounded-tr-2xl"></div>
@@ -80,7 +86,7 @@ function HomePageContent({
 
               {/* Main Content */}
               <div className="relative z-10">
-                <div className="prose prose-lg lg:prose-xl 2xl:prose-2xl mx-auto text-temple-text">
+                <div className="prose prose-base text-temple-text leading-relaxed text-left font-normal [&_p]:mb-4">
                   <div className="space-y-8">
                     {templeInfo && <PortableText value={templeInfo} />}
                   </div>
@@ -91,50 +97,23 @@ function HomePageContent({
         </div>
       </div>
 
-      {/* See Our Temple in Action Section */}
-      <section className="bg-temple-dark text-white shadow-lg p-6 text-center w-full">
-        <h2 className="text-3xl md:text-4xl font-heading text-temple-gold mb-8 tracking-wide">
-          See How Your Punya (Merit) Enriches the Temple
-        </h2>
-        <p className="mb-8 text-lg text-temple-gold/80">
-          Your devotion and generosity help sustain our sacred traditions and bring blessings to countless devotees. Watch these moments to witness the divine impact of your support.
-        </p>
-        <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch">
-          <a href="https://youtu.be/JiciDzAPU9M" target="_blank" rel="noopener noreferrer" className="w-full md:max-w-md">
-            <div className="aspect-video rounded-lg overflow-hidden shadow border border-temple-gold/30 bg-temple-overlay">
-              <LazyYouTube videoId="JiciDzAPU9M" title="Temple Location, Exteriors and Interiors" className="w-full h-full" />
-            </div>
-            <div className="mt-3 font-heading text-temple-gold text-lg md:text-xl text-center">
-              Temple Location, Exteriors and Interiors
-            </div>
-          </a>
-          <a href="https://youtu.be/NcxhT_BedMM" target="_blank" rel="noopener noreferrer" className="w-full md:max-w-md">
-            <div className="aspect-video rounded-lg overflow-hidden shadow border border-temple-gold/30 bg-temple-overlay">
-              <LazyYouTube videoId="NcxhT_BedMM" title="Anna Prasadam" className="w-full h-full" />
-            </div>
-            <div className="mt-3 font-heading text-temple-gold text-lg md:text-xl text-center">
-              Anna Prasadam
-            </div>
-          </a>
-          <a href="https://youtu.be/Teb2pELPQk0" target="_blank" rel="noopener noreferrer" className="w-full md:max-w-md">
-            <div className="aspect-video rounded-lg overflow-hidden shadow border border-temple-gold/30 bg-temple-overlay">
-              <LazyYouTube videoId="Teb2pELPQk0" title="Pallaki Seva" className="w-full h-full" />
-            </div>
-            <div className="mt-3 font-heading text-temple-gold text-lg md:text-xl text-center">
-              Pallaki Seva
-            </div>
-          </a>
-        </div>
-      </section>
-
       {/* Services Section */}
       <div className="py-20 bg-white relative">
         <div className="absolute inset-0 bg-texture opacity-5"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-4xl font-heading text-center mb-16 text-temple-primary">Temple Services</h2>
+          <h2 className="text-4xl font-heading text-center mb-6 text-temple-primary tracking-wider">Temple Services</h2>
+          {annadanamInfo && (
+            <div className="flex justify-center mb-12">
+              <div className="relative bg-[#fff9ed] border-l-4 border-temple-primary shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
+                <div className="prose prose-lg text-temple-text leading-relaxed [&_p]:mb-4">
+                  <PortableText value={annadanamInfo} />
+                </div>
+              </div>
+            </div>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {/* Daily Rituals */}
-            <div className="group">
+            <div className="group transition hover:shadow-xl hover:-translate-y-2">
               <div className="bg-temple-light rounded-2xl p-8 shadow-decorative group-hover:shadow-hover transition-all duration-500 transform group-hover:-translate-y-2 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-temple-primary to-temple-accent transform origin-left transition-transform duration-500 scale-x-0 group-hover:scale-x-100"></div>
                 <div className="w-20 h-20 bg-temple-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-temple-accent transition-colors duration-300">
@@ -148,7 +127,7 @@ function HomePageContent({
             </div>
 
             {/* Spiritual Teachings */}
-            <div className="group">
+            <div className="group transition hover:shadow-xl hover:-translate-y-2">
               <div className="bg-temple-light rounded-2xl p-8 shadow-decorative group-hover:shadow-hover transition-all duration-500 transform group-hover:-translate-y-2 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-temple-primary to-temple-accent transform origin-left transition-transform duration-500 scale-x-0 group-hover:scale-x-100"></div>
                 <div className="w-20 h-20 bg-temple-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-temple-accent transition-colors duration-300">
@@ -162,7 +141,7 @@ function HomePageContent({
             </div>
 
             {/* Special Events */}
-            <div className="group">
+            <div className="group transition hover:shadow-xl hover:-translate-y-2">
               <div className="bg-temple-light rounded-2xl p-8 shadow-decorative group-hover:shadow-hover transition-all duration-500 transform group-hover:-translate-y-2 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-temple-primary to-temple-accent transform origin-left transition-transform duration-500 scale-x-0 group-hover:scale-x-100"></div>
                 <div className="w-20 h-20 bg-temple-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-temple-accent transition-colors duration-300">
@@ -182,7 +161,17 @@ function HomePageContent({
       <div className="bg-temple-dark text-white py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-pattern opacity-5"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-4xl font-heading text-center mb-16 text-temple-gold">Upcoming Events</h2>
+          <h2 className="text-4xl font-heading text-center mb-4 text-temple-gold">Upcoming Events</h2>
+          <p className="text-lg text-temple-gold/80 text-center mb-8">Join us for our vibrant festivals and spiritual gatherings.</p>
+          {eventsInfo && (
+            <div className="flex justify-center mb-12">
+              <div className="relative bg-[#181716] border-l-4 border-temple-gold shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
+                <div className="prose prose-lg text-temple-gold leading-relaxed [&_ul]:pl-8 [&_ul]:space-y-2 [&_li]:text-base [&_li]:text-temple-gold [&_li]:list-disc [&_p]:mb-4">
+                  <PortableText value={eventsInfo} />
+                </div>
+              </div>
+            </div>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Monthly Abhishekam */}
             <div className="bg-temple-overlay backdrop-blur-sm p-8 rounded-2xl border border-temple-gold/20 hover:border-temple-gold/50 transition-all duration-500 transform hover:-translate-y-2">
@@ -221,12 +210,18 @@ function HomePageContent({
 
       {/* Call to Action */}
       <div className="bg-temple-light py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-pattern opacity-5"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-4xl font-heading mb-6 text-temple-primary">Join Our Community</h2>
-          <p className="text-xl text-temple-text mb-12 max-w-2xl mx-auto">
-            Be part of our spiritual family and contribute to spreading Sri Veerabrahmendra Swami&apos;s message of peace and wisdom
-          </p>
+          {(teachingsInfo || getInvolvedInfo) && (
+            <div className="flex justify-center mb-12">
+              <div className="relative bg-[#fff9ed] border-l-4 border-temple-primary shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
+                <div className="prose prose-base text-temple-text leading-relaxed text-left font-normal [&_p]:mb-4">
+                  {teachingsInfo && <PortableText value={teachingsInfo} />}
+                  {getInvolvedInfo && <PortableText value={getInvolvedInfo} />}
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <a
               href="/donate"
@@ -303,7 +298,15 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <HomePageContent heroData={heroData} faqs={faqs} templeInfo={siteSettings?.templeInfo} />
+      <HomePageContent
+        heroData={heroData}
+        faqs={faqs}
+        templeInfo={siteSettings?.templeInfo}
+        annadanamInfo={siteSettings?.annadanamInfo}
+        eventsInfo={siteSettings?.eventsInfo}
+        teachingsInfo={siteSettings?.teachingsInfo}
+        getInvolvedInfo={siteSettings?.getInvolvedInfo}
+      />
     </>
   );
 }
