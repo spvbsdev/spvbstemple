@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { YOUTUBE_PLAYLISTS } from '@/constants/youtubePlaylists'
 import GalleryTabs from '@/components/GalleryTabs'
 import { headers } from 'next/headers';
+import LazyYouTube from '@/components/LazyYouTube';
 
 export const revalidate = 60 // Revalidate every minute
 export const dynamic = "force-dynamic";
@@ -140,13 +141,7 @@ export default async function GalleryPage() {
               Featured Video
             </h2>
             <div className="aspect-video w-full rounded-xl overflow-hidden shadow-lg mb-4">
-              <iframe
-                src={`https://www.youtube.com/embed/${featured._id}`}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title={featured.title}
-              />
+              <LazyYouTube videoId={featured._id} title={featured.title} className="w-full h-full" />
             </div>
             <h3 className="text-2xl font-heading text-temple-primary mb-2 text-center">{featured.title}</h3>
           </div>

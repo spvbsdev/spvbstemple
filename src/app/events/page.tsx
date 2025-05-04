@@ -31,7 +31,7 @@ export default async function EventsPage() {
   }, {} as Record<string, Event[]>)
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="w-full flex flex-col items-center px-4 py-12">
       <h1 className="text-4xl font-heading text-[#FF4B26] text-center mb-16">
         Annual Events
       </h1>
@@ -46,7 +46,7 @@ export default async function EventsPage() {
                type === 'shivaratri' ? 'Shiva Ratri' :
                type === 'navaratri' ? 'Navaratri' : type}
             </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 place-items-center">
+            <div className="flex flex-col items-center gap-8">
               {events.map(event => (
                 <div key={event._id} className="w-full max-w-2xl">
                   <EventCard event={event} />
@@ -61,7 +61,7 @@ export default async function EventsPage() {
       {otherEvents.length > 0 && (
         <section className="mt-16">
           <h2 className="text-2xl font-heading text-[#FF4B26] mb-6">Special Events</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 place-items-center">
+          <div className="flex flex-col items-center gap-8">
             {otherEvents.map(event => (
               <div key={event._id} className="w-full max-w-2xl">
                 <EventCard event={event} />
