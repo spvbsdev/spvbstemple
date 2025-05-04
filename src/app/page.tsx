@@ -11,7 +11,7 @@ import { PortableText } from '@portabletext/react';
 import type { SiteSettings } from '@/types/site';
 
 export const metadata = {
-  title: "Veerabrahmendra Swami Temple, Atmakur | Annadanam & Events",
+  title: "Sri Veerabrahmendra Swami Temple, Atmakur",
   description: "Discover Sri Veerabrahmendra Swami Temple in Atmakur, Nellore. Annadanam, events, timings, and visitor info.",
   keywords: "veerabrahmendra, temple, atmakur, annadanam, nellore, events, spiritual, bramhamgari temple"
 };
@@ -44,7 +44,6 @@ function HomePageContent({
 }) {
   return (
     <div className="min-h-screen">
-      <h1 className="sr-only">Sri Veerabrahmendra Swami Temple, Atmakur - Official Website</h1>
       {/* Hero Section */}
       <HeroCarouselComponent images={heroData.images} />
 
@@ -69,10 +68,10 @@ function HomePageContent({
             {/* Section Title with Decorative Elements */}
             <div className="text-center mb-16">
               <div className="inline-block">
-                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading text-temple-primary tracking-wider leading-tight relative">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading text-temple-primary tracking-wider leading-tight relative">
                   <span className="block">Welcome to</span>
                   <span className="block">Sri Veerabrahmendra Swami Temple, Atmakur</span>
-                </h2>
+                </h1>
               </div>
             </div>
 
