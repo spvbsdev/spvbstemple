@@ -2,7 +2,6 @@ import { YOUTUBE_PLAYLISTS } from '@/constants/youtubePlaylists'
 import GalleryTabs from '@/components/GalleryTabs'
 import { headers } from 'next/headers';
 import LazyYouTube from '@/components/LazyYouTube';
-import Seo from '@/components/Seo';
 
 export const revalidate = 60 // Revalidate every minute
 export const dynamic = "force-dynamic";
@@ -133,36 +132,30 @@ export default async function GalleryPage() {
   );
 
   return (
-    <>
-      <Seo
-        keywords="gallery, photos, videos, temple, events, atmakur, nellore, bramhamgari temple"
-        canonicalUrl="https://www.spvbstemple.org/gallery"
-      />
-      <main className="min-h-screen bg-temple-light pt-24 px-2 md:px-0">
-        <h1 className="sr-only">Gallery - Sri Veerabrahmendra Swami Temple, Atmakur</h1>
-        {/* Featured Section */}
-        {featured && (
-          <section className="mb-16">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-heading text-temple-primary text-center mb-4 tracking-tight">
-                Featured Video
-              </h2>
-              <div className="aspect-video w-full rounded-xl overflow-hidden shadow-lg mb-4">
-                <LazyYouTube videoId={featured._id} title={featured.title} className="w-full h-full" />
-              </div>
-              <h3 className="text-2xl font-heading text-temple-primary mb-2 text-center">{featured.title}</h3>
+    <main className="min-h-screen bg-temple-light pt-24 px-2 md:px-0">
+      <h1 className="sr-only">Gallery - Sri Veerabrahmendra Swami Temple, Atmakur</h1>
+      {/* Featured Section */}
+      {featured && (
+        <section className="mb-16">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-heading text-temple-primary text-center mb-4 tracking-tight">
+              Featured Video
+            </h2>
+            <div className="aspect-video w-full rounded-xl overflow-hidden shadow-lg mb-4">
+              <LazyYouTube videoId={featured._id} title={featured.title} className="w-full h-full" />
             </div>
-          </section>
-        )}
-        {/* Tabbed Filter Section */}
-        <GalleryTabs
-          featured={featured}
-          allVideos={allVideos}
-          monthly={monthly}
-          weekly={weekly}
-          playlists={playlistSections}
-        />
-      </main>
-    </>
+            <h3 className="text-2xl font-heading text-temple-primary mb-2 text-center">{featured.title}</h3>
+          </div>
+        </section>
+      )}
+      {/* Tabbed Filter Section */}
+      <GalleryTabs
+        featured={featured}
+        allVideos={allVideos}
+        monthly={monthly}
+        weekly={weekly}
+        playlists={playlistSections}
+      />
+    </main>
   )
 } 

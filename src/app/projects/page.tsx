@@ -1,39 +1,20 @@
-'use client';
-
 export const metadata = {
   title: "Temple Projects | Veerabrahmendra Swami Temple, Atmakur",
   description: "See ongoing and completed projects at Veerabrahmendra Swami Temple, Atmakur, Nellore.",
   keywords: "projects, development, temple, veerabrahmendra, atmakur, nellore, completed, ongoing, bramhamgari temple"
 };
 
-import { useState, useEffect } from 'react';
 import { Project } from '@/types/project';
 import { getProjects } from '@/lib/queries';
 import CompletedProjectGallery from '@/components/CompletedProjectGallery';
 import PriorityProjectCard from '@/components/PriorityProjectCard';
-import Seo from '@/components/Seo';
 
-export default function ProjectsPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const data = await getProjects();
-        setProjects(data);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
+export default async function ProjectsPage() {
+  let projects: Project[] = [];
+  try {
+    projects = await getProjects();
+  } catch (error) {
+    console.error('Error fetching projects:', error);
   }
 
   const priorityProjects = projects.filter(project => project.isHighPriority);
@@ -45,10 +26,6 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <Seo
-        keywords="projects, development, temple, veerabrahmendra, atmakur, nellore, completed, ongoing, bramhamgari temple"
-        canonicalUrl="https://www.spvbstemple.org/projects"
-      />
       <div className="bg-temple-light pb-16">
         <div className="container mx-auto px-4 pt-12 md:pt-16 md:mt-16">
           <div className="text-center mb-16 md:mb-20">
