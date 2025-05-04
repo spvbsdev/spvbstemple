@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { icons } from '@/lib/icons';
@@ -10,31 +9,14 @@ import { heroCarouselQuery, faqQuery } from '@/lib/queries';
 import type { HeroCarousel } from '@/lib/queries';
 import { PortableText } from '@portabletext/react';
 import type { SiteSettings } from '@/types/site';
-import type { FaqItem } from '@/components/FaqAccordion';
 import LazyYouTube from '@/components/LazyYouTube';
+import Seo from '@/components/Seo';
 
-export async function generateMetadata(): Promise<Metadata> {
-  const faqs: FaqItem[] = await client.fetch(faqQuery);
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map((faq) => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer
-      }
-    }))
-  };
-  return {
-    title: 'Sri Veerabrahmendra Swami Temple, Atmakur | Annadanam | Places to Visit in Nellore | SPSR Nellore',
-    description: 'Visit Sri Veerabrahmendra Swami Temple in Atmakur, SPSR Nellore, Nellore district. Famous for Annadanam, spiritual events, and as a must-see place to visit in Nellore. Learn about Veerabrahmhendra Swami, temple timings, and more.',
-    other: {
-      "script:ld+json": JSON.stringify(faqJsonLd)
-    }
-  };
-}
+export const metadata = {
+  title: "Sri Veerabrahmendra Swami Temple, Atmakur | Annadanam & Events",
+  description: "Discover Sri Veerabrahmendra Swami Temple in Atmakur, Nellore. Annadanam, events, timings, and visitor info.",
+  keywords: "veerabrahmendra, temple, atmakur, annadanam, nellore, events, spiritual, bramhamgari temple"
+};
 
 async function fetchHomeData() {
   const [heroData, siteSettings, faqs] = await Promise.all([
@@ -56,6 +38,7 @@ function HomePageContent({
 }) {
   return (
     <div className="min-h-screen">
+      <h1 className="sr-only">Sri Veerabrahmendra Swami Temple, Atmakur - Official Website</h1>
       {/* Hero Section */}
       <HeroCarouselComponent images={heroData.images} />
 
@@ -300,5 +283,32 @@ export default async function HomePage() {
       </div>
     );
   }
-  return <HomePageContent heroData={heroData} faqs={faqs} templeInfo={siteSettings?.templeInfo} />;
+
+  // Build FAQ JSON-LD
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": (faqs as { question: string; answer: string }[]).map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  return (
+    <>
+      <Seo
+        keywords="veerabrahmendra, temple, atmakur, annadanam, nellore, events, spiritual, bramhamgari temple"
+        canonicalUrl="https://www.spvbstemple.org/"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <HomePageContent heroData={heroData} faqs={faqs} templeInfo={siteSettings?.templeInfo} />
+    </>
+  );
 }
