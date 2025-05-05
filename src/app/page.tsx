@@ -9,6 +9,7 @@ import { heroCarouselQuery, faqQuery } from '@/lib/queries';
 import type { HeroCarousel } from '@/lib/queries';
 import { PortableText } from '@portabletext/react';
 import type { SiteSettings } from '@/types/site';
+import { faEnvelope, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 export const metadata = {
   title: "Sri Veerabrahmendra Swami Temple, Atmakur",
@@ -224,18 +225,17 @@ function HomePageContent({
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <a
               href="/donate"
-              className="bg-temple-primary text-white px-8 py-4 rounded-full font-sanskrit hover:bg-temple-secondary transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg inline-flex items-center"
+              className="bg-temple-primary text-white px-8 py-4 rounded-full font-sanskrit hover:bg-temple-secondary transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg inline-flex items-center justify-center"
             >
               Support the Temple
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
+              <FontAwesomeIcon icon={faSyncAlt} className="w-5 h-5 ml-2" />
             </a>
             <a
               href="/contact"
-              className="bg-transparent border-2 border-temple-primary text-temple-primary px-8 py-4 rounded-full font-sanskrit hover:bg-temple-primary hover:text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+              className="bg-temple-primary text-white px-8 py-4 rounded-full font-sanskrit hover:bg-temple-secondary transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg inline-flex items-center justify-center"
             >
               Contact Us
+              <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5 ml-2" />
             </a>
           </div>
         </div>

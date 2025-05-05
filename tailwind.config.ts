@@ -13,19 +13,32 @@ const config: Config = {
       colors: {
         'accent-1': '#FAFAFA',
         'accent-2': '#EAEAEA',
-        'temple-primary': '#8B4513',    // Saddle Brown
+        'temple-primary': '#E62200',    // Accessible Red
         'temple-secondary': '#A0522D',  // Sienna
         'temple-accent': '#CD853F',     // Peru
         'temple-text': '#2D1810',       // Dark Brown
         'temple-muted': '#6B4423',      // Lighter Brown
         'temple-light': '#FFF5EB',      // Antique White
         'temple-gold': '#FFD700',       // Gold
+        'temple': {
+          'primary': '#E62200',
+          'secondary': '#A0522D',
+          'dark': '#1a1a1a',
+          'light': '#FFF6E5',
+          'gold': '#FFD700',
+          'accent': '#FF7043',
+          'text': '#2D1810',
+          'muted': '#6B4423',
+          'divider': '#E2E8F0',
+          'overlay': 'rgba(26, 26, 26, 0.8)',
+        },
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         decorative: ['var(--font-cinzel-decorative)', 'serif'],
         devanagari: ['var(--font-noto-sans-devanagari)', 'sans-serif'],
         heading: ['var(--font-cinzel-decorative)', 'serif'],
+        sanskrit: ['var(--font-noto-sans-devanagari)'],
       },
       fontWeight: {
         normal: '400',
@@ -38,9 +51,23 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'hero-pattern': "linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.7)), url('/images/temple-bg.jpg')",
+        'texture': "url('/images/texture.svg')",
+        'pattern': "url('/images/pattern.svg')",
       },
       boxShadow: {
         'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'decorative': '0 4px 20px rgba(0, 0, 0, 0.08)',
+        'hover': '0 8px 30px rgba(0, 0, 0, 0.12)',
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       typography: {
         DEFAULT: {
