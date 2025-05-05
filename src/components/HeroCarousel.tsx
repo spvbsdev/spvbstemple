@@ -60,7 +60,7 @@ export default function HeroCarousel({ images, captions }: HeroCarouselProps) {
           }).url();
 
           return (
-            <div key={index} className="relative w-full aspect-[4/3] md:aspect-[16/9]">
+            <div key={index} className="relative w-full aspect-[4/3] md:aspect-[16/9] md:min-h-[500px] md:max-h-[750px] md:h-[65vh]">
               <Image
                 src={imageUrl}
                 alt={captions?.[index] || `Hero image ${index + 1}`}
