@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/react';
-import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script';
 import { Inter } from "next/font/google";
 import { Cinzel_Decorative, Noto_Sans_Devanagari } from "next/font/google";
@@ -10,6 +9,7 @@ import Footer from "@/components/Footer";
 import { getSiteSettings } from '@/lib/queries';
 import type { SiteSettings } from '@/types/site';
 import GTMDeferredLoader from '@/components/GTMDeferredLoader';
+import DeferredAnalytics from '@/components/DeferredAnalytics';
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -125,7 +125,7 @@ export default async function RootLayout({
         </main>
         <Footer settings={settings} />
         <Analytics />
-        <GoogleAnalytics gaId="G-3VG5RCYX1X" />
+        <DeferredAnalytics />
       </body>
     </html>
   );

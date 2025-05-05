@@ -1,6 +1,12 @@
 'use client';
 import { useEffect } from 'react';
 
+declare global {
+  interface Window {
+    gtmDidInit?: boolean;
+  }
+}
+
 export default function GTMDeferredLoader() {
   useEffect(() => {
     const loadGTM = () => {
@@ -12,21 +18,12 @@ export default function GTMDeferredLoader() {
       document.head.appendChild(script);
     };
 
-    // Load after 3 seconds
-    const timeout = setTimeout(loadGTM, 3000);
-
-    // Also load after first user interaction
-    window.addEventListener('scroll', loadGTM, { once: true });
-    window.addEventListener('mousemove', loadGTM, { once: true });
-    window.addEventListener('keydown', loadGTM, { once: true });
-    window.addEventListener('touchstart', loadGTM, { once: true });
+    // Only load after first user interaction
+    const events = ['scroll', 'mousemove', 'keydown', 'touchstart', 'click'];
+    events.forEach(event => window.addEventListener(event, loadGTM, { once: true }));
 
     return () => {
-      clearTimeout(timeout);
-      window.removeEventListener('scroll', loadGTM);
-      window.removeEventListener('mousemove', loadGTM);
-      window.removeEventListener('keydown', loadGTM);
-      window.removeEventListener('touchstart', loadGTM);
+      events.forEach(event => window.removeEventListener(event, loadGTM));
     };
   }, []);
 
