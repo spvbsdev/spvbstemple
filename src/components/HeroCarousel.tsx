@@ -40,7 +40,11 @@ export default function HeroCarousel({ images, captions }: HeroCarouselProps) {
   const { width, height } = imageBreakpoints[currentBreakpoint];
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full" aria-labelledby="carousel-instructions">
+      {/* Screen reader instructions */}
+      <span className="sr-only" id="carousel-instructions">
+        Use left and right arrow keys to navigate between images.
+      </span>
       <Carousel
         autoPlay
         infiniteLoop
@@ -48,6 +52,58 @@ export default function HeroCarousel({ images, captions }: HeroCarouselProps) {
         showThumbs={false}
         interval={5000}
         className="w-full"
+        showArrows={true}
+        renderArrowPrev={(onClickHandler, hasPrev) =>
+          hasPrev && (
+            <button
+              type="button"
+              onClick={onClickHandler}
+              className="hidden md:flex absolute left-2 top-1/2 z-10 bg-temple-gold/90 text-temple-primary rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-temple-primary hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-temple-gold"
+              aria-label="Previous Slide"
+              tabIndex={0}
+              style={{ transform: 'translateY(-50%)', fontSize: '2rem', fontWeight: 'bold' }}
+            >
+              {'<'}
+            </button>
+          )
+        }
+        renderArrowNext={(onClickHandler, hasNext) =>
+          hasNext && (
+            <button
+              type="button"
+              onClick={onClickHandler}
+              className="hidden md:flex absolute right-2 top-1/2 z-10 bg-temple-gold/90 text-temple-primary rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-temple-primary hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-temple-gold"
+              aria-label="Next Slide"
+              tabIndex={0}
+              style={{ transform: 'translateY(-50%)', fontSize: '2rem', fontWeight: 'bold' }}
+            >
+              {'>'}
+            </button>
+          )
+        }
+        renderIndicator={(onClickHandler, isSelected, index, label) => {
+          return (
+            <li key={index} style={{ listStyle: 'none', display: 'inline-block' }}>
+              <button
+                type="button"
+                className={
+                  isSelected
+                    ? 'dot selected inline-block mx-1 w-3 h-3 rounded-full bg-temple-primary border-2 border-temple-gold cursor-pointer'
+                    : 'dot inline-block mx-1 w-3 h-3 rounded-full bg-gray-300 border-2 border-temple-gold cursor-pointer'
+                }
+                aria-label={`${label} ${index + 1}`}
+                aria-current={isSelected}
+                tabIndex={0}
+                onClick={e => onClickHandler(e)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    onClickHandler(e);
+                  }
+                }}
+              />
+            </li>
+          );
+        }}
       >
         {images.map((image, index) => {
           const imageQuality = currentBreakpoint === 'mobile' ? 75 : (index === 0 ? 90 : 75);
