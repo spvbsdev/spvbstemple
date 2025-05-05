@@ -8,8 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getSiteSettings } from '@/lib/queries';
 import type { SiteSettings } from '@/types/site';
-import GTMDeferredLoader from '@/components/GTMDeferredLoader';
-import DeferredAnalytics from '@/components/DeferredAnalytics';
+import MarTechDelayedLoader from '@/components/MarTechDelayedLoader';
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -118,14 +117,13 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${cinzelDecorative.variable} ${notoSansDevanagari.variable} font-sans min-h-screen flex flex-col bg-temple-light`}>
-        <GTMDeferredLoader />
+        <MarTechDelayedLoader />
         <Header settings={settings} />
         <main className="flex-grow pt-16 md:pt-20">
           {children}
         </main>
         <Footer settings={settings} />
         <Analytics />
-        <DeferredAnalytics />
       </body>
     </html>
   );
