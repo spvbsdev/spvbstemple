@@ -122,6 +122,7 @@ export default function HeroCarousel({ images, captions }: HeroCarouselProps) {
                 alt={captions?.[index] || `Hero image ${index + 1}`}
                 fill
                 priority={index === 0}
+                fetchPriority={index === 0 ? 'high' : undefined}
                 loading={index === 0 ? 'eager' : 'lazy'}
                 className="object-cover"
                 sizes="100vw"
