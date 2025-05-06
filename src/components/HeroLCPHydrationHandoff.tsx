@@ -13,14 +13,16 @@ export default function HeroLCPHydrationHandoff({
 }) {
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => { setHydrated(true); }, []);
+
+  // Shared wrapper for both SSR and hydrated
   return (
-    <>
-      {images?.[0] && !hydrated && (
-        <div data-ssr-lcp-image>
-          <HeroCarouselFirstImage image={images[0]} caption={captions?.[0]} />
-        </div>
+    <div className="relative w-full aspect-[4/3] md:aspect-[16/9] md:min-h-[500px] md:max-h-[750px] md:h-[65vh]">
+      {!hydrated && images?.[0] && (
+        <HeroCarouselFirstImage image={images[0]} caption={captions?.[0]} />
       )}
-      <HeroCarousel images={images} captions={captions} />
-    </>
+      {hydrated && (
+        <HeroCarousel images={images} captions={captions} />
+      )}
+    </div>
   );
 } 
