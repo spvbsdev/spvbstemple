@@ -71,8 +71,7 @@ function HomePageContent({
             <div className="text-center mb-16">
               <div className="inline-block">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading text-temple-primary tracking-wider leading-tight relative">
-                  <span className="block">Welcome to</span>
-                  <span className="block">Sri Veerabrahmendra Swami Temple, Atmakur</span>
+                  <span className="block">Sri Veerabrahmendra Swami Temple, Atmakur, Nellore</span>
                 </h1>
               </div>
             </div>
