@@ -2,13 +2,13 @@ import Image from 'next/image';
 import { urlForImage, type ImageSource } from '@/lib/sanity.image';
 
 export function HeroCarouselFirstImage({ image, caption }: { image: ImageSource; caption?: string }) {
-  // Use desktop size for SSR; browser will pick best from srcset
-  const width = 1920;
-  const height = 800;
+  // Use tablet size for SSR; browser will pick best from srcset
+  const width = 1024;
+  const height = 640;
   const imageUrl = urlForImage(image, {
     width,
     height,
-    quality: 90,
+    quality: 75,
     format: 'webp',
     fit: 'fillmax',
   }).url();
@@ -30,7 +30,7 @@ export function HeroCarouselFirstImage({ image, caption }: { image: ImageSource;
         fetchPriority="high"
         loading="eager"
         className="object-cover"
-        sizes="100vw"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
         placeholder="blur"
         blurDataURL={blurUrl}
       />
