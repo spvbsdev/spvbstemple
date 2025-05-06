@@ -166,7 +166,7 @@ function HomePageContent({
           {eventsInfo && (
             <div className="flex justify-center mb-12">
               <div className="relative bg-[#181716] border-l-4 border-temple-gold shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
-                <div className="prose prose-lg text-temple-gold leading-relaxed [&_ul]:pl-8 [&_ul]:space-y-2 [&_li]:text-base [&_li]:text-temple-gold [&_li]:list-disc [&_p]:mb-4">
+                <div className="prose prose-lg text-temple-gold leading-relaxed [&_ul]:pl-8 [&_ul]:space-y-2 [&_li]:text-base [&_p]:mb-4">
                   <PortableText value={eventsInfo} />
                 </div>
               </div>
