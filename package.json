@@ -9,11 +9,7 @@
     "lint": "next lint",
     "dev:prod": "NEXT_PUBLIC_SANITY_DATASET=production next dev",
     "dev:development": "NEXT_PUBLIC_SANITY_DATASET=development next dev",
-    "sanity": "sanity dev",
-    "sanity:prod": "SANITY_STUDIO_DATASET=production sanity dev",
-    "sanity:dev": "SANITY_STUDIO_DATASET=development sanity dev",
-    "sanity:deploy": "sanity deploy",
-    "sanity:check": "sanity check"
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -23,8 +19,6 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@next/third-parties": "^15.3.1",
     "@portabletext/react": "^3.2.1",
-    "@sanity/image-url": "^1.1.0",
-    "@sanity/vision": "^3.87.0",
     "@types/react-slick": "^0.23.13",
     "@vercel/analytics": "^1.5.0",
     "next": "15.3.1",
@@ -33,13 +27,12 @@
     "react-dom": "^19.0.0",
     "react-responsive-carousel": "^3.2.23",
     "react-slick": "^0.30.3",
-    "sanity": "^3.87.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.17"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@sanity/cli": "^3.87.0",
+    "@next/bundle-analyzer": "^15.3.1",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",

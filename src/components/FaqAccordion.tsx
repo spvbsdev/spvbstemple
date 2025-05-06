@@ -10,7 +10,7 @@ export interface FaqItem {
 export default function FaqAccordion({ faqs = [] }: { faqs?: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
-    <div className="space-y-4 max-w-2xl mx-auto">
+    <div className="space-y-4 max-w-6xl mx-auto w-full">
       {faqs.map((faq, idx) => {
         const isOpen = openIndex === idx;
         return (

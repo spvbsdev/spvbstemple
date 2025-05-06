@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { icons } from '@/lib/icons';
-import HeroCarouselComponent from '@/components/HeroCarousel';
 import ProjectHighlight from '@/components/ProjectHighlight';
 import FaqAccordionWrapper from '@/components/FaqAccordionWrapper';
 import { client } from '@/lib/sanity.client';
@@ -10,6 +9,8 @@ import type { HeroCarousel } from '@/lib/queries';
 import { PortableText } from '@portabletext/react';
 import type { SiteSettings } from '@/types/site';
 import { faEnvelope, faSyncAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import HeroLCPHydrationHandoff from '@/components/HeroLCPHydrationHandoff';
 
 export const metadata = {
   title: "Sri Veerabrahmendra Swami Temple, Atmakur",
@@ -46,7 +47,7 @@ function HomePageContent({
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <HeroCarouselComponent images={heroData.images} />
+      <HeroLCPHydrationHandoff images={heroData.images} />
 
       {/* Sacred Initiative Section */}
       <section className="py-12 bg-temple-light">
@@ -77,7 +78,7 @@ function HomePageContent({
             </div>
 
             {/* Content Container */}
-            <div className="bg-white/90 backdrop-blur-md rounded-2xl p-10 md:p-14 shadow-xl relative overflow-hidden">
+            <div className="bg-white/90 backdrop-blur-md rounded-2xl p-10 md:p-14 shadow-xl relative overflow-hidden max-w-6xl mx-auto">
               {/* Decorative Corner Elements */}
               <div className="absolute top-0 left-0 w-24 h-24 border-l-4 border-t-4 border-temple-primary/30 rounded-tl-2xl"></div>
               <div className="absolute top-0 right-0 w-24 h-24 border-r-4 border-t-4 border-temple-primary/30 rounded-tr-2xl"></div>
@@ -114,7 +115,7 @@ function HomePageContent({
           <h2 className="text-4xl font-heading text-center mb-6 text-temple-primary tracking-wider">Temple Services</h2>
           {annadanamInfo && (
             <div className="flex justify-center mb-12">
-              <div className="relative bg-[#fff9ed] border-l-4 border-temple-primary shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
+              <div className="relative bg-[#fff9ed] border-l-4 border-temple-primary shadow-xl rounded-2xl px-10 py-8 max-w-6xl mx-auto">
                 <div className="prose prose-lg text-temple-text leading-normal [&_p]:mb-4">
                   <PortableText value={annadanamInfo} />
                 </div>
@@ -174,8 +175,8 @@ function HomePageContent({
           <h2 className="text-4xl font-heading text-center mb-4 text-temple-gold">Upcoming Events</h2>
           <p className="text-lg text-temple-gold/80 text-center mb-8">Join us for our vibrant festivals and spiritual gatherings.</p>
           {eventsInfo && (
-            <div className="flex justify-center mb-12">
-              <div className="relative bg-[#181716] border-l-4 border-temple-gold shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
+            <div className="mb-12">
+              <div className="relative bg-[#181716] border-l-4 border-temple-gold shadow-xl rounded-2xl px-10 py-8 max-w-6xl mx-auto">
                 <div className="prose prose-lg text-temple-gold leading-normal [&_ul]:pl-8 [&_ul]:space-y-2 [&_li]:text-base [&_p]:mb-4">
                   <PortableText value={eventsInfo} />
                 </div>
@@ -184,7 +185,7 @@ function HomePageContent({
           )}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Monthly Abhishekam */}
-            <div className="bg-temple-overlay backdrop-blur-sm p-8 rounded-2xl border border-temple-gold/20 hover:border-temple-gold/50 transition-all duration-500 transform hover:-translate-y-2">
+            <div className="relative bg-temple-overlay backdrop-blur-sm p-8 rounded-2xl border border-temple-gold/20 hover:border-temple-gold/50 transition-all duration-500 transform hover:-translate-y-2 max-w-6xl mx-auto">
               <div className="text-temple-gold text-4xl mb-4 flex justify-center">
                 <FontAwesomeIcon icon={icons.pray as IconProp} className="w-12 h-12" />
               </div>
@@ -194,7 +195,7 @@ function HomePageContent({
             </div>
 
             {/* Spiritual Discourse */}
-            <div className="bg-temple-overlay backdrop-blur-sm p-8 rounded-2xl border border-temple-gold/20 hover:border-temple-gold/50 transition-all duration-500 transform hover:-translate-y-2">
+            <div className="relative bg-temple-overlay backdrop-blur-sm p-8 rounded-2xl border border-temple-gold/20 hover:border-temple-gold/50 transition-all duration-500 transform hover:-translate-y-2 max-w-6xl mx-auto">
               <div className="text-temple-gold text-4xl mb-4 flex justify-center">
                 <FontAwesomeIcon icon={icons.om as IconProp} className="w-12 h-12" />
               </div>
@@ -204,7 +205,7 @@ function HomePageContent({
             </div>
 
             {/* Annual Festival */}
-            <div className="bg-temple-overlay backdrop-blur-sm p-8 rounded-2xl border border-temple-gold/20 hover:border-temple-gold/50 transition-all duration-500 transform hover:-translate-y-2">
+            <div className="relative bg-temple-overlay backdrop-blur-sm p-8 rounded-2xl border border-temple-gold/20 hover:border-temple-gold/50 transition-all duration-500 transform hover:-translate-y-2 max-w-6xl mx-auto">
               <div className="text-temple-gold text-4xl mb-4 flex justify-center">
                 <FontAwesomeIcon icon={icons.star as IconProp} className="w-12 h-12" />
               </div>
@@ -230,20 +231,18 @@ function HomePageContent({
       </div>
 
       {/* Call to Action */}
-      <div className="bg-temple-light py-20 relative overflow-hidden">
+      <div className="bg-white py-20 relative overflow-hidden">
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-4xl font-heading mb-6 text-temple-primary">Join Our Community</h2>
           {(teachingsInfo || getInvolvedInfo) && (
-            <div className="flex justify-center mb-12">
-              <div className="relative bg-[#fff9ed] border-l-4 border-temple-primary shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
-                <div className="prose prose-base text-temple-text leading-normal text-left font-normal [&_p]:mb-4">
-                  {teachingsInfo && <PortableText value={teachingsInfo} />}
-                  {getInvolvedInfo && <PortableText value={getInvolvedInfo} />}
-                </div>
+            <div className="relative bg-[#fff9ed] border-l-4 border-temple-primary shadow-xl rounded-2xl px-10 py-8 max-w-6xl mx-auto">
+              <div className="prose prose-base prose-p:mb-2 text-temple-text leading-normal text-left font-normal">
+                {teachingsInfo && <PortableText value={teachingsInfo} />}
+                {getInvolvedInfo && <PortableText value={getInvolvedInfo} />}
               </div>
             </div>
           )}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-16">
             <a
               href="/donate"
               className="bg-temple-primary text-white px-8 py-4 rounded-full font-sanskrit hover:bg-temple-secondary transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg inline-flex items-center justify-center"
@@ -263,23 +262,26 @@ function HomePageContent({
       </div>
 
       {/* FAQ Section */}
+      <hr className="my-16 border-t-4 border-temple-primary/80 rounded-full" />
       <section className="faq-section py-12 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-heading text-temple-primary mb-8 text-center">Frequently Asked Questions</h2>
-          <FaqAccordionWrapper
-            faqs={
-              Array.isArray(faqs)
-                ? faqs.map((faq, idx) => {
-                    const _id = typeof (faq as { _id?: string })._id === 'string' ? (faq as { _id: string })._id : `faq-${idx}`;
-                    return {
-                      _id,
-                      question: faq.question,
-                      answer: faq.answer,
-                    };
-                  })
-                : []
-            }
-          />
+          <div className="max-w-6xl mx-auto">
+            <FaqAccordionWrapper
+              faqs={
+                Array.isArray(faqs)
+                  ? faqs.map((faq, idx) => {
+                      const _id = typeof (faq as { _id?: string })._id === 'string' ? (faq as { _id: string })._id : `faq-${idx}`;
+                      return {
+                        _id,
+                        question: faq.question,
+                        answer: faq.answer,
+                      };
+                    })
+                  : []
+              }
+            />
+          </div>
         </div>
       </section>
     </div>
