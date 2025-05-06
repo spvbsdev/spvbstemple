@@ -1,5 +1,8 @@
 import CoreTeachings from '@/components/CoreTeachings';
 import Image from 'next/image';
+import FaqAccordionWrapper from '@/components/FaqAccordionWrapper';
+import { client } from '@/lib/sanity.client';
+import { faqQuery } from '@/lib/queries';
 
 export const metadata = {
   title: "About Veerabrahmendra Swami | Atmakur Temple, Nellore",
@@ -7,10 +10,11 @@ export const metadata = {
   keywords: "veerabrahmendra, swami, about, biography, teachings, atmakur, nellore, bramhamgari temple"
 };
 
-export default function About() {
+export default async function About() {
+  const faqs = await client.fetch(faqQuery);
   return (
     <>
-      <div className="min-h-screen bg-temple-light">
+      <div className={`min-h-screen bg-temple-light `}>
         {/* Hero Section */}
         <div className="bg-temple-dark text-white py-24 relative overflow-hidden">
           <div className="absolute inset-0 bg-pattern opacity-10"></div>
@@ -157,12 +161,12 @@ export default function About() {
                 <p className="leading-relaxed">
                   Some of his notable prophecies include:
                 </p>
-                <ul className="list-disc pl-6 space-y-4">
+                <ul className="pl-6 space-y-4 list-none">
                   <li>The emergence of women as powerful leaders ruling nations</li>
                   <li>Significant global climate events including droughts and famines</li>
                   <li>Democratic transformations where rulers would bow to public will</li>
                   <li>Divine manifestations at sacred temples:
-                    <ul className="list-disc pl-6 mt-2">
+                    <ul className="pl-6 mt-2 list-none">
                       <li>The Thiruvallur Veera Raghava Swamy idol showing signs of perspiration</li>
                       <li>Tears flowing from the Kanchi Kamakshi idol</li>
                       <li>Movement in the right hand of Lord Venkateswara at Tirupati</li>
@@ -229,6 +233,27 @@ export default function About() {
             </div>
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <section className="faq-section py-12 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-heading text-temple-primary mb-8 text-center">Frequently Asked Questions</h2>
+            <FaqAccordionWrapper
+              faqs={
+                Array.isArray(faqs)
+                  ? faqs.map((faq, idx) => {
+                      const _id = typeof (faq as { _id?: string })._id === 'string' ? (faq as { _id: string })._id : `faq-${idx}`;
+                      return {
+                        _id,
+                        question: faq.question,
+                        answer: faq.answer,
+                      };
+                    })
+                  : []
+              }
+            />
+          </div>
+        </section>
       </div>
     </>
   );

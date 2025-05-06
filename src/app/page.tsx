@@ -9,7 +9,7 @@ import { heroCarouselQuery, faqQuery } from '@/lib/queries';
 import type { HeroCarousel } from '@/lib/queries';
 import { PortableText } from '@portabletext/react';
 import type { SiteSettings } from '@/types/site';
-import { faEnvelope, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faSyncAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 export const metadata = {
   title: "Sri Veerabrahmendra Swami Temple, Atmakur",
@@ -86,12 +86,22 @@ function HomePageContent({
 
               {/* Main Content */}
               <div className="relative z-10">
-                <div className="prose prose-base text-temple-text leading-relaxed text-left font-normal [&_p]:mb-4">
+                <div className="prose prose-base text-temple-text leading-normal text-left font-normal [&_p]:mb-4">
                   <div className="space-y-8">
                     {templeInfo && <PortableText value={templeInfo} />}
                   </div>
                 </div>
               </div>
+            </div>
+            {/* CTA to Gallery */}
+            <div className="flex justify-center mt-10">
+              <a
+                href="/gallery"
+                className="w-full max-w-xl text-center bg-[#e32605] text-white text-xl md:text-2xl font-semibold rounded-lg py-4 transition-colors duration-200 hover:bg-[#c41f04] focus:outline-none focus:ring-4 focus:ring-[#FF4B26]/40"
+                aria-label="Explore Temple Videos"
+              >
+                Explore Temple Videos
+              </a>
             </div>
           </div>
         </div>
@@ -105,7 +115,7 @@ function HomePageContent({
           {annadanamInfo && (
             <div className="flex justify-center mb-12">
               <div className="relative bg-[#fff9ed] border-l-4 border-temple-primary shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
-                <div className="prose prose-lg text-temple-text leading-relaxed [&_p]:mb-4">
+                <div className="prose prose-lg text-temple-text leading-normal [&_p]:mb-4">
                   <PortableText value={annadanamInfo} />
                 </div>
               </div>
@@ -166,7 +176,7 @@ function HomePageContent({
           {eventsInfo && (
             <div className="flex justify-center mb-12">
               <div className="relative bg-[#181716] border-l-4 border-temple-gold shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
-                <div className="prose prose-lg text-temple-gold leading-relaxed [&_ul]:pl-8 [&_ul]:space-y-2 [&_li]:text-base [&_p]:mb-4">
+                <div className="prose prose-lg text-temple-gold leading-normal [&_ul]:pl-8 [&_ul]:space-y-2 [&_li]:text-base [&_p]:mb-4">
                   <PortableText value={eventsInfo} />
                 </div>
               </div>
@@ -205,6 +215,17 @@ function HomePageContent({
               </a>
             </div>
           </div>
+          {/* CTA to Events Page - Black & Gold Style */}
+          <div className="flex justify-center mt-8">
+            <a
+              href="/events"
+              className="w-fit flex items-center gap-3 bg-[#FFD600] text-black text-lg md:text-xl rounded-full px-8 py-3 transition-colors duration-200 hover:bg-yellow-400 focus:outline-none focus:ring-4 focus:ring-yellow-300"
+              aria-label="Explore Events"
+            >
+              <FontAwesomeIcon icon={faCalendarAlt} className="w-6 h-6" />
+              Explore Events
+            </a>
+          </div>
         </div>
       </div>
 
@@ -215,7 +236,7 @@ function HomePageContent({
           {(teachingsInfo || getInvolvedInfo) && (
             <div className="flex justify-center mb-12">
               <div className="relative bg-[#fff9ed] border-l-4 border-temple-primary shadow-xl rounded-2xl px-10 py-8 max-w-3xl w-full">
-                <div className="prose prose-base text-temple-text leading-relaxed text-left font-normal [&_p]:mb-4">
+                <div className="prose prose-base text-temple-text leading-normal text-left font-normal [&_p]:mb-4">
                   {teachingsInfo && <PortableText value={teachingsInfo} />}
                   {getInvolvedInfo && <PortableText value={getInvolvedInfo} />}
                 </div>
