@@ -12,6 +12,7 @@ import {
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import type { SiteSettings } from '@/types/site';
 import { trackWhatsAppContact } from '@/lib/analytics';
+import { useState, useEffect } from 'react';
 
 interface DonationCategoriesProps {
   settings: SiteSettings | null;
@@ -20,7 +21,7 @@ interface DonationCategoriesProps {
 const categories = [
   {
     title: "Palliki Seva & Anna Prasadam",
-    amount: "₹10,800",
+    amount: 10800,
     description: "Participate in Palliki Seva and offer Anna Prasadam for up to 300 devotees on any given Monday.",
     note: "Contact us on WhatsApp to book your slot",
     icon: faCalendarDay,
@@ -28,14 +29,14 @@ const categories = [
   },
   {
     title: "Lifetime Patron",
-    amount: "₹1,00,000+",
+    amount: 100000,
     description: "Become a permanent patron. A Monday Palliki Seva and Anna Prasadam for up to 300 devotees will be performed in your name for lifetime.",
     icon: faInfinity,
     hasWhatsApp: true
   },
   {
     title: "Nithya Pooja",
-    amount: "₹3,116",
+    amount: 3116,
     description: "Lifetime Nithya Pooja will be performed on a day of your choice every year.",
     icon: faPrayingHands,
     hasWhatsApp: true
@@ -50,6 +51,44 @@ const annualEvents = [
 ];
 
 export default function DonationCategories({ settings }: DonationCategoriesProps) {
+  const [userCurrency, setUserCurrency] = useState<string>('');
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  const [currencyError, setCurrencyError] = useState(false);
+
+  useEffect(() => {
+    // 1. Detect user currency
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        const currency = data.currency || '';
+        if (currency && currency !== 'INR') {
+          setUserCurrency(currency);
+          // 2. Fetch exchange rate
+          fetch(`https://api.exchangerate.host/latest?base=INR&symbols=${currency}`)
+            .then(res => res.json())
+            .then(rateData => {
+              if (rateData && rateData.rates && rateData.rates[currency]) {
+                setExchangeRate(rateData.rates[currency]);
+              } else {
+                setCurrencyError(true);
+              }
+            })
+            .catch(() => setCurrencyError(true));
+        } else {
+          setUserCurrency('INR');
+        }
+      })
+      .catch(() => setCurrencyError(true));
+  }, []);
+
+  const formatINR = (amount: number) =>
+    amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+
+  const formatLocal = (amount: number) =>
+    userCurrency && userCurrency !== 'INR'
+      ? amount.toLocaleString(undefined, { style: 'currency', currency: userCurrency, minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      : '';
+
   const getWhatsAppLink = () => {
     if (!settings?.contact?.whatsapp) return '#';
     const message = encodeURIComponent("Namaste! I would like to inquire about the Palliki Seva slot booking.");
@@ -73,7 +112,12 @@ export default function DonationCategories({ settings }: DonationCategoriesProps
               {category.title}
             </h3>
             <p className="text-2xl font-sanskrit text-temple-primary text-center mb-4">
-              {category.amount}
+              {formatINR(category.amount)}
+              {userCurrency && userCurrency !== 'INR' && exchangeRate && !currencyError && (
+                <span style={{ color: 'red', marginLeft: 8 }}>
+                  ({formatLocal(category.amount * exchangeRate)} )
+                </span>
+              )}
             </p>
             <p className="text-temple-text text-center mb-4">
               {category.description}
