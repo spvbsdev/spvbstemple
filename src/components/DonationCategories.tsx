@@ -12,6 +12,7 @@ import {
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import type { SiteSettings } from '@/types/site';
 import { trackWhatsAppContact } from '@/lib/analytics';
+import { useState, useEffect } from 'react';
 
 interface DonationCategoriesProps {
   settings: SiteSettings | null;
@@ -20,7 +21,7 @@ interface DonationCategoriesProps {
 const categories = [
   {
     title: "Palliki Seva & Anna Prasadam",
-    amount: "₹10,800",
+    amount: 10800,
     description: "Participate in Palliki Seva and offer Anna Prasadam for up to 300 devotees on any given Monday.",
     note: "Contact us on WhatsApp to book your slot",
     icon: faCalendarDay,
@@ -28,14 +29,14 @@ const categories = [
   },
   {
     title: "Lifetime Patron",
-    amount: "₹1,00,000+",
+    amount: 100000,
     description: "Become a permanent patron. A Monday Palliki Seva and Anna Prasadam for up to 300 devotees will be performed in your name for lifetime.",
     icon: faInfinity,
     hasWhatsApp: true
   },
   {
     title: "Nithya Pooja",
-    amount: "₹3,116",
+    amount: 3116,
     description: "Lifetime Nithya Pooja will be performed on a day of your choice every year.",
     icon: faPrayingHands,
     hasWhatsApp: true
@@ -49,7 +50,69 @@ const annualEvents = [
   "Navaratri"
 ];
 
+// Add your exchangerate.host API key here if you have one
+const EXCHANGE_RATE_API_KEY = process.env.NEXT_PUBLIC_EXCHANGERATE_HOST_KEY || '';
+
 export default function DonationCategories({ settings }: DonationCategoriesProps) {
+  const [userCurrency, setUserCurrency] = useState<string>('');
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  const [currencyError, setCurrencyError] = useState(false);
+
+  useEffect(() => {
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        const currency = data.currency;
+        if (currency && currency !== 'INR' && /^[A-Z]{3}$/.test(currency)) {
+          setUserCurrency(currency);
+          // 2. Fetch exchange rate
+          let url = '';
+          if (EXCHANGE_RATE_API_KEY) {
+            url = `https://api.exchangerate.host/latest?base=INR&symbols=${currency}&api_key=${EXCHANGE_RATE_API_KEY}`;
+          } else {
+            url = `https://open.er-api.com/v6/latest/INR`;
+          }
+          fetch(url)
+            .then(res => res.json())
+            .then(rateData => {
+              let rate = null;
+              if (EXCHANGE_RATE_API_KEY) {
+                // exchangerate.host format
+                if (rateData && rateData.success && rateData.rates && rateData.rates[currency]) {
+                  rate = rateData.rates[currency];
+                }
+              } else {
+                // open.er-api.com format
+                if (rateData && rateData.result === 'success' && rateData.rates && rateData.rates[currency]) {
+                  rate = rateData.rates[currency];
+                }
+              }
+              if (rate) {
+                setExchangeRate(rate);
+              } else {
+                setCurrencyError(true);
+              }
+            })
+            .catch(() => {
+              setCurrencyError(true);
+            });
+        } else {
+          setUserCurrency('INR');
+        }
+      })
+      .catch(() => {
+        setCurrencyError(true);
+      });
+  }, []);
+
+  const formatINR = (amount: number) =>
+    amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+
+  const formatLocal = (amount: number) =>
+    userCurrency && userCurrency !== 'INR'
+      ? amount.toLocaleString(undefined, { style: 'currency', currency: userCurrency, minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      : '';
+
   const getWhatsAppLink = () => {
     if (!settings?.contact?.whatsapp) return '#';
     const message = encodeURIComponent("Namaste! I would like to inquire about the Palliki Seva slot booking.");
@@ -72,8 +135,13 @@ export default function DonationCategories({ settings }: DonationCategoriesProps
             <h3 className="text-xl font-heading text-temple-primary text-center mb-2">
               {category.title}
             </h3>
-            <p className="text-2xl font-sanskrit text-temple-primary text-center mb-4">
-              {category.amount}
+            <p className="text-center font-sanskrit mb-4">
+              <span className="block text-xl md:text-2xl text-temple-primary">{formatINR(category.amount)}</span>
+              {userCurrency && userCurrency !== 'INR' && exchangeRate && !currencyError && (
+                <span className="block text-base md:text-lg text-green-600">
+                  ({formatLocal(category.amount * exchangeRate)})
+                </span>
+              )}
             </p>
             <p className="text-temple-text text-center mb-4">
               {category.description}
