@@ -9,6 +9,14 @@ export interface FaqItem {
 
 export default function FaqAccordion({ faqs = [] }: { faqs?: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // Responsive check for mobile
+  const [isMobile, setIsMobile] = React.useState(false);
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   return (
     <div className="space-y-4 max-w-6xl mx-auto w-full">
       {faqs.map((faq, idx) => {
@@ -28,7 +36,7 @@ export default function FaqAccordion({ faqs = [] }: { faqs?: FaqItem[] }) {
               id={`faq-panel-${idx}`}
               className="px-6 bg-white overflow-hidden transition-all duration-500"
               style={{
-                maxHeight: isOpen ? 200 : 0,
+                maxHeight: isOpen ? (isMobile ? '1000px' : 200) : 0,
                 paddingBottom: isOpen ? 16 : 0,
                 transition: 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding-bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
