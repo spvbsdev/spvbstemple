@@ -61,38 +61,46 @@ export default async function DonatePage(props: PageProps) {
             </div>
           </div>
 
-          {/* See Our Temple in Action Section */}
-          <section className="my-12 bg-temple-light rounded-xl shadow-lg p-6 text-center">
-            <h2 className="text-2xl font-heading text-temple-primary mb-4">
-              See How Your Punya (Merit) Enriches the Temple
-            </h2>
-            <p className="mb-6 text-temple-text">
-              Your devotion and generosity help sustain our sacred traditions and bring blessings to countless devotees. Watch these moments to witness the divine impact of your support.
-            </p>
-            <div className="flex flex-col md:flex-row gap-6 justify-center">
-              <a href="https://youtu.be/JiciDzAPU9M" target="_blank" rel="noopener noreferrer" className="flex-1">
-                <div className="aspect-video rounded-lg overflow-hidden shadow">
-                  <LazyYouTube videoId="JiciDzAPU9M" title="Temple Location, Exteriors and Interiors" className="w-full h-full" />
-                </div>
-                <div className="mt-2 font-semibold text-temple-primary">Temple Location, Exteriors and Interiors</div>
-              </a>
-              <a href="https://youtu.be/NcxhT_BedMM" target="_blank" rel="noopener noreferrer" className="flex-1">
-                <div className="aspect-video rounded-lg overflow-hidden shadow">
-                  <LazyYouTube videoId="NcxhT_BedMM" title="Anna Prasadam" className="w-full h-full" />
-                </div>
-                <div className="mt-2 font-semibold text-temple-primary">Anna Prasadam</div>
-              </a>
-              <a href="https://youtu.be/Teb2pELPQk0" target="_blank" rel="noopener noreferrer" className="flex-1">
-                <div className="aspect-video rounded-lg overflow-hidden shadow">
-                  <LazyYouTube videoId="Teb2pELPQk0" title="Pallaki Seva" className="w-full h-full" />
-                </div>
-                <div className="mt-2 font-semibold text-temple-primary">Pallaki Seva</div>
-              </a>
-            </div>
-          </section>
+ 
 
           {/* Main Content Grid */}
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
+
+            {/* left Column */}
+            <div className="space-y-8">
+              {/* Make a General Donation */}
+              <div className="bg-white rounded-xl shadow-decorative p-8">
+                <h2 className="text-2xl font-heading text-temple-primary text-center mb-6">
+                  Make a Donation
+                </h2>
+
+                {project && (
+                  <p className="text-temple-text text-center mb-8">
+                    {project.description}
+                  </p>
+                )}
+
+                {!project && (
+                  <p className="text-temple-text text-center mb-8">
+                    Your generous contribution helps us maintain and develop our temple facilities,
+                    conduct religious ceremonies, and serve our community better.
+                  </p>
+                )}
+
+                <DonationForm
+                  projectId={project?._id}
+                />
+              </div>
+
+              {/* Quick Donation Options */}
+              <div className="bg-white rounded-xl shadow-decorative p-8">
+                <h2 className="text-2xl font-heading text-temple-primary text-center mb-8">
+                  Seva & Donation Categories
+                </h2>
+                <DonationCategories settings={settings} />
+              </div>
+            </div>
+
             {/* Left Column */}
             <div className="space-y-8">
               {/* Temple Development Section */}
@@ -108,7 +116,7 @@ export default async function DonatePage(props: PageProps) {
                       Through the generous donations of our devotees, we have successfully completed several 
                       essential infrastructure projects:
                     </p>
-                    <ul className="list-disc pl-6 space-y-2">
+                    <ul className="list-none pl-6 space-y-2">
                       <li>Core Temple Structure: Sikharam, Dhwaja Stabham, Mandapam, Antharalayam, and Garbhagudi</li>
                       <li>Support Facilities: Temple Kitchen and Storage Room</li>
                       <li>Worship Areas: Navagraha Mandapam</li>
@@ -168,41 +176,37 @@ export default async function DonatePage(props: PageProps) {
               </div>
             </div>
 
-            {/* Right Column */}
-            <div className="space-y-8">
-              {/* Make a General Donation */}
-              <div className="bg-white rounded-xl shadow-decorative p-8">
-                <h2 className="text-2xl font-heading text-temple-primary text-center mb-6">
-                  Make a Donation
-                </h2>
-
-                {project && (
-                  <p className="text-temple-text text-center mb-8">
-                    {project.description}
-                  </p>
-                )}
-
-                {!project && (
-                  <p className="text-temple-text text-center mb-8">
-                    Your generous contribution helps us maintain and develop our temple facilities,
-                    conduct religious ceremonies, and serve our community better.
-                  </p>
-                )}
-
-                <DonationForm
-                  projectId={project?._id}
-                />
-              </div>
-
-              {/* Quick Donation Options */}
-              <div className="bg-white rounded-xl shadow-decorative p-8">
-                <h2 className="text-2xl font-heading text-temple-primary text-center mb-8">
-                  Seva & Donation Categories
-                </h2>
-                <DonationCategories settings={settings} />
-              </div>
-            </div>
           </div>
+
+                   {/* See Our Temple in Action Section */}
+                   <section className="my-12 bg-temple-light rounded-xl shadow-lg p-6 text-center">
+            <h2 className="text-2xl font-heading text-temple-primary mb-4">
+              See How Your Donations Enriches the Temple
+            </h2>
+            <p className="mb-6 text-temple-text">
+              Your devotion and generosity help sustain our sacred traditions and bring blessings to countless devotees. Watch these moments to witness the divine impact of your support.
+            </p>
+            <div className="flex flex-col md:flex-row gap-6 justify-center">
+              <a href="https://youtu.be/JiciDzAPU9M" target="_blank" rel="noopener noreferrer" className="flex-1">
+                <div className="aspect-video rounded-lg overflow-hidden shadow">
+                  <LazyYouTube videoId="JiciDzAPU9M" title="Temple Location, Exteriors and Interiors" className="w-full h-full" />
+                </div>
+                <div className="mt-2 font-semibold text-temple-primary">Temple Location, Exteriors and Interiors</div>
+              </a>
+              <a href="https://youtu.be/NcxhT_BedMM" target="_blank" rel="noopener noreferrer" className="flex-1">
+                <div className="aspect-video rounded-lg overflow-hidden shadow">
+                  <LazyYouTube videoId="NcxhT_BedMM" title="Anna Prasadam" className="w-full h-full" />
+                </div>
+                <div className="mt-2 font-semibold text-temple-primary">Anna Prasadam</div>
+              </a>
+              <a href="https://youtu.be/Teb2pELPQk0" target="_blank" rel="noopener noreferrer" className="flex-1">
+                <div className="aspect-video rounded-lg overflow-hidden shadow">
+                  <LazyYouTube videoId="Teb2pELPQk0" title="Pallaki Seva" className="w-full h-full" />
+                </div>
+                <div className="mt-2 font-semibold text-temple-primary">Pallaki Seva</div>
+              </a>
+            </div>
+          </section>
         </div>
       </div>
     </>
