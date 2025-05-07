@@ -50,35 +50,59 @@ const annualEvents = [
   "Navaratri"
 ];
 
+// Add your exchangerate.host API key here if you have one
+const EXCHANGE_RATE_API_KEY = process.env.NEXT_PUBLIC_EXCHANGERATE_HOST_KEY || '';
+
 export default function DonationCategories({ settings }: DonationCategoriesProps) {
   const [userCurrency, setUserCurrency] = useState<string>('');
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [currencyError, setCurrencyError] = useState(false);
 
   useEffect(() => {
-    // 1. Detect user currency
     fetch('https://ipapi.co/json/')
       .then(res => res.json())
       .then(data => {
-        const currency = data.currency || '';
-        if (currency && currency !== 'INR') {
+        const currency = data.currency;
+        if (currency && currency !== 'INR' && /^[A-Z]{3}$/.test(currency)) {
           setUserCurrency(currency);
           // 2. Fetch exchange rate
-          fetch(`https://api.exchangerate.host/latest?base=INR&symbols=${currency}`)
+          let url = '';
+          if (EXCHANGE_RATE_API_KEY) {
+            url = `https://api.exchangerate.host/latest?base=INR&symbols=${currency}&api_key=${EXCHANGE_RATE_API_KEY}`;
+          } else {
+            url = `https://open.er-api.com/v6/latest/INR`;
+          }
+          fetch(url)
             .then(res => res.json())
             .then(rateData => {
-              if (rateData && rateData.rates && rateData.rates[currency]) {
-                setExchangeRate(rateData.rates[currency]);
+              let rate = null;
+              if (EXCHANGE_RATE_API_KEY) {
+                // exchangerate.host format
+                if (rateData && rateData.success && rateData.rates && rateData.rates[currency]) {
+                  rate = rateData.rates[currency];
+                }
+              } else {
+                // open.er-api.com format
+                if (rateData && rateData.result === 'success' && rateData.rates && rateData.rates[currency]) {
+                  rate = rateData.rates[currency];
+                }
+              }
+              if (rate) {
+                setExchangeRate(rate);
               } else {
                 setCurrencyError(true);
               }
             })
-            .catch(() => setCurrencyError(true));
+            .catch(() => {
+              setCurrencyError(true);
+            });
         } else {
           setUserCurrency('INR');
         }
       })
-      .catch(() => setCurrencyError(true));
+      .catch(() => {
+        setCurrencyError(true);
+      });
   }, []);
 
   const formatINR = (amount: number) =>
@@ -111,11 +135,11 @@ export default function DonationCategories({ settings }: DonationCategoriesProps
             <h3 className="text-xl font-heading text-temple-primary text-center mb-2">
               {category.title}
             </h3>
-            <p className="text-2xl font-sanskrit text-temple-primary text-center mb-4">
-              {formatINR(category.amount)}
+            <p className="text-center font-sanskrit mb-4">
+              <span className="block text-xl md:text-2xl text-temple-primary">{formatINR(category.amount)}</span>
               {userCurrency && userCurrency !== 'INR' && exchangeRate && !currencyError && (
-                <span style={{ color: 'red', marginLeft: 8 }}>
-                  ({formatLocal(category.amount * exchangeRate)} )
+                <span className="block text-base md:text-lg text-green-600">
+                  ({formatLocal(category.amount * exchangeRate)})
                 </span>
               )}
             </p>
