@@ -12,11 +12,11 @@ interface DonationFormProps {
 }
 
 const BANK_DETAILS = {
-  account_number: '3757020206123',
+  account_number: '37570206123',
   ifsc: 'SBIN0021921',
-  beneficiary_name: 'Sri Pothuluri Veerabrahmendra Swamivari Devasthanam Trust',
+  beneficiary_name: 'Sri Madvirat Pothuluri Veerabrahmendra Swami Temple Trust',
   bank_name: 'State Bank of India',
-  branch_name: 'Atmakur'
+  branch_name: 'Atmakur Town, Nellore District'
 };
 
 export default function DonationForm({ projectId }: DonationFormProps) {
