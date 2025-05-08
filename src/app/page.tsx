@@ -11,12 +11,11 @@ import type { SiteSettings } from '@/types/site';
 import { faEnvelope, faSyncAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import HeroLCPHydrationHandoff from '@/components/HeroLCPHydrationHandoff';
+import { getPageMetadata } from '@/lib/getPageMetadata';
 
-export const metadata = {
-  title: "Sri Veerabrahmendra Swami Temple, Atmakur",
-  description: "Discover Sri Veerabrahmendra Swami Temple in Atmakur, Nellore. Annadanam, events, timings, and visitor info.",
-  keywords: "veerabrahmendra, temple, atmakur, annadanam, nellore, events, spiritual, bramhamgari temple"
-};
+export async function generateMetadata() {
+  return getPageMetadata('/');
+}
 
 async function fetchHomeData() {
   const [heroData, siteSettings, faqs] = await Promise.all([

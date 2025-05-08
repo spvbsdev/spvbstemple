@@ -4,12 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faOm, faStar, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ProjectHighlight from '@/components/ProjectHighlight';
+import { getPageMetadata } from '@/lib/getPageMetadata';
 
-export const metadata = {
-  title: "Temple Services & Annadanam | Veerabrahmendra Swami Temple",
-  description: "Explore Annadanam, daily rituals, and special services at Veerabrahmendra Swami Temple, Atmakur.",
-  keywords: "services, annadanam, rituals, temple, veerabrahmendra, atmakur, nellore, bramhamgari temple"
-};
+export async function generateMetadata() {
+  return getPageMetadata('/services');
+}
 
 const servicesQuery = groq`
   *[_type == "templeService" && isActive == true] | order(order asc) {

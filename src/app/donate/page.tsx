@@ -4,6 +4,7 @@ import { client } from '@/lib/sanity.client';
 import { getSiteSettings } from '@/lib/queries';
 import type { SiteSettings } from '@/types/site';
 import LazyYouTube from '@/components/LazyYouTube';
+import { getPageMetadata } from '@/lib/getPageMetadata';
 
 interface Project {
   _id: string;
@@ -23,11 +24,9 @@ interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export const metadata = {
-  title: "Donate | Veerabrahmendra Swami Temple, Atmakur",
-  description: "Support our temple through donation programs and sacred initiatives.",
-  keywords: "donate, donation, annadanam, support, veerabrahmendra, temple, atmakur, nellore, bramhamgari temple"
-};
+export async function generateMetadata() {
+  return getPageMetadata('/donate');
+}
 
 export default async function DonatePage(props: PageProps) {
   const searchParams = await props.searchParams;

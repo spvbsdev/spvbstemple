@@ -2,15 +2,14 @@ import { YOUTUBE_PLAYLISTS } from '@/constants/youtubePlaylists'
 import GalleryTabs from '@/components/GalleryTabs'
 import { headers } from 'next/headers';
 import LazyYouTube from '@/components/LazyYouTube';
+import { getPageMetadata } from '@/lib/getPageMetadata';
 
 export const revalidate = 60 // Revalidate every minute
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Gallery | Veerabrahmendra Swami Temple, Atmakur",
-  description: "Photos and videos from events at Sri Veerabrahmendra Swami Temple, Atmakur, Nellore.",
-  keywords: "gallery, photos, videos, temple, events, atmakur, nellore, bramhamgari temple"
-};
+export async function generateMetadata() {
+  return getPageMetadata('/gallery');
+}
 
 interface Video {
   _id: string;
