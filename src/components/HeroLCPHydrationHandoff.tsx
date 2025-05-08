@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { HeroCarouselFirstImage } from './HeroCarouselFirstImage';
-import HeroCarousel from './HeroCarousel';
+// import HeroCarousel from './HeroCarousel';
+import SimpleCarousel from './SimpleCarousel';
 import type { ImageSource } from '@/lib/sanity.image';
 
 export default function HeroLCPHydrationHandoff({
@@ -21,7 +22,8 @@ export default function HeroLCPHydrationHandoff({
         <HeroCarouselFirstImage image={images[0]} caption={captions?.[0]} />
       )}
       {hydrated && (
-        <HeroCarousel images={images} captions={captions} />
+        // <HeroCarousel images={images} captions={captions} />
+        <SimpleCarousel images={images} captions={captions} interval={5000} />
       )}
     </div>
   );
