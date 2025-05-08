@@ -1,8 +1,8 @@
-import { pageMetadata } from '@/constants/pageMetadata';
+import { pageMetadata, PageMeta } from '@/constants/pageMetadata';
 
 export function getPageMetadata(path: string) {
   const baseUrl = 'https://www.spvbstemple.org';
-  const meta = (pageMetadata as Record<string, any>)[path];
+  const meta: PageMeta | undefined = pageMetadata[path];
 
   if (!meta) {
     // Optionally, handle missing metadata (fallback or error)

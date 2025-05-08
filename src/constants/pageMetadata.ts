@@ -1,4 +1,11 @@
-export const pageMetadata = {
+export interface PageMeta {
+  title: string;
+  description: string;
+  keywords: string;
+  ogImage: string;
+}
+
+export const pageMetadata: Record<string, PageMeta> = {
   '/': {
     title: "Sri Veerabrahmendra Swami Temple, Atmakur",
     description: "Discover Sri Veerabrahmendra Swami Temple in Atmakur, Nellore. Annadanam, events, timings, and visitor info.",
