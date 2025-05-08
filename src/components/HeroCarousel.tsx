@@ -125,7 +125,8 @@ export default function HeroCarousel({ images, captions }: HeroCarouselProps) {
                 fetchPriority={index === 0 ? 'high' : undefined}
                 loading={index === 0 ? 'eager' : 'lazy'}
                 className="object-cover"
-                sizes="100vw"
+                // Mobile-first: 100vw up to 400px, then 640px, then 1024px
+                sizes="(max-width: 400px) 100vw, (max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
                 placeholder="blur"
                 blurDataURL={urlForImage(image, {
                   width: 50,
