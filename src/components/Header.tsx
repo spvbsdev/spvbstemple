@@ -16,7 +16,7 @@ interface HeaderProps {
 export default function Header({ settings }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Add effect to handle body scroll
+
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
