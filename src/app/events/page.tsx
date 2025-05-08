@@ -3,10 +3,10 @@ import { client } from '@/lib/sanity.client'
 import { eventsQuery } from '@/lib/queries'
 import type { Event } from '@/types/event'
 import EventCard from '@/components/EventCard'
+import { getPageMetadata } from '@/lib/getPageMetadata'
 
-export const metadata: Metadata = {
-  title: 'Temple Events & Festivals | Veerabrahmendra Swami Temple Atmakur Nellore',
-  description: 'Discover annual events, festivals, and Annadanam at Sri Veerabrahmendra Swami Temple, Atmakur, SPSR Nellore. Join us for spiritual celebrations and explore places to visit in Nellore district.',
+export async function generateMetadata(): Promise<Metadata> {
+  return getPageMetadata('/events')
 }
 
 async function getEvents(): Promise<Event[]> {

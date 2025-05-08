@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, KeyboardEvent } from 'react';
 import Image from 'next/image';
 import { urlForImage, type ImageSource } from '@/lib/sanity.image';
+import '../styles/carousel.css';
 
 interface SimpleCarouselProps {
   images: ImageSource[];

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import { Inter } from "next/font/google";
@@ -30,11 +29,6 @@ const notoSansDevanagari = Noto_Sans_Devanagari({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: "SPVBS Temple",
-  description: "Sri Pothuluri Veera Brahmendra Swami Temple",
-};
-
 export default async function RootLayout({
   children,
 }: {
@@ -45,19 +39,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Canonical Tag */}
-        <link rel="canonical" href="https://www.spvbstemple.org/" />
-        {/* OpenGraph Meta Tags */}
-        <meta property="og:title" content="Sri Veerabrahmendra Swami Temple, Atmakur" />
-        <meta property="og:description" content="Discover Sri Veerabrahmendra Swami Temple in Atmakur, Nellore. Annadanam, events, timings, and visitor info." />
-        <meta property="og:url" content="https://www.spvbstemple.org/" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.spvbstemple.org/images/swamigaru.jpg" />
-        {/* Twitter Card Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Sri Veerabrahmendra Swami Temple, Atmakur" />
-        <meta name="twitter:description" content="Discover Sri Veerabrahmendra Swami Temple in Atmakur, Nellore. Annadanam, events, timings, and visitor info." />
-        <meta name="twitter:image" content="https://www.spvbstemple.org/images/swamigaru.jpg" />
+        {/* Only keep global scripts, fonts, and JSON-LD. Remove canonical, OG, Twitter, and description meta tags. */}
         {/* Google Analytics Debug Mode */}
         <Script
           id="ga-debug"

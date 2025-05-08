@@ -3,12 +3,11 @@ import Image from 'next/image';
 import FaqAccordionWrapper from '@/components/FaqAccordionWrapper';
 import { client } from '@/lib/sanity.client';
 import { faqQuery } from '@/lib/queries';
+import { getPageMetadata } from '@/lib/getPageMetadata';
 
-export const metadata = {
-  title: "About Veerabrahmendra Swami | Atmakur Temple, Nellore",
-  description: "Learn about Sri Veerabrahmendra Swami, his life, teachings, and legacy at Atmakur Temple, Nellore.",
-  keywords: "veerabrahmendra, swami, about, biography, teachings, atmakur, nellore, bramhamgari temple"
-};
+export async function generateMetadata() {
+  return getPageMetadata('/about');
+}
 
 export default async function About() {
   const faqs = await client.fetch(faqQuery);
