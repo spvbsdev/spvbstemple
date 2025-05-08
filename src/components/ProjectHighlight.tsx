@@ -1,11 +1,8 @@
-'use client';
-
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faCircleCheck, 
   faCircleDot, 
-  faClock, 
   faHandHoldingHeart, 
   faUsers, 
   faBuildingColumns,
@@ -14,11 +11,10 @@ import {
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { format } from 'date-fns';
 import { Card } from './ui/Card';
-import { useCountdown } from '@/hooks/useCountdown';
+import CountdownTimer from './ProjectHighlightCountdownTimer';
 import { 
   KALYANA_MANDAPAM_MILESTONES, 
   CONSTRUCTION_PHASES, 
-  PROJECT_START_DATE,
   IMPACT_METRICS 
 } from '@/constants/project';
 
@@ -34,13 +30,11 @@ const iconMap = {
 } as const;
 
 export default function ProjectHighlight({ variant = 'compact', className = '' }: ProjectHighlightProps) {
-  const timeLeft = useCountdown(PROJECT_START_DATE);
-
   return (
     <div className={`bg-gradient-to-br from-temple-gold/5 via-temple-gold/10 to-temple-gold/5 rounded-xl p-6 ${className}`}>      
       <div className="relative">
         {/* Urgency Icon */}
-        <div className="absolute -top-3 md:-top-4 -left-3 md:left-4 bg-temple-primary text-white w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center shadow-lg" title="Urgent Need">
+        <div className="absolute -top-3 md:-top-4 -left-3 md:left-4 bg-temple-primary text-white w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center md:shadow-lg" title="Urgent Need">
           <FontAwesomeIcon icon={faCircleExclamation as IconProp} className="w-4 h-4 md:w-5 md:h-5" />
         </div>
 
@@ -54,22 +48,7 @@ export default function ProjectHighlight({ variant = 'compact', className = '' }
 
         {/* Countdown Timer */}
         <Card className="p-4 mb-6">
-          <div className="flex items-center justify-center gap-2 text-temple-primary mb-2">
-            <FontAwesomeIcon icon={faClock as IconProp} className="w-4 h-4" />
-            <span className="font-medium">Construction Begins In:</span>
-          </div>
-          <div className="flex justify-center gap-4 text-center">
-            {[
-              { value: timeLeft.days, label: 'Days' },
-              { value: timeLeft.hours, label: 'Hours' },
-              { value: timeLeft.minutes, label: 'Minutes' }
-            ].map(({ value, label }) => (
-              <div key={label}>
-                <div className="text-2xl font-bold text-temple-primary">{value}</div>
-                <div className="text-xs text-temple-text">{label}</div>
-              </div>
-            ))}
-          </div>
+          <CountdownTimer />
         </Card>
 
         {/* Impact Section */}

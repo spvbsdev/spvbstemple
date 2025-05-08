@@ -27,10 +27,10 @@ export function HeroCarouselFirstImage({ image, caption }: { image: ImageSource;
         alt={caption || 'Hero image'}
         fill
         priority
-        fetchPriority="high"
-        loading="eager"
+        // fetchPriority and loading are set automatically by priority
         className="object-cover"
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+        // Mobile-first: 100vw up to 400px, then 640px, then 1024px
+        sizes="(max-width: 400px) 100vw, (max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
         placeholder="blur"
         blurDataURL={blurUrl}
       />
