@@ -118,6 +118,7 @@ export default function Header({ settings }: HeaderProps) {
                   width={48}
                   height={48}
                   className="rounded-full object-cover border-2 border-temple-gold"
+                  priority
                 />
               </div>
               <div className="flex flex-col">
