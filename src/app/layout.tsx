@@ -50,16 +50,6 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         {/* Preload and apply global CSS for faster rendering with fallback */}
-        <link
-          rel="preload"
-          href="/_next/static/css/app/layout.css"
-          as="style"
-        />
-        <link rel="stylesheet" href="/_next/static/css/app/layout.css" />
-        <noscript>
-          <link rel="stylesheet" href="/_next/static/css/app/layout.css" />
-        </noscript>
-        {/* Only keep global scripts, fonts, and JSON-LD. Remove canonical, OG, Twitter, and description meta tags. */}
         {/* Google Analytics Debug Mode */}
         <Script
           id="ga-debug"
