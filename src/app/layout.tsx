@@ -39,6 +39,26 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Essential meta tags for mobile and performance */}
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#fff9ed" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        {/* Preload and apply global CSS for faster rendering with fallback */}
+        <link
+          rel="preload"
+          href="/_next/static/css/app/layout.css"
+          as="style"
+        />
+        <link rel="stylesheet" href="/_next/static/css/app/layout.css" />
+        <noscript>
+          <link rel="stylesheet" href="/_next/static/css/app/layout.css" />
+        </noscript>
         {/* Only keep global scripts, fonts, and JSON-LD. Remove canonical, OG, Twitter, and description meta tags. */}
         {/* Google Analytics Debug Mode */}
         <Script
