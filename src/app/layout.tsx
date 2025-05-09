@@ -54,8 +54,8 @@ export default async function RootLayout({
           rel="preload"
           href="/_next/static/css/app/layout.css"
           as="style"
-          onLoad={(e) => { (e.currentTarget as HTMLLinkElement).rel = 'stylesheet'; }}
         />
+        <link rel="stylesheet" href="/_next/static/css/app/layout.css" />
         <noscript>
           <link rel="stylesheet" href="/_next/static/css/app/layout.css" />
         </noscript>
