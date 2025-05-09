@@ -149,17 +149,18 @@ export default function Header({ settings }: HeaderProps) {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
-              <div className="w-6 h-6 relative">
-                <span className={`absolute left-0 top-0 w-full h-0.5 bg-current transform transition-all duration-300 ${
-                  isMenuOpen ? 'rotate-45 top-[11px]' : ''
-                }`} />
-                <span className={`absolute left-0 top-[11px] w-full h-0.5 bg-current transition-all duration-300 ${
-                  isMenuOpen ? 'opacity-0' : ''
-                }`} />
-                <span className={`absolute left-0 bottom-0 w-full h-0.5 bg-current transform transition-all duration-300 ${
-                  isMenuOpen ? '-rotate-45 bottom-[11px]' : ''
-                }`} />
-              </div>
+              {isMenuOpen ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" className="block" aria-hidden="true">
+                  <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              ) : (
+                <div className="w-6 h-6 relative">
+                  <span className="absolute left-0 top-0 w-full h-0.5 bg-current transition-all duration-300" />
+                  <span className="absolute left-0 top-[11px] w-full h-0.5 bg-current transition-all duration-300" />
+                  <span className="absolute left-0 bottom-0 w-full h-0.5 bg-current transition-all duration-300" />
+                </div>
+              )}
             </button>
           </div>
         </div>
