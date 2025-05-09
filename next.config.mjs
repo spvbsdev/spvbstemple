@@ -30,7 +30,7 @@ const nextConfig = {
     ignoreDuringBuilds: process.env.VERCEL_ENV === 'production',
   },
   experimental: {
-    optimizePackageImports: ['@fortawesome/free-solid-svg-icons']
+    optimizePackageImports: ['@fortawesome/free-solid-svg-icons'],
   },
   // Enable source maps in production
   productionBrowserSourceMaps: true,
