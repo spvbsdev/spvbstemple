@@ -1,8 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { icons } from '@/lib/icons';
-import ProjectHighlight from '@/components/ProjectHighlight';
-import FaqAccordionWrapper from '@/components/FaqAccordionWrapper';
 import { client } from '@/lib/sanity.client';
 import { heroCarouselQuery, faqQuery } from '@/lib/queries';
 import type { HeroCarousel } from '@/lib/queries';
@@ -12,12 +10,14 @@ import { faEnvelope, faSyncAlt, faCalendarAlt } from '@fortawesome/free-solid-sv
 import React from 'react';
 import HeroLCPHydrationHandoff from '@/components/HeroLCPHydrationHandoff';
 import { getPageMetadata } from '@/lib/getPageMetadata';
+import LazyLoadDynamic from '@/components/LazyLoadDynamic';
 
 export async function generateMetadata() {
   return getPageMetadata('/');
 }
 
 async function fetchHomeData() {
+  // Fetch all data in parallel for best performance
   const [heroData, siteSettings, faqs] = await Promise.all([
     client.fetch(heroCarouselQuery),
     client.fetch(`*[_type == "siteSettings"][0]`),
@@ -47,8 +47,6 @@ function HomePageContent({
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroLCPHydrationHandoff images={heroData.images} />
-
-
 
       {/* Welcome Section with Temple Information */}
       <div className="bg-temple-light py-16 md:py-24 relative overflow-hidden">
@@ -99,15 +97,16 @@ function HomePageContent({
         </div>
       </div>
 
-            {/* Sacred Initiative Section */}
-            <section className="py-12 bg-temple-light">
+      {/* Project Highlight Section - restore original structure */}
+      <section className="py-12 bg-temple-light">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-4xl font-heading text-center mb-6 text-temple-primary tracking-wider">
-            Donate to the Wedding & Event Hall Project
+              Donate to the Wedding & Event Hall Project
             </h2>
-            <ProjectHighlight 
-              className="bg-white shadow-decorative rounded-xl"
+            <LazyLoadDynamic
+              component="ProjectHighlight"
+              componentProps={{ className: "bg-white shadow-decorative rounded-xl" }}
             />
           </div>
         </div>
@@ -266,25 +265,22 @@ function HomePageContent({
         </div>
       </div>
 
-      {/* FAQ Section */}
-      <hr className="my-16 border-t-4 border-temple-primary/80 rounded-full" />
-      <section className="faq-section py-12 bg-white">
+      {/* FAQ Section - restore spacing below */}
+      <section className="faq-section py-12 bg-white mb-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-heading text-temple-primary mb-8 text-center">Frequently Asked Questions</h2>
           <div className="max-w-6xl mx-auto">
-            <FaqAccordionWrapper
-              faqs={
-                Array.isArray(faqs)
-                  ? faqs.map((faq, idx) => {
-                      const _id = typeof (faq as { _id?: string })._id === 'string' ? (faq as { _id: string })._id : `faq-${idx}`;
-                      return {
-                        _id,
-                        question: faq.question,
-                        answer: faq.answer,
-                      };
-                    })
+            <LazyLoadDynamic
+              component="FaqAccordionWrapper"
+              componentProps={{
+                faqs: Array.isArray(faqs)
+                  ? faqs.map((faq, idx) => ({
+                      _id: typeof faq._id === "string" ? faq._id : `faq-${idx}`,
+                      question: faq.question,
+                      answer: faq.answer,
+                    }))
                   : []
-              }
+              }}
             />
           </div>
         </div>
@@ -337,3 +333,5 @@ export default async function HomePage() {
     </>
   );
 }
+
+export const revalidate = 60;
