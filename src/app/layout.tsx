@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { getSiteSettings } from '@/lib/queries';
 import type { SiteSettings } from '@/types/site';
 import MarTechDelayedLoader from '@/components/MarTechDelayedLoader';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -116,6 +117,7 @@ export default async function RootLayout({
         </main>
         <Footer settings={settings} />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
