@@ -48,14 +48,7 @@ function HomePageContent({
       {/* Hero Section */}
       <HeroLCPHydrationHandoff images={heroData.images} />
 
-      {/* Sacred Initiative Section */}
-      <section className="py-12 bg-temple-light">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <ProjectHighlight className="bg-white shadow-decorative rounded-xl" />
-          </div>
-        </div>
-      </section>
+
 
       {/* Welcome Section with Temple Information */}
       <div className="bg-temple-light py-16 md:py-24 relative overflow-hidden">
@@ -105,6 +98,20 @@ function HomePageContent({
           </div>
         </div>
       </div>
+
+            {/* Sacred Initiative Section */}
+            <section className="py-12 bg-temple-light">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-4xl font-heading text-center mb-6 text-temple-primary tracking-wider">
+            Donate to the Wedding & Event Hall Project
+            </h2>
+            <ProjectHighlight 
+              className="bg-white shadow-decorative rounded-xl"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Services Section */}
       <div className="py-20 bg-white relative">
