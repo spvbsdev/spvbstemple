@@ -318,6 +318,7 @@ export default async function HomePage() {
 
   return (
     <>
+      { }
       <MarTechDelayedLoader />
       <script
         type="application/ld+json"

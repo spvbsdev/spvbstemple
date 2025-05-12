@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, KeyboardEvent } from 'react';
 import Image from 'next/image';
 import { urlForImage, type ImageSource } from '@/lib/sanity.image';
-import '../styles/carousel.css';
 
 interface SimpleCarouselProps {
   images: ImageSource[];
@@ -85,6 +84,7 @@ export default function SimpleCarousel({ images, captions, interval = 5000 }: Si
               sizes="(max-width: 400px) 100vw, (max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
               placeholder="blur"
               blurDataURL={blurUrl}
+              fetchPriority={idx === 0 ? "high" : undefined}
             />
             {captions?.[idx] && isActive && (
               <div className="absolute bottom-0 left-0 right-0 bg-black/50 backdrop-blur-sm p-4">
