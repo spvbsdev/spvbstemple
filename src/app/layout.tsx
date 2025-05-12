@@ -96,8 +96,8 @@ export default async function RootLayout({
                 {
                   "@type": "ContactPoint",
                   "telephone": "+919441875458",
-                  "contactType": "Temple Priest",
-                  "name": "Sri Mayabrahma Chari"
+                  "contactType": "Priest",
+                  "name": "Brahma Sri. Mayabrahma Swami"
                 },
                 {
                   "@type": "ContactPoint",

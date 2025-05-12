@@ -144,7 +144,7 @@ export default function Footer({ settings }: FooterProps) {
                 </p>
                 {settings?.contact?.primaryPhone && (
                   <div className="text-temple-light/90">
-                    <p className="mb-1 text-temple-gold/90 text-sm">Temple Priest - Sri Mayabrahma Chari</p>
+                    <p className="mb-1 text-temple-gold/90 text-sm">(Priest) - Brahma Sri. Mayabrahma Swami</p>
                     <a 
                       href={`tel:${settings.contact.primaryPhone}`}
                       className="inline-flex items-center gap-2 hover:text-temple-gold transition-colors duration-300"

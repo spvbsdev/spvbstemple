@@ -193,7 +193,7 @@ export default function DonationCategories({ settings }: DonationCategoriesProps
         <div className="space-y-4">
           <div className="text-center">
             <p className="text-temple-primary font-sanskrit text-lg mb-1">Temple Priest</p>
-            <p className="text-temple-text font-medium">Sri Mayabrahma Chari</p>
+            <p className="text-temple-text font-medium">Brahma Sri. Mayabrahma Swami</p>
             {settings?.contact?.primaryPhone && (
               <a 
                 href={`tel:${settings.contact.primaryPhone}`}

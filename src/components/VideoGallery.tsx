@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import YouTube from 'react-youtube';
 
 interface Video {
   _id: string;
@@ -47,13 +48,10 @@ function getYouTubeThumbnail(videoId: string): string {
   return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 }
 
-function getYouTubeEmbedUrl(videoId: string): string {
-  return `https://www.youtube.com/embed/${videoId}`;
-}
-
 export default function VideoGallery({ videos, hideHeading = false }: VideoGalleryProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [shouldAutoPlay, setShouldAutoPlay] = useState(false);
 
   // Filter videos by category
   const filteredVideos = videos
@@ -73,6 +71,7 @@ export default function VideoGallery({ videos, hideHeading = false }: VideoGalle
   // Handle video selection
   const handleVideoSelect = (video: Video) => {
     setSelectedVideo(video);
+    setShouldAutoPlay(true);
   };
 
   return (
@@ -107,11 +106,23 @@ export default function VideoGallery({ videos, hideHeading = false }: VideoGalle
         {selectedVideo && (
           <div className="mb-12">
             <div className="aspect-video w-full max-w-4xl mx-auto mb-6">
-              <iframe
-                src={getYouTubeEmbedUrl(getYouTubeVideoId(selectedVideo.youtubeUrl) || '')}
+              <YouTube
+                videoId={getYouTubeVideoId(selectedVideo.youtubeUrl) || ''}
+                opts={{
+                  width: '100%',
+                  height: '100%',
+                  playerVars: {
+                    autoplay: shouldAutoPlay ? 1 : 0,
+                    mute: 1,
+                  },
+                }}
                 className="w-full h-full rounded-xl shadow-lg"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
+                onReady={event => {
+                  if (shouldAutoPlay) {
+                    event.target.playVideo();
+                    setShouldAutoPlay(false);
+                  }
+                }}
               />
             </div>
             <div className="max-w-4xl mx-auto">
