@@ -5,6 +5,7 @@ import { getSiteSettings } from '@/lib/queries';
 import type { SiteSettings } from '@/types/site';
 import LazyYouTube from '@/components/LazyYouTube';
 import { getPageMetadata } from '@/lib/getPageMetadata';
+import MarTechDelayedLoader from '@/components/MarTechDelayedLoader';
 
 interface Project {
   _id: string;
@@ -43,6 +44,7 @@ export default async function DonatePage(props: PageProps) {
 
   return (
     <>
+      <MarTechDelayedLoader />
       <div className="bg-temple-light pb-16">
         <div className="container mx-auto px-4">
           <div className="text-center pt-8">

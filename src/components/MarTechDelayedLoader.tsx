@@ -10,46 +10,53 @@ declare global {
 
 export default function MarTechDelayedLoader() {
   useEffect(() => {
-    // Setup event queue
+    if (process.env.NODE_ENV !== 'production') return;
     window.dataLayer = window.dataLayer || [];
     window.__eventQueue = [];
-
-    // Temporary gtag/dataLayer push
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as unknown as any).gtag = (...args: unknown[]) => {
+    (window as unknown as { gtag: (...args: unknown[]) => void }).gtag = (...args: unknown[]) => {
       window.__eventQueue!.push(args);
     };
 
-    // After 3 seconds, load GA and GTM
-    const timeout = setTimeout(() => {
+    let loaded = false;
+    const loadAnalytics = () => {
+      if (loaded) return;
+      loaded = true;
       // Load GA
       const gaScript = document.createElement('script');
       gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-3VG5RCYX1X';
       gaScript.async = true;
       document.head.appendChild(gaScript);
-
       gaScript.onload = () => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as unknown as any).gtag = (...args: unknown[]) => { window.dataLayer.push(args); };
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as unknown as any).gtag('js', new Date());
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as unknown as any).gtag('config', 'G-3VG5RCYX1X');
-        // Replay queued events
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        window.__eventQueue!.forEach(args => (window as unknown as any).gtag.apply(null, args));
+        (window as unknown as { gtag: (...args: unknown[]) => void }).gtag = (...args: unknown[]) => { window.dataLayer.push(args); };
+        (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('js', new Date());
+        (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('config', 'G-3VG5RCYX1X');
+        window.__eventQueue!.forEach(args => (window as unknown as { gtag: (...args: unknown[]) => void }).gtag.apply(null, args));
         window.__eventQueue = [];
       };
-
       // Load GTM
       const gtmScript = document.createElement('script');
       gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GT-PZX9J2QR';
       gtmScript.async = true;
       document.head.appendChild(gtmScript);
-    }, 3000);
+      removeListeners();
+    };
 
-    return () => clearTimeout(timeout);
+    const timer = setTimeout(loadAnalytics, 5000);
+    const removeListeners = () => {
+      window.removeEventListener('scroll', loadAnalytics);
+      window.removeEventListener('click', loadAnalytics);
+      window.removeEventListener('keydown', loadAnalytics);
+      window.removeEventListener('touchstart', loadAnalytics);
+    };
+    window.addEventListener('scroll', loadAnalytics, { once: true });
+    window.addEventListener('click', loadAnalytics, { once: true });
+    window.addEventListener('keydown', loadAnalytics, { once: true });
+    window.addEventListener('touchstart', loadAnalytics, { once: true });
+
+    return () => {
+      clearTimeout(timer);
+      removeListeners();
+    };
   }, []);
-
   return null;
 } 

@@ -11,6 +11,7 @@ import React from 'react';
 import HeroLCPHydrationHandoff from '@/components/HeroLCPHydrationHandoff';
 import { getPageMetadata } from '@/lib/getPageMetadata';
 import LazyLoadDynamic from '@/components/LazyLoadDynamic';
+import MarTechDelayedLoader from '@/components/MarTechDelayedLoader';
 
 export async function generateMetadata() {
   return getPageMetadata('/');
@@ -317,6 +318,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <MarTechDelayedLoader />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

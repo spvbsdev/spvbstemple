@@ -1,4 +1,5 @@
 import { getPageMetadata } from '@/lib/getPageMetadata';
+import MarTechDelayedLoader from '@/components/MarTechDelayedLoader';
 
 export async function generateMetadata() {
   return getPageMetadata('/projects');
@@ -26,6 +27,7 @@ export default async function ProjectsPage() {
 
   return (
     <>
+      <MarTechDelayedLoader />
       <div className="bg-temple-light pb-16">
         <div className="container mx-auto px-4 pt-12 md:pt-16 md:mt-16">
           <div className="text-center mb-16 md:mb-20">

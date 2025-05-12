@@ -1,8 +1,11 @@
 import imageUrlBuilder from '@sanity/image-url';
 import type { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder';
-import { client } from './sanity.client';
 
-const builder = imageUrlBuilder(client);
+// Use only minimal config, not the full client
+const builder = imageUrlBuilder({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+});
 
 export interface ImageSource {
   _type: string;
