@@ -2,7 +2,6 @@ import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import { Inter } from "next/font/google";
 import { Cinzel_Decorative, Noto_Sans_Devanagari } from "next/font/google";
-import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getSiteSettings } from '@/lib/queries';
@@ -50,6 +49,28 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        {/* Conditionally load globals.css: defer for homepage, normal for others */}
+        {/* {isHomePage ? (
+          <link
+            rel="stylesheet"
+            href="/globals.css"
+            media="print"
+            onLoad={(e) => { e.currentTarget.media = 'all'; }}
+          />
+        ) : (
+          <link
+            rel="stylesheet"
+            href="/globals.css"
+          />
+        )} */}
+        <link
+          rel="stylesheet"
+          href="/styles/globals.css"
+        />
+        <link
+          rel="stylesheet"
+          href="/styles/carousel.css"
+        />
   
         {/* Google Analytics Debug Mode */}
         <Script
