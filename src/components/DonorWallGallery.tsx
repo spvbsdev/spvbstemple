@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from 'next/image';
 
 export default function DonorWallGallery({ count = 33 }: { count?: number }) {
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
@@ -11,22 +12,24 @@ export default function DonorWallGallery({ count = 33 }: { count?: number }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {Array.from({ length: count }, (_, i) => {
             const n = i + 1;
+            const isLCP = i === 0;
             return (
               <div
                 key={n}
                 className="overflow-hidden rounded-2xl border-4 border-temple-gold shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:border-temple-primary cursor-pointer bg-temple-bg"
                 onClick={() => setLightboxIdx(n)}
               >
-                <picture>
-                  <source srcSet={`/images/donor-wall/avifs/donor-wall-${n}.avif`} type="image/avif" />
-                  <source srcSet={`/images/donor-wall/webps/donor-wall-${n}.webp`} type="image/webp" />
-                  <img
-                    src={`/images/donor-wall/webps/donor-wall-${n}.webp`}
-                    alt={`Donor Wall ${n}`}
-                    loading="lazy"
-                    className="w-full h-auto object-cover filter brightness-110 contrast-110"
-                  />
-                </picture>
+                <Image
+                  src={`/images/donor-wall/webps/donor-wall-${n}.webp`}
+                  alt={`Donor Wall ${n}`}
+                  width={600}
+                  height={900}
+                  className="w-full h-auto object-cover filter brightness-110 contrast-110"
+                  priority={isLCP}
+                  loading={isLCP ? 'eager' : 'lazy'}
+                  fetchPriority={isLCP ? 'high' : undefined}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
               </div>
             );
           })}
@@ -46,15 +49,14 @@ export default function DonorWallGallery({ count = 33 }: { count?: number }) {
             >
               &times;
             </button>
-            <picture>
-              <source srcSet={`/images/donor-wall/avifs/donor-wall-${lightboxIdx}.avif`} type="image/avif" />
-              <source srcSet={`/images/donor-wall/webps/donor-wall-${lightboxIdx}.webp`} type="image/webp" />
-              <img
-                src={`/images/donor-wall/webps/donor-wall-${lightboxIdx}.webp`}
-                alt={`Donor Wall ${lightboxIdx}`}
-                className="w-full h-auto rounded-xl shadow-2xl border-4 border-temple-gold bg-white filter brightness-110 contrast-110"
-              />
-            </picture>
+            <Image
+              src={`/images/donor-wall/webps/donor-wall-${lightboxIdx}.webp`}
+              alt={`Donor Wall ${lightboxIdx}`}
+              width={1200}
+              height={1800}
+              className="w-full h-auto rounded-xl shadow-2xl border-4 border-temple-gold bg-white filter brightness-110 contrast-110"
+              sizes="100vw"
+            />
           </div>
         </div>
       )}
