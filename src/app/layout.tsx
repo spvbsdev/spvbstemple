@@ -1,4 +1,3 @@
-
 import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import { Inter } from "next/font/google";
@@ -88,35 +87,147 @@ export default async function RootLayout({
               "@context": "https://schema.org",
               "@type": "HinduTemple",
               "name": "Sri Veerabrahmendra Swami Temple",
+              "alternateName": "Bramham Gari Temple, Atmakur",
+              "slogan": "Annadanam Every Monday, Universal Spirituality, and Service Without Discrimination—at Bramhama Gari Temple, Atmakur.",
               "url": "https://www.spvbstemple.org",
+              "mainEntityOfPage": "https://www.spvbstemple.org/",
+              "logo": "https://www.spvbstemple.org/images/swamigaru.jpg",
+              "image": [
+                "https://www.spvbstemple.org/images/swamigaru.jpg",
+                "https://www.spvbstemple.org/images/temple-location-bg.jpg"
+              ],
+              "hasMap": "https://www.google.com/maps/place/%E0%B0%B5%E0%B1%80%E0%B0%B0%E0%B0%AC%E0%B1%8D%E0%B0%B0%E0%B0%B9%E0%B1%8D%E0%B0%AE%E0%B1%87%E0%B0%82%E0%B0%A6%E0%B1%8D%E0%B0%B0+%E0%B0%B8%E0%B1%8D%E0%B0%B5%E0%B0%BE%E0%B0%AE%E0%B0%BF+%E0%B0%A6%E0%B1%87%E0%B0%B5%E0%B0%BE%E0%B0%B2%E0%B0%AF%E0%B0%82/@14.6355507,79.638358,17z/data=!4m6!3m5!1s0x3a4ca5747df49f59:0x1e1e0331c70aa7d0!8m2!3d14.6337404!4d79.6393008!16s%2Fg%2F11swc7fwvk?entry=ttu",
+              "publicAccess": true,
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Bypass Road",
                 "addressLocality": "Atmakur",
                 "addressRegion": "Andhra Pradesh",
                 "postalCode": "524322",
-                "addressCountry": "IN"
+                "addressCountry": {
+                  "@type": "Country",
+                  "name": "India"
+                }
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 14.6337404,
+                "longitude": 79.6393008
               },
               "telephone": "+9197036605778",
-              "email": "contact@spvbstemple.org",
               "description": "Sri Veerabrahmendra Swami Temple in Atmakur, SPSR Nellore, Andhra Pradesh, is a renowned Hindu temple known for Annadanam, spiritual events, and as a top place to visit in Nellore district. The temple is dedicated to Veerabrahmhendra Swami and is a spiritual destination for devotees and tourists alike.",
-              "contactPoint": [
+              "openingHoursSpecification": [
                 {
-                  "@type": "ContactPoint",
-                  "telephone": "+9197036605778",
-                  "contactType": "customer service"
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday"
+                  ],
+                  "opens": "07:30",
+                  "closes": "11:30"
                 },
                 {
-                  "@type": "ContactPoint",
-                  "telephone": "+919441875458",
-                  "contactType": "Priest",
-                  "name": "Brahma Sri. Mayabrahma Swami"
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday"
+                  ],
+                  "opens": "17:00",
+                  "closes": "20:00"
                 },
                 {
-                  "@type": "ContactPoint",
-                  "telephone": "+919492679770",
-                  "contactType": "customer service"
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Saturday",
+                    "Sunday"
+                  ],
+                  "opens": "08:00",
+                  "closes": "12:00"
+                },
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Saturday",
+                    "Sunday"
+                  ],
+                  "opens": "17:00",
+                  "closes": "20:00"
                 }
+              ],
+              "amenityFeature": [
+                {
+                  "@type": "LocationFeatureSpecification",
+                  "name": "No Smoking",
+                  "value": true
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  "name": "Parking Available",
+                  "value": true
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  "name": "Open for Public",
+                  "value": true
+                }
+              ],
+              "event": [
+                {
+                  "@type": "Event",
+                  "name": "Pallaki Seva & Annadanam",
+                  "description": "Every Monday Pallaki Seva followed by Anna Prasadam at 12:30pm.",
+                  "startDate": "2024-01-01T12:30:00+05:30",
+                  "endDate": "2024-01-01T13:30:00+05:30",
+                  "eventSchedule": {
+                    "@type": "Schedule",
+                    "repeatFrequency": "P1W",
+                    "byDay": "MO"
+                  },
+                  "location": {
+                    "@type": "Place",
+                    "name": "Sri Veerabrahmendra Swami Temple",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "streetAddress": "Bypass Road",
+                      "addressLocality": "Atmakur",
+                      "addressRegion": "Andhra Pradesh",
+                      "postalCode": "524322",
+                      "addressCountry": {
+                        "@type": "Country",
+                        "name": "India"
+                      }
+                    }
+                  },
+                  "organizer": {
+                    "@type": "Organization",
+                    "name": "Sri Veerabrahmendra Swami Temple",
+                    "url": "https://www.spvbstemple.org"
+                  },
+                  "performer": {
+                    "@type": "Person",
+                    "name": "Brahma Sri. Mayabrahma Swami"
+                  },
+                  "eventStatus": "https://schema.org/EventScheduled",
+                  "image": "https://www.spvbstemple.org/images/swamigaru.jpg",
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "INR",
+                    "availability": "https://schema.org/InStock",
+                    "url": "https://www.spvbstemple.org/events",
+                    "validFrom": "2024-01-01"
+                  },
+                  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
+                }
+              ],
+              "sameAs": [
+                "https://www.google.com/maps/place/%E0%B0%B5%E0%B1%80%E0%B0%B0%E0%B0%AC%E0%B1%8D%E0%B0%B0%E0%B0%B9%E0%B1%8D%E0%B0%AE%E0%B1%87%E0%B0%82%E0%B0%A6%E0%B1%8D%E0%B0%B0+%E0%B0%B8%E0%B1%8D%E0%B0%B5%E0%B0%BE%E0%B0%AE%E0%B0%BF+%E0%B0%A6%E0%B1%87%E0%B0%B5%E0%B0%BE%E0%B0%B2%E0%B0%AF%E0%B0%82/@14.6355507,79.638358,17z/data=!4m6!3m5!1s0x3a4ca5747df49f59:0x1e1e0331c70aa7d0!8m2!3d14.6337404!4d79.6393008!16s%2Fg%2F11swc7fwvk?entry=ttu"
               ]
             })
           }}
