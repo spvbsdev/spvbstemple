@@ -7,18 +7,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ProjectHighlight from '@/components/ProjectHighlight';
 import { useState } from 'react';
 import { Project } from '@/types/project';
-
-// Helper to format INR with Lakh/Crore labels
-function formatINRWithLabel(amount?: number): string {
-  if (amount == null) return 'Not specified';
-  if (amount >= 1_00_00_000) {
-    return `₹${(amount / 1_00_00_000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} Crore`;
-  } else if (amount >= 1_00_000) {
-    return `₹${(amount / 1_00_000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} Lakh`;
-  } else {
-    return `₹${amount.toLocaleString('en-IN')}`;
-  }
-}
+import { formatINRWithLabel } from '@/lib/formatINR';
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [showDetails, setShowDetails] = useState(false);
@@ -87,8 +76,13 @@ export default function ProjectCard({ project }: { project: Project }) {
               <h4 className="font-heading text-temple-primary mb-2">Timeline</h4>
               <div className="text-temple-text">
                 <p>Start: {new Date(project.timeline.startDate).toLocaleDateString()}</p>
-                {project.timeline.endDate && (
-                  <p>Estimated Completion: {new Date(project.timeline.endDate).toLocaleDateString()}</p>
+                {(project.timeline.estimatedCompletion ?? project.timeline.endDate) && (
+                  <p>
+                    Estimated Completion:{' '}
+                    {new Date(
+                      (project.timeline.estimatedCompletion ?? project.timeline.endDate) as string
+                    ).toLocaleDateString()}
+                  </p>
                 )}
               </div>
             </div>
@@ -122,7 +116,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       {/* Expanded Details Section */}
       {isKalyanaMandapam && showDetails && (
         <div className="border-t border-temple-divider bg-temple-light/50 p-6">
-          <ProjectHighlight variant="full" className="bg-white shadow-sm" />
+          <ProjectHighlight variant="full" className="bg-white shadow-sm" project={project} />
         </div>
       )}
     </div>

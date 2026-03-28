@@ -9,6 +9,9 @@
     "lint": "next lint",
     "dev:prod": "NEXT_PUBLIC_SANITY_DATASET=production next dev",
     "dev:development": "NEXT_PUBLIC_SANITY_DATASET=development next dev",
+    "studio": "npm run dev --prefix studio",
+    "studio:build": "npm run build --prefix studio",
+    "studio:deploy": "npm run deploy --prefix studio",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {

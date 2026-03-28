@@ -1,6 +1,7 @@
 'use client';
 
 import { Project } from '@/types/project';
+import { formatINRWithLabel } from '@/lib/formatINR';
 import { faCalendar, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -9,18 +10,6 @@ import { useState } from 'react';
 interface PriorityProjectCardProps {
   project: Project;
   isWide?: boolean;
-}
-
-// Helper to format INR with Lakh/Crore labels
-function formatINRWithLabel(amount?: number): string {
-  if (amount == null) return 'Not specified';
-  if (amount >= 1_00_00_000) {
-    return `₹${(amount / 1_00_00_000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} Crore`;
-  } else if (amount >= 1_00_000) {
-    return `₹${(amount / 1_00_000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} Lakh`;
-  } else {
-    return `₹${amount.toLocaleString('en-IN')}`;
-  }
 }
 
 export default function PriorityProjectCard({ project, isWide = false }: PriorityProjectCardProps) {
@@ -81,10 +70,10 @@ export default function PriorityProjectCard({ project, isWide = false }: Priorit
           <FontAwesomeIcon icon={faCalendar as IconProp} className="text-temple-primary" />
           <span>Start: {project.timeline.startDate}</span>
         </div>
-        {project.timeline.endDate && (
+        {(project.timeline.estimatedCompletion ?? project.timeline.endDate) && (
           <div className="flex items-center gap-2 text-temple-text mt-2">
             <FontAwesomeIcon icon={faCalendar as IconProp} className="text-temple-primary" />
-            <span>Estimated Completion: {project.timeline.endDate}</span>
+            <span>Estimated Completion: {project.timeline.estimatedCompletion ?? project.timeline.endDate}</span>
           </div>
         )}
       </div>
@@ -122,7 +111,9 @@ export default function PriorityProjectCard({ project, isWide = false }: Priorit
                   <div key={index} className="border-l-2 border-temple-primary pl-4">
                     <h5 className="font-medium text-temple-primary">{milestone.title}</h5>
                     <p className="text-sm text-temple-text/80 mb-1">{milestone.date}</p>
-                    <p className="text-temple-text">{milestone.description}</p>
+                    {milestone.description && (
+                      <p className="text-temple-text">{milestone.description}</p>
+                    )}
                   </div>
                 ))}
               </div>
