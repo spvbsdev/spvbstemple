@@ -1,6 +1,7 @@
 import { groq } from 'next-sanity';
 import { client } from './sanity.client';
 import type { Project } from '@/types/project';
+import type { DonorRecord } from '@/types/donor';
 import type { SiteSettings } from '@/types/site';
 
 export interface Location {
@@ -220,4 +221,25 @@ export const faqQuery = `*[_type == "faq"] | order(_createdAt asc){
   _id,
   question,
   answer
-}`; 
+}`;
+
+export const donorsQuery = groq`
+  *[_type == "donor" && coalesce(displayOnWebsite, true) == true] {
+    _id,
+    name,
+    amount,
+    cause,
+    donationDate,
+    message,
+    isAnonymous
+  } | order(coalesce(donationDate, _createdAt) desc)
+`;
+
+export async function getDonors(): Promise<DonorRecord[]> {
+  try {
+    return await client.fetch<DonorRecord[]>(donorsQuery);
+  } catch (error) {
+    console.error('Error fetching donors:', error);
+    return [];
+  }
+}

@@ -12,7 +12,8 @@
     "studio": "npm run dev --prefix studio",
     "studio:build": "npm run build --prefix studio",
     "studio:deploy": "npm run deploy --prefix studio",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "import-donors": "node scripts/import-donors-from-csv.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -38,12 +39,15 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@next/bundle-analyzer": "^15.3.1",
+    "@sanity/client": "^7.20.0",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "csv-parse": "^6.2.1",
+    "dotenv": "^17.3.1",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "postcss": "^8.5.3",
