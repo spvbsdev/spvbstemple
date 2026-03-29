@@ -167,6 +167,10 @@ export async function getProjects(): Promise<Project[]> {
       description,
       detailedDescription,
       "imageUrl": images[0].asset->url,
+      "projectImages": images[] {
+        "url": asset->url,
+        caption
+      },
       targetAmount,
       raisedAmount,
       benefits,
@@ -198,6 +202,10 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
       description,
       detailedDescription,
       "imageUrl": images[0].asset->url,
+      "projectImages": images[] {
+        "url": asset->url,
+        caption
+      },
       targetAmount,
       raisedAmount,
       benefits,

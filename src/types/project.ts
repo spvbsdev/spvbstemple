@@ -8,6 +8,8 @@ export interface Project {
   description: string;
   detailedDescription?: TypedObject | TypedObject[];
   imageUrl?: string;
+  /** All project images (for gallery); first is also imageUrl when present */
+  projectImages?: Array<{ url: string; caption?: string }>;
   targetAmount: number;
   raisedAmount?: number;
   benefits: string[];
