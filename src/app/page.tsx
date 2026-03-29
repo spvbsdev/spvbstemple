@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { icons } from '@/lib/icons';
 import { client } from '@/lib/sanity.client';
-import { heroCarouselQuery, faqQuery } from '@/lib/queries';
+import { heroCarouselQuery, faqQuery, getProjectBySlug } from '@/lib/queries';
 import type { HeroCarousel } from '@/lib/queries';
 import { PortableText } from '@portabletext/react';
 import type { SiteSettings } from '@/types/site';
@@ -12,24 +12,26 @@ import HeroLCPHydrationHandoff from '@/components/HeroLCPHydrationHandoff';
 import { getPageMetadata } from '@/lib/getPageMetadata';
 import LazyLoadDynamic from '@/components/LazyLoadDynamic';
 import MarTechDelayedLoader from '@/components/MarTechDelayedLoader';
+import type { Project } from '@/types/project';
 
 export async function generateMetadata() {
   return getPageMetadata('/');
 }
 
 async function fetchHomeData() {
-  // Fetch all data in parallel for best performance
-  const [heroData, siteSettings, faqs] = await Promise.all([
+  const [heroData, siteSettings, faqs, kalyanaProject] = await Promise.all([
     client.fetch(heroCarouselQuery),
     client.fetch(`*[_type == "siteSettings"][0]`),
-    client.fetch(faqQuery)
+    client.fetch(faqQuery),
+    getProjectBySlug('kalyana-mandapam'),
   ]);
-  return { heroData, siteSettings, faqs };
+  return { heroData, siteSettings, faqs, kalyanaProject };
 }
 
 function HomePageContent({
   heroData,
   faqs,
+  kalyanaProject,
   templeInfo,
   annadanamInfo,
   eventsInfo,
@@ -38,6 +40,7 @@ function HomePageContent({
 }: {
   heroData: HeroCarousel;
   faqs: { question: string; answer: string; _id?: string }[];
+  kalyanaProject: Project | null;
   templeInfo?: SiteSettings['templeInfo'];
   annadanamInfo?: SiteSettings['annadanamInfo'];
   eventsInfo?: SiteSettings['eventsInfo'];
@@ -107,7 +110,10 @@ function HomePageContent({
             </h2>
             <LazyLoadDynamic
               component="ProjectHighlight"
-              componentProps={{ className: "bg-white shadow-decorative rounded-xl" }}
+              componentProps={{
+                className: 'bg-white shadow-decorative rounded-xl',
+                project: kalyanaProject,
+              }}
             />
           </div>
         </div>
@@ -291,7 +297,7 @@ function HomePageContent({
 }
 
 export default async function HomePage() {
-  const { heroData, siteSettings, faqs } = await fetchHomeData();
+  const { heroData, siteSettings, faqs, kalyanaProject } = await fetchHomeData();
   if (!heroData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -327,6 +333,7 @@ export default async function HomePage() {
       <HomePageContent
         heroData={heroData}
         faqs={faqs}
+        kalyanaProject={kalyanaProject}
         templeInfo={siteSettings?.templeInfo}
         annadanamInfo={siteSettings?.annadanamInfo}
         eventsInfo={siteSettings?.eventsInfo}

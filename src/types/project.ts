@@ -13,11 +13,15 @@ export interface Project {
   benefits: string[];
   timeline: {
     startDate: string;
+    /** Legacy / alternate key from older content */
     endDate?: string;
+    /** Sanity field name for estimated completion */
+    estimatedCompletion?: string;
     milestones: Array<{
       title: string;
       date: string;
-      description: string;
+      completed?: boolean;
+      description?: string;
     }>;
   };
   donorRecognition: Array<{

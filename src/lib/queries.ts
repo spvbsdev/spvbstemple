@@ -187,6 +187,35 @@ export async function getProjects(): Promise<Project[]> {
   }
 }
 
+export async function getProjectBySlug(slug: string): Promise<Project | null> {
+  const query = groq`
+    *[_type == "project" && slug.current == $slug][0] {
+      _id,
+      title,
+      slug,
+      status,
+      description,
+      detailedDescription,
+      "imageUrl": images[0].asset->url,
+      targetAmount,
+      raisedAmount,
+      benefits,
+      timeline,
+      donorRecognition,
+      isHighPriority,
+      startDate,
+      endDate,
+      estimatedCost
+    }
+  `;
+  try {
+    return await client.fetch<Project | null>(query, { slug });
+  } catch (error) {
+    console.error('Error fetching project by slug:', error);
+    return null;
+  }
+}
+
 export const faqQuery = `*[_type == "faq"] | order(_createdAt asc){
   _id,
   question,
